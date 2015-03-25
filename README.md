@@ -1,4 +1,4 @@
-loppemarked
+Loppekartet
 ===========
 
 Running Locally
@@ -11,7 +11,13 @@ npm install
 npm start
 ```
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+Loppekartet should now be running on [localhost:5000](http://localhost:5000/).
+
+To run all tests use:
+
+```
+npm test
+```
 
 Deploying to Heroku
 -------------------
