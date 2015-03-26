@@ -1,6 +1,6 @@
 Loppekartet
 ===========
-
+![Travis CI Status](https://travis-ci.org/ElinorCrew/loppemarked.svg)
 Running Locally
 ---------------
 
