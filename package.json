@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./server/app.js",
+    "start-heroku": "foreman start web",
     "test": "./node_modules/karma/bin/karma start --single-run"
   },
   "dependencies": {
