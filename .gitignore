@@ -29,6 +29,10 @@ node_modules
 #Bower
 bower_components
 
+
+#Grunt
+dist
+
 #Sass-cache
 .sass-cache
 .tmp
