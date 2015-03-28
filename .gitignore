@@ -26,6 +26,13 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
+#Bower
+bower_components
+
+#Sass-cache
+.sass-cache
+.tmp
+
 # Sublime
 loppemarked.sublime-workspace
 
@@ -60,6 +67,5 @@ Temporary Items
 # Linux
 *~
 
-#Linux trash folder which might appear on any partition or disk
+ #Linux trash folder which might appear on any partition or disk
 .Trash-*
-server/dev/db.development.sqlite
