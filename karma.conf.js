@@ -15,10 +15,21 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-    {pattern: 'public/*.js', included: true},
-    {pattern: 'public/**/*.js', included: true},
-    {pattern: 'spec/*spec.js', included: true},
-    {pattern: 'spec/**/*spec.js', included: true}
+    {pattern: 'test/spec/*spec.js', included: true},
+    {pattern: 'test/spec/**/*spec.js', included: true},
+          // bower:js
+          'bower_components/angular/angular.js',
+          'bower_components/angular-animate/angular-animate.js',
+          'bower_components/angular-cookies/angular-cookies.js',
+          'bower_components/angular-resource/angular-resource.js',
+          'bower_components/angular-route/angular-route.js',
+          'bower_components/angular-sanitize/angular-sanitize.js',
+          'bower_components/angular-touch/angular-touch.js',
+          'bower_components/angular-mocks/angular-mocks.js',
+          // endbower
+      'app/scripts/**/*.js',
+      'test/mock/**/*.js',
+      'test/spec/**/*.js'
     ],
 
 
@@ -60,9 +71,20 @@ module.exports = function(config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['PhantomJS'],
 
+    // Which plugins to enable
+    plugins: [
+      'karma-phantomjs-launcher',
+      'karma-jasmine'
+    ],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: false,
+
+    colors: true,
+
+    // level of logging
+    // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
+    logLevel: config.LOG_INFO,
 });
 };
