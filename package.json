@@ -39,6 +39,7 @@
     "karma-phantomjs-launcher": "^0.1.4",
     "load-grunt-tasks": "^3.1.0",
     "pg": "^4.3.0",
+    "pg-hstore": "^2.3.1",
     "phantomjs": "^1.9.13",
     "sequelize": "^2.0.5",
     "time-grunt": "^1.0.0"
