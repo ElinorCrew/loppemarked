@@ -4,3 +4,6 @@ node_js:
 notifications:
   slack:
     secure: TKVqZUeNEgH68Qc1t4MuX3BOGl0Tghz8gPOYlI9BAEZEnOH61aVn1LhTnX0YToWtiKa3uC4fuiXbBTOnl7Th/pS6ebVU3BVAQTgiDsOBj/PZ5jONC6Tb7QloYUUNRCaQpWBQv3t+RbpXzKHGrFOZ7RQpKdlCg+IB6jaf70NRP2o=
+before_script:
+  - 'npm install -g bower grunt-cli'
+  - 'bower install'
