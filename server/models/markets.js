@@ -8,6 +8,9 @@ module.exports = function (sequelize, DataTypes) {
   Markets.sync({
     force: true
   }).then(function () {
+    Markets.create({
+      name: 'Grunders'
+    });
     return Markets.create({
       name: 'Dælenenggata'
     });
