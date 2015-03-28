@@ -4,18 +4,21 @@
   "description": "A site to find and register Norwegian flea markets.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node ./server/app.js",
     "test": "./node_modules/karma/bin/karma start --single-run"
   },
   "dependencies": {
-    "express": "~4.9.x"
+    "express": "~4.9.x",
+    "pg": "^4.3.0",
+    "sequelize": "^2.0.5"
   },
-    "devDependencies": {
+  "devDependencies": {
     "karma": "~0.12.31",
     "karma-jasmine": "~0.2.0",
     "karma-firefox-launcher": "~0.1.4",
     "karma-phantomjs-launcher": "^0.1.4",
-    "phantomjs": "^1.9.13"
+    "phantomjs": "^1.9.13",
+    "sqlite3": "^3.0.5"
   },
   "engines": {
     "node": "0.10.x"
