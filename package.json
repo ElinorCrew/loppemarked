@@ -5,7 +5,7 @@
   "main": "./server/server.js",
   "scripts": {
     "start": "node ./server/server.js",
-    "start-heroku": "foreman start web",
+    "start-prod": "./node_modules/grunt-cli/bin/grunt build && node ./server/server.js /../build/client",
     "test": "./node_modules/karma/bin/karma start --single-run",
     "build": "./node_modules/grunt-cli/bin/grunt build",
     "clean": "./node_modules/grunt-cli/bin/grunt clean-all",

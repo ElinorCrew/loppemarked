@@ -1,9 +1,10 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     routes = require('./routes'),
-    db = require('./models');
+    db = require('./models'),
 
-var app = express();
+    app = express(),
+    clientDir = process.env.CLIENT_DIR || process.argv.slice(2)[0] || '/../client';    
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -13,7 +14,7 @@ app.use(bodyParser.urlencoded({
 app.set('port', (process.env.PORT || 5000));
 
 app.use('/api', routes);
-app.use(express.static(__dirname + '/../client'));
+app.use(express.static(__dirname + clientDir));
 app.use(express.static(__dirname + '/../bower_components'));
 
 app.listen(app.get('port'), function () {
