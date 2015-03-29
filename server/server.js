@@ -6,8 +6,6 @@ var express = require('express'),
     app = express(),
     clientDir = process.env.CLIENT_DIR || process.argv.slice(2)[0] || '/../client';    
 
-console.log("Her er client dir: " + clientDir);
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
