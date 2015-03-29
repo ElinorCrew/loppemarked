@@ -1,10 +1,31 @@
-var models = require('../models'),
+'use strict';
+
+var db = require('../models'),
     express = require('express'),
     router = express.Router();
 
 router.param('model', function (req, res, next, model) {
-    req.model = models.sequelize.model(model);
-    return next();
+    if (db.sequelize.isDefined(model)) {
+        req.model = db.sequelize.model(model);
+        return next();
+    } else {
+        res.sendStatus(404);
+    }
+});
+
+router.param('id', function (req, res, next, id) {
+    console.log(id);
+    req.model.find(id)
+        .error(next)
+        .then(function (item) {
+            if (item) {
+                console.log(item);
+                req.item = item;
+                next();
+            } else {
+                res.sendStatus(404);
+            }
+        });
 });
 
 router.get('/', function (req, res) {
@@ -22,35 +43,25 @@ router.get('/:model(\\w+)', function (req, res, next) {
 router.post('/:model(\\w+)', function (req, res, next) {
     req.model.create(req.body)
         .error(next)
-        .success(function (model) {
-            res.json(model);
+        .success(function (item) {
+            res.json(item);
         });
 });
 
-router.get('/:model(\\w+)/:id([0-9]+)', function (req, res, next) {
-    req.model.find(req.params.id)
-        .success(function (model) {
-            res.json(model);
-        })
-        .error(next);
+router.get('/:model(\\w+)/:id([0-9]+)', function (req, res) {
+    res.json(req.item);
 });
 
 router.put('/:model(\\w+)/:id([0-9]+)', function (req, res, next) {
-    req.model.find(req.params.id)
-        .success(function (model) {
-            model.update(req.body)
-                .error(next)
-                .success(res.send('success'));
-        });
+    req.item.update(req.body)
+        .error(next)
+        .success(res.sendStatus(200));
 });
 
 router.delete('/:model(\\w+)/:id([0-9]+)', function (req, res, next) {
-    req.model.find(req.params.id)
-        .success(function (model) {
-            model.destroy()
-                .error(next)
-                .success(res.send('success'));
-        });
+    req.item.destroy()
+        .error(next)
+        .success(res.sendStatus(200));
 });
 
 module.exports = router;
