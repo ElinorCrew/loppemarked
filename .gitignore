@@ -31,7 +31,7 @@ bower_components
 
 
 #Grunt
-dist
+build
 
 #Sass-cache
 .sass-cache
