@@ -8,7 +8,7 @@ if (!global.hasOwnProperty('db')) {
     sequelize = new Sequelize('database', 'root', 'null', {
       host: 'localhost',
       dialect: 'sqlite',
-      storage: './server/dev/db.development.sqlite'
+      storage: './server/db.development.sqlite'
     });
   }
 
