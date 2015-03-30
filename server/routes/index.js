@@ -14,7 +14,6 @@ router.param('modelName', function (req, res, next, modelName) {
 });
 
 router.param('id', function (req, res, next, id) {
-    console.log(id);
     req.model.find(id)
         .catch(next)
         .then(function (item) {
