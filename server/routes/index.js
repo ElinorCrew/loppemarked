@@ -4,9 +4,9 @@ var db = require('../models'),
     express = require('express'),
     router = express.Router();
 
-router.param('model', function (req, res, next, model) {
-    if (db.sequelize.isDefined(model)) {
-        req.model = db.sequelize.model(model);
+router.param('modelName', function (req, res, next, modelName) {
+    if (db.sequelize.isDefined(modelName)) {
+        req.model = db.sequelize.model(modelName);
         return next();
     } else {
         res.sendStatus(404);
@@ -29,10 +29,10 @@ router.param('id', function (req, res, next, id) {
 });
 
 router.get('/', function (req, res) {
-    res.send('please select a model, e.g., /markets');
+    res.send('please select a modelName, e.g., /markets');
 });
 
-router.get('/:model(\\w+)', function (req, res, next) {
+router.get('/:modelName(\\w+)', function (req, res, next) {
     req.model.findAll()
         .catch(next)
         .then(function (models) {
@@ -40,7 +40,7 @@ router.get('/:model(\\w+)', function (req, res, next) {
         });
 });
 
-router.post('/:model(\\w+)', function (req, res, next) {
+router.post('/:modelName(\\w+)', function (req, res, next) {
     req.model.create(req.body)
         .catch(next)
         .then(function (item) {
@@ -48,17 +48,17 @@ router.post('/:model(\\w+)', function (req, res, next) {
         });
 });
 
-router.get('/:model(\\w+)/:id([0-9]+)', function (req, res) {
+router.get('/:modelName(\\w+)/:id([0-9]+)', function (req, res) {
     res.json(req.item);
 });
 
-router.put('/:model(\\w+)/:id([0-9]+)', function (req, res, next) {
+router.put('/:modelName(\\w+)/:id([0-9]+)', function (req, res, next) {
     req.item.update(req.body)
         .then(res.sendStatus(200))
         .catch(next);
 });
 
-router.delete('/:model(\\w+)/:id([0-9]+)', function (req, res, next) {
+router.delete('/:modelName(\\w+)/:id([0-9]+)', function (req, res, next) {
     req.item.destroy()
         .catch(next)
         .then(res.sendStatus(200));

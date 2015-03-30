@@ -1,23 +1,23 @@
 module.exports = function (sequelize, DataTypes) {
   'use strict';
 
-  var Markets = sequelize.define('Markets', {
+  var Market = sequelize.define('market', {
     name: DataTypes.STRING
   });
 
-  Markets.sync({
+  Market.sync({
     force: true
   }).then(function () {
-    Markets.create({
+    Market.create({
       name: 'Briskeby Janitsar loppemarked'
     });
-    Markets.create({
+    Market.create({
       name: 'Dælenenga idrettskrets loppebonanza'
     });
-    Markets.create({
+    Market.create({
       name: 'Gryners Gate velforenings kvartale gatesalg'
     });
   });
 
-  return Markets;
+  return Market;
 };
