@@ -1,12 +1,13 @@
-module.exports = function(grunt) {
- 
+module.exports = function (grunt) {
+    'use strict';
+
     grunt.initConfig({
         uglify: {
-            my_target: {
-              files: {
-                // Simple rule, just to get started
-                'build/client/controllers/market-list-ctrl.js': ['client/controllers/market-list-ctrl.js']
-              }
+            myTarget: {
+                files: {
+                    // Simple rule, just to get started
+                    'build/client/controllers/market-list-ctrl.js': ['client/controllers/market-list-ctrl.js']
+                }
             },
             options: {
                 report: 'min',
@@ -31,13 +32,13 @@ module.exports = function(grunt) {
             },
         }
     });
- 
+
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
- 
-    grunt.registerTask('build', ['clean', 'jshint', 'copy', 'uglify']);
+
+    grunt.registerTask('build', ['clean', 'copy', 'uglify']);
 
     grunt.registerTask('clean-all', ['clean']);
 };

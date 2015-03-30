@@ -1,10 +1,11 @@
-'use strict';
+/* global angular*/
 
 angular.module('loppemarkedApp', [
     'ngResource',
     'ngRoute'
   ])
   .config(function ($routeProvider) {
+    'use strict';
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
