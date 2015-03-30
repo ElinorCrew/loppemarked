@@ -17,7 +17,7 @@ app.use(bodyParser.json({
     type: 'application/*+json'
 }));
 app.use(express.static(__dirname + app.get('clientDir')));
-app.use(express.static(__dirname + '/../bower_components'));
+app.use(express.static(__dirname + '/../client/bower_components'));
 
 app.listen(app.get('port'), function () {
     console.log('Loppekartet server is listening on port ' + app.get('port'));
