@@ -2,10 +2,10 @@
 
 var express = require('express'),
     bodyParser = require('body-parser'),
-    routes = require('./routes');
+    routes = require('./routes'),
+    clientDir = process.env.CLIENT_DIR || process.argv.slice(2)[0] || '/../client';
 
-    app = express(),
-    clientDir = process.env.CLIENT_DIR || process.argv.slice(2)[0] || '/../client';    
+var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
