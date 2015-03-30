@@ -15,7 +15,7 @@ if (!global.hasOwnProperty('db')) {
   global.db = {
     Sequelize: Sequelize,
     sequelize: sequelize,
-    Markets: sequelize.import(__dirname + '/markets')
+    Markets: sequelize.import(__dirname + '/market')
   };
 }
 

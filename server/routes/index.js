@@ -4,9 +4,9 @@ var db = require('../models'),
     express = require('express'),
     router = express.Router();
 
-router.param('model', function (req, res, next, model) {
-    if (db.sequelize.isDefined(model)) {
-        req.model = db.sequelize.model(model);
+router.param('modelName', function (req, res, next, modelName) {
+    if (db.sequelize.isDefined(modelName)) {
+        req.model = db.sequelize.model(modelName);
         return next();
     } else {
         res.sendStatus(404);
@@ -16,7 +16,7 @@ router.param('model', function (req, res, next, model) {
 router.param('id', function (req, res, next, id) {
     console.log(id);
     req.model.find(id)
-        .error(next)
+        .catch(next)
         .then(function (item) {
             if (item) {
                 console.log(item);
@@ -29,39 +29,39 @@ router.param('id', function (req, res, next, id) {
 });
 
 router.get('/', function (req, res) {
-    res.send('please select a model, e.g., /markets');
+    res.send('please select a modelName, e.g., /markets');
 });
 
-router.get('/:model(\\w+)', function (req, res, next) {
+router.get('/:modelName(\\w+)', function (req, res, next) {
     req.model.findAll()
-        .error(next)
-        .success(function (models) {
+        .catch(next)
+        .then(function (models) {
             res.json(models);
         });
 });
 
-router.post('/:model(\\w+)', function (req, res, next) {
+router.post('/:modelName(\\w+)', function (req, res, next) {
     req.model.create(req.body)
-        .error(next)
-        .success(function (item) {
+        .catch(next)
+        .then(function (item) {
             res.json(item);
         });
 });
 
-router.get('/:model(\\w+)/:id([0-9]+)', function (req, res) {
+router.get('/:modelName(\\w+)/:id([0-9]+)', function (req, res) {
     res.json(req.item);
 });
 
-router.put('/:model(\\w+)/:id([0-9]+)', function (req, res, next) {
+router.put('/:modelName(\\w+)/:id([0-9]+)', function (req, res, next) {
     req.item.update(req.body)
-        .error(next)
-        .success(res.sendStatus(200));
+        .then(res.sendStatus(200))
+        .catch(next);
 });
 
-router.delete('/:model(\\w+)/:id([0-9]+)', function (req, res, next) {
+router.delete('/:modelName(\\w+)/:id([0-9]+)', function (req, res, next) {
     req.item.destroy()
-        .error(next)
-        .success(res.sendStatus(200));
+        .catch(next)
+        .then(res.sendStatus(200));
 });
 
 module.exports = router;
