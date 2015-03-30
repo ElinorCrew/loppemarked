@@ -9,10 +9,13 @@ module.exports = function (sequelize, DataTypes) {
     force: true
   }).then(function () {
     Markets.create({
-      name: 'Grunders'
+      name: 'Briskeby Janitsar loppemarked'
     });
-    return Markets.create({
-      name: 'Dælenenggata'
+    Markets.create({
+      name: 'Dælenenga idrettskrets loppebonanza'
+    });
+    Markets.create({
+      name: 'Gryners Gate velforenings kvartale gatesalg'
     });
   });
 
