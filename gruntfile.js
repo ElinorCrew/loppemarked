@@ -7,6 +7,10 @@ module.exports = function(grunt) {
                 // Simple rule, just to get started
                 'build/client/controllers/market-list-ctrl.js': ['client/controllers/market-list-ctrl.js']
               }
+            },
+            options: {
+                report: 'min',
+                mangle: false
             }
         },
 
@@ -22,7 +26,7 @@ module.exports = function(grunt) {
 
         copy: {
             main: {
-                src: 'client/*',
+                src: 'client/{,*/}*',
                 dest: 'build/',
             },
         }
