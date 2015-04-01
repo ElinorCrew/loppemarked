@@ -1,4 +1,8 @@
-angular.module('loppemarkedApp').factory('Market', function ($resource) {
+(function () {
     'use strict';
-    return $resource('/api/market/:id');
-});
+
+    angular.module('loppemarkedApp')
+        .factory('Market', function ($resource) {
+            return $resource('/api/market/:id');
+        });
+})();

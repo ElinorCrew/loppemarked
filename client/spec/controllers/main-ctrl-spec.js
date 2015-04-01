@@ -42,5 +42,4 @@ describe('Controller: MainCtrl', function () {
         expect(scope.markets[0].name).toBe('test');
         expect(scope.markets[1].name).toBe('test1');
     });
-
 });
