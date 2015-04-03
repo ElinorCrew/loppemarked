@@ -3,6 +3,22 @@
 
 module.exports = function (config) {
   'use strict';
+
+  var bowerJson = require('./client/bower.json'),
+      bowerFolder = 'client/bower_components',
+      
+      bowerDependencyPaths = function (bowerJson, componentFolder, dependencyTypes) {
+        var paths = [];
+
+        dependencyTypes.forEach(function (type) {
+          for (var dep in bowerJson[type]) {
+            paths.push(componentFolder + '/' + dep + '/' + dep + '.js');
+          }
+        });
+
+        return paths
+      };
+
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -13,19 +29,12 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
 
     // list of files / patterns to load in the browser
-    files: [
-      // bower:js
-      'client/bower_components/angular/angular.js',
-      'client/bower_components/angular-route/angular-route.js',
-      'client/bower_components/angular-resource/angular-resource.js',
-      // 'client/bower_components/*/*.js',
-      'client/bower_components/angular-mocks/angular-mocks.js',
-      // endbower
+    files: bowerDependencyPaths(bowerJson, bowerFolder, ['dependencies', 'devDependencies']).concat([
       'client/app/*.js',
       'client/app/*/*.js',
       'client/spec/*spec.js',
       'client/spec/**/*spec.js'
-    ],
+    ]),
 
     // list of files to exclude
     exclude: [],
