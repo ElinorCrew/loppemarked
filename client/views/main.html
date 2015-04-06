@@ -1,12 +1,11 @@
-<body ng-controller="MarketListCtrl">
-  <h1>Hello Loppekartet!</h1>
-  <ul>
-    <li ng-repeat="market in markets">
-      <p>{{market.name}}</p>
-    </li>
-  </ul>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-</body>
+<div layout="row" layout-wrap ng-controller="MainCtrl">
+  <div flex="33" layout="column" layout-fill>
+    <md-market-card ng-repeat="market in markets "></md-market-card>
+  </div>
+  <div flex>
+    <p class="lead ">
+      <img src="images/yeoman.png " alt="I 'm Yeoman">
+      <br> Always a pleasure scaffolding your apps.
+    </p>
+  </div>
+</div>
