@@ -76,3 +76,5 @@ Temporary Items
 
 # Local test DB
 server/db.development.sqlite
+client/styles/*.css
+client/styles/*/*.css
