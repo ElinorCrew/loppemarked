@@ -1,23 +1,23 @@
 // Karma configuration
 // Generated on Sat Jan 24 2015 18:37:02 GMT+0100 (CET)
 
-module.exports = function (config) {
+module.exports = function(config) {
   'use strict';
 
   var bowerJson = require('./client/bower.json'),
-      bowerFolder = 'client/bower_components',
-      
-      bowerDependencyPaths = function (bowerJson, componentFolder, dependencyTypes) {
-        var paths = [];
+    bowerFolder = 'client/bower_components',
 
-        dependencyTypes.forEach(function (type) {
-          for (var dep in bowerJson[type]) {
-            paths.push(componentFolder + '/' + dep + '/' + dep + '.js');
-          }
-        });
+    bowerDependencyPaths = function(bowerJson, componentFolder, dependencyTypes) {
+      var paths = [];
 
-        return paths
-      };
+      dependencyTypes.forEach(function(type) {
+        for (var dep in bowerJson[type]) {
+          paths.push(componentFolder + '/' + dep + '/' + dep + '.js');
+        }
+      });
+
+      return paths;
+    };
 
   config.set({
 
