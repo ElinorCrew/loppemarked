@@ -198,6 +198,20 @@ module.exports = function (grunt) {
         },
     },
 
+    uglify: {
+      options: {
+        mangle: false
+      },
+      dist: {
+        files: [{
+            expand: true,
+            cwd: 'client/app',
+            src: '**/*.js',
+            dest: 'build/client'
+        }]
+      }
+    }
+
     // Copies remaining files to places other tasks can use
     // copy: {
     //   dist: {
@@ -295,6 +309,7 @@ module.exports = function (grunt) {
     //     }
     //   }
     // },
+
     // concat: {
     //   dist: {}
     // },
@@ -360,19 +375,19 @@ module.exports = function (grunt) {
     // },
 
     // Run some tasks in parallel to speed up the build process
-    concurrent: {
-      server: [
-        'compass:server'
-      ],
-      test: [
-        'compass'
-      ],
-      dist: [
-        'compass:dist',
-        'imagemin',
-        'svgmin'
-      ]
-    }
+    // concurrent: {
+    //   server: [
+    //     'compass:server'
+    //   ],
+    //   test: [
+    //     'compass'
+    //   ],
+    //   dist: [
+    //     'compass:dist',
+    //     'imagemin',
+    //     'svgmin'
+    //   ]
+    // }
 
   });
 
@@ -406,7 +421,7 @@ module.exports = function (grunt) {
     'copy',
     // 'cdnify',
     // 'cssmin',
-    // 'uglify',
+    'uglify',
     // 'filerev',
     // 'usemin',
     // 'htmlmin'
