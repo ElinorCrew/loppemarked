@@ -38,10 +38,6 @@
           <md-list>
             <md-list-item ng-repeat="market in mc.markets">
               <md-market-card ng-click="mc.selectMarket(market)" ng-class="{'selected' : market === mc.selected }"></md-market-card>
-              <!-- <md-button ng-click="mc.selectMarket(market)" ng-class="{'selected' : market === mc.selected }">" -->
-              <!-- <md-icon md-svg-icon="images/yeoman.png " class="avatar"></md-icon> -->
-              <!-- {{market.name}} -->
-              <!-- </md-button> -->
             </md-list-item>
           </md-list>
         </md-content>
