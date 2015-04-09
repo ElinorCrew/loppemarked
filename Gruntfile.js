@@ -223,6 +223,13 @@ module.exports = function (grunt) {
           ext: '.js'
         }]
       },
+      bowermin: {
+        files: [{
+          expand: true,
+          src: ['client/bower_components/*/*.min.js.map'],
+          dest: 'build/'
+        }]
+      },
       bowercss: {
         files: [{
           expand: true,
