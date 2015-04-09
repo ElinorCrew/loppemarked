@@ -1,10 +1,8 @@
-(function () {
-    'use strict';
+(function() {
+  'use strict';
 
-    angular.module('loppemarkedApp')
-        .controller('MainCtrl', function ($scope, Market) {
-            Market.query(function (data) {
-                $scope.markets = data;
-            });
-        });
+  angular.module('loppemarkedApp')
+    .controller('MainCtrl', function($scope) {
+      $scope.test = 'dette er main, og muligens snart et kart';
+    });
 })();
