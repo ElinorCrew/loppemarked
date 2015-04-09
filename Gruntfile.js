@@ -16,10 +16,25 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
 
   var config = {
-    app: 'client',
-    dist: 'build',
-    server: 'server'
-  };
+      app: 'client',
+      dist: 'build',
+      server: 'server'
+    },
+
+    bowerJson = require('./client/bower.json'),
+    bowerFolder = 'client/bower_components',
+
+    bowerDependencyPaths = function(bowerJson, componentFolder, dependencyTypes) {
+      var paths = [];
+
+      dependencyTypes.forEach(function(type) {
+        for (var dep in bowerJson[type]) {
+          paths.push(componentFolder + '/' + dep + '/' + dep + '.js');
+        }
+      });
+
+      return paths;
+    };
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -190,205 +205,47 @@ module.exports = function (grunt) {
       css: ['<%= config.app %>/styles/**/*.css']
     },
 
-    // Simple version, to be replaced with setup under
     copy: {
-        main: {
-            src: 'client/**/*',
-            dest: 'build/',
-        },
+      app: {
+          src: [
+            'client/**/*', 
+            '!client/bower_components/**/*', 
+            '!client/app/**/*',
+            '!client/scripts/**/*'
+          ],
+          dest: 'build/',
+      },
+      bower: {
+        files: [{
+          expand: true,
+          src: ['client/bower_components/*/*.min.js'],
+          dest: 'build/',
+          ext: '.js'
+        }]
+      }
     },
 
     uglify: {
       options: {
         mangle: false
       },
-      dist: {
+      app: {
         files: [{
-            expand: true,
-            cwd: 'client/app',
-            src: '**/*.js',
-            dest: 'build/client'
+          expand: true,
+          cwd: 'client/app',
+          src: '**/*.js',
+          dest: 'build/client/app'
+        }]
+      },
+      scripts: {
+        files: [{
+          expand: true,
+          cwd: 'client/app',
+          src: '**/*.js',
+          dest: 'build/client/app'
         }]
       }
     }
-
-    // Copies remaining files to places other tasks can use
-    // copy: {
-    //   dist: {
-    //     files: [{
-    //       expand: true,
-    //       dot: true,
-    //       cwd: '<%= config.app %>',
-    //       dest: '<%= config.dist %>',
-    //       src: [
-    //         '*.{ico,png,txt}',
-    //         '.htaccess',
-    //         '*.html',
-    //         'views/**/*.html',
-    //         'images/**/*.{webp}',
-    //         'styles/fonts/**/*.*'
-    //       ]
-    //     }, {
-    //       expand: true,
-    //       cwd: '.tmp/images',
-    //       dest: '<%= config.dist %>/images',
-    //       src: ['generated/*']
-    //     }]
-    //   },
-    //   styles: {
-    //     expand: true,
-    //     cwd: '<%= config.app %>/styles',
-    //     dest: '.tmp/styles/',
-    //     src: '**/*.css'
-    //   }
-    // },
-
-    // Renames files for browser caching purposes
-    // filerev: {
-    //   dist: {
-    //     src: [
-    //       '<%= config.dist %>/app/**/*.js',
-    //       '<%= config.dist %>/styles/**/*.css',
-    //       '<%= config.dist %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
-    //       '<%= config.dist %>/styles/fonts/*'
-    //     ]
-    //   }
-    // },
-
-    // Reads HTML for usemin blocks to enable smart builds that automatically
-    // concat, minify and revision files. Creates configurations in memory so
-    // additional tasks can operate on them
-    // useminPrepare: {
-    //   html: '<%= config.app %>/index.html',
-    //   options: {
-    //     dest: '<%= config.dist %>',
-    //     flow: {
-    //       html: {
-    //         steps: {
-    //           js: ['concat', 'uglifyjs'],
-    //           css: ['cssmin']
-    //         },
-    //         post: {}
-    //       }
-    //     }
-    //   }
-    // },
-
-    // Performs rewrites based on filerev and the useminPrepare configuration
-    // usemin: {
-    //   html: ['<%= config.dist %>/**/*.html'],
-    //   css: ['<%= config.dist %>/styles/**/*.css'],
-    //   options: {
-    //     assetsDirs: [
-    //       '<%= config.dist %>',
-    //       '<%= config.dist %>/images',
-    //       '<%= config.dist %>/styles'
-    //     ]
-    //   }
-    // },
-
-    // The following *-min tasks will produce minified files in the dist folder
-    // By default, your `index.html`'s <!-- Usemin block --> will take care of
-    // minification. These next options are pre-configured if you do not wish
-    // to use the Usemin blocks.
-    // cssmin: {
-    //   dist: {
-    //     files: {
-    //       '<%= config.dist %>/styles/main.css': [
-    //         '.tmp/styles/**/*.css'
-    //       ]
-    //     }
-    //   }
-    // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= config.dist %>/app/scripts.js': [
-    //         '<%= config.dist %>/app/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
-
-    // concat: {
-    //   dist: {}
-    // },
-
-    // imagemin: {
-    //   dist: {
-    //     files: [{
-    //       expand: true,
-    //       cwd: '<%= config.app %>/images',
-    //       src: '**/*.{png,jpg,jpeg,gif}',
-    //       dest: '<%= config.dist %>/images'
-    //     }]
-    //   }
-    // },
-
-    // svgmin: {
-    //   dist: {
-    //     files: [{
-    //       expand: true,
-    //       cwd: '<%= config.app %>/images',
-    //       src: '**/*.svg',
-    //       dest: '<%= config.dist %>/images'
-    //     }]
-    //   }
-    // },
-
-    // htmlmin: {
-    //   dist: {
-    //     options: {
-    //       collapseWhitespace: true,
-    //       conservativeCollapse: true,
-    //       collapseBooleanAttributes: true,
-    //       removeCommentsFromCDATA: true,
-    //       removeOptionalTags: true
-    //     },
-    //     files: [{
-    //       expand: true,
-    //       cwd: '<%= config.dist %>',
-    //       src: ['*.html', 'views/**/*.html'],
-    //       dest: '<%= config.dist %>'
-    //     }]
-    //   }
-    // },
-
-    // ng-annotate tries to make the code safe for minification automatically
-    // by using the Angular long form for dependency injection.
-    // ngAnnotate: {
-    //   dist: {
-    //     files: [{
-    //       expand: true,
-    //       cwd: '.tmp/concat/scripts',
-    //       src: '*.js',
-    //       dest: '.tmp/concat/scripts'
-    //     }]
-    //   }
-    // },
-
-    // Replace Google CDN references
-    // cdnify: {
-    //   dist: {
-    //     html: ['<%= config.dist %>/*.html']
-    //   }
-    // },
-
-    // Run some tasks in parallel to speed up the build process
-    // concurrent: {
-    //   server: [
-    //     'compass:server'
-    //   ],
-    //   test: [
-    //     'compass'
-    //   ],
-    //   dist: [
-    //     'compass:dist',
-    //     'imagemin',
-    //     'svgmin'
-    //   ]
-    // }
-
   });
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
@@ -421,7 +278,7 @@ module.exports = function (grunt) {
     'copy',
     // 'cdnify',
     // 'cssmin',
-    'uglify',
+    'uglify'
     // 'filerev',
     // 'usemin',
     // 'htmlmin'
