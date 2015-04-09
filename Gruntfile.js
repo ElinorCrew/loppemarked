@@ -1,28 +1,42 @@
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
 
   grunt.initConfig({
 
+    express: {
+      options: {
+        // Override defaults here
+      },
+      web: {
+        options: {
+          script: 'server/server.js',
+        }
+      },
+    },
+
     watch: {
       bower: {
         files: ['client/bower.json'],
         tasks: ['wiredep']
       },
-      js: {
+      frontend: {
+        options: {
+          livereload: true
+        },
         files: [
-          './server/**/*.js',
-          './client/**/*.js',
-          '!./client/bower_components/**',
-          '!./client/spec/**'
+          'client/styles/**/*.css',
+          'client/*.js',
+          'client/**/*.js',
+          'client/*.html',
+          'client/**/*.html',
+          '!./client/bower_components/**'
+
         ],
         tasks: ['newer:jshint:code'],
-        options: {
-          livereload: '<%= connect.options.livereload %>'
-        }
       },
       jsTest: {
         files: ['./client/spec/**/*.js'],
@@ -32,53 +46,17 @@ module.exports = function (grunt) {
         files: ['client/styles/**/*.{scss,sass}'],
         tasks: ['compass', 'autoprefixer:all']
       },
-      gruntfile: {
-        files: ['Gruntfile.js']
-      },
-      livereload: {
-        options: {
-          livereload: '<%= connect.options.livereload %>'
-        },
+      web: {
         files: [
-          'client/**/*.html',
-          'client/styles/**/*.css',
-          'client/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
-        ]
-      }
-    },
-
-    connect: {
-      options: {
-        port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
-        livereload: 35730
-      },
-      livereload: {
+          'server/**/*.js',
+        ],
+        tasks: [
+          'express:web',
+          'newer:jshint:code'
+        ],
         options: {
-          open: true,
-          middleware: function (connect) {
-            return [
-              connect.static('client')
-            ];
-          }
-        }
-      },
-      test: {
-        options: {
-          port: 9001,
-          middleware: function (connect) {
-            return [
-              connect.static('spec'),
-              connect.static('client')
-            ];
-          }
-        }
-      },
-      dist: {
-        options: {
-          open: true,
-          base: 'build/client'
+          nospawn: true,
+          atBegin: true,
         }
       }
     },
@@ -104,12 +82,12 @@ module.exports = function (grunt) {
         src: ['./client/spec/**/*.js']
       }
     },
- 
+
     wiredep: {
       app: {
         cwd: 'client',
         src: ['client/index.html'],
-        ignorePath:  /\.\.\//
+        ignorePath: /\.\.\//
       }
       // Currently not in use.
       // Following tags must be placed in index.html at desired location:
@@ -166,13 +144,13 @@ module.exports = function (grunt) {
 
     copy: {
       app: {
-          src: [
-            'client/**/*', 
-            '!client/bower_components/**/*', 
-            '!client/app/**/*',
-            '!client/scripts/**/*'
-          ],
-          dest: 'build/',
+        src: [
+          'client/**/*',
+          '!client/bower_components/**/*',
+          '!client/app/**/*',
+          '!client/scripts/**/*'
+        ],
+        dest: 'build/',
       },
       bowerjs: {
         files: [{
@@ -221,34 +199,26 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
-    if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
-    }
-
-    grunt.task.run([
-      'wiredep',
-      'compass',
-      'autoprefixer:all',
-      'connect:livereload',
-      'watch'
-    ]);
-  });
-
-  grunt.registerTask('test', [
-    'connect:test',
-    'karma'
-  ]);
-
   grunt.registerTask('build', [
     'clean:dist',
     'copy',
     'uglify'
   ]);
 
-  grunt.registerTask('default', [
+  grunt.registerTask('test', [
+    'karma'
+  ]);
+
+  grunt.registerTask('start', 'Launch webserver and watch tasks', [
     'newer:jshint',
     'test',
-    'build'
+    'wiredep',
+    'compass',
+    'autoprefixer:all',
+    'watch'
+  ]);
+
+  grunt.registerTask('default', [
+    'start'
   ]);
 };
