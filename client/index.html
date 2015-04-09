@@ -18,10 +18,10 @@
 </head>
 <!--[if lt IE 7]>    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
 
-<body ng-app="loppemarkedApp">
+<body ng-app="loppemarkedApp" layout="column" ng-controller="MarketCtrl as mc">
   <md-toolbar layout="row">
     <div class="md-toolbar-tools">
-      <md-button class="menu" hide-gt-sm ng-click="ul.toggleList()" aria-label="Show User List">
+      <md-button class="menu" hide-gt-sm ng-click="mc.toggleList()" aria-label="Show market List">
         <md-icon md-svg-icon="menu"></md-icon>
       </md-button>
       <span>SkatteKartet</span>
@@ -31,14 +31,25 @@
     </div>
   </md-toolbar>
   <div flex layout="row">
-    <md-sidenav md-component-id="left" class="md-sidenav-left">
-      Left Nav!
+    <md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('min-width: 333px')" class="md-sidenav-left md-whiteframe-z2">
+      <div layout="column" layout-fill>
+        <md-subheader class="md-primary">Markets</md-subheader>
+        <md-content>
+          <md-list>
+            <md-list-item ng-repeat="market in mc.markets">
+              <md-market-card ng-click="mc.selectMarket(market)" ng-class="{'selected' : market === mc.selected }"></md-market-card>
+              <!-- <md-button ng-click="mc.selectMarket(market)" ng-class="{'selected' : market === mc.selected }">" -->
+              <!-- <md-icon md-svg-icon="images/yeoman.png " class="avatar"></md-icon> -->
+              <!-- {{market.name}} -->
+              <!-- </md-button> -->
+            </md-list-item>
+          </md-list>
+        </md-content>
+      </div>
     </md-sidenav>
-    <div layout="column" layout-fill>
-      <md-content>
-        <div ng-view=""></div>
-      </md-content>
-    </div>
+    <md-content flex id="content">
+      <div ng-view=""></div>
+    </md-content>
   </div>
 </body>
 </div>
@@ -74,6 +85,7 @@ ga('send', 'pageview');
 <script src="app/services/marketService.js"></script>
 <script src="app/directives/market-card.js"></script>
 <script src="app/controllers/main.js"></script>
+<script src="app/controllers/market.js"></script>
 <script src="app/controllers/about.js"></script>
 <!-- endbuild -->
 </body>
