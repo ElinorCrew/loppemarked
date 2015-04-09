@@ -215,12 +215,19 @@ module.exports = function (grunt) {
           ],
           dest: 'build/',
       },
-      bower: {
+      bowerjs: {
         files: [{
           expand: true,
           src: ['client/bower_components/*/*.min.js'],
           dest: 'build/',
           ext: '.js'
+        }]
+      },
+      bowercss: {
+        files: [{
+          expand: true,
+          src: ['client/bower_components/*/*.css'],
+          dest: 'build/'
         }]
       }
     },
