@@ -10,7 +10,7 @@
 
       Market.query(function(markets) {
         self.markets = [].concat(markets);
-        if (markets) {
+        if (self.markets.length > 0) {
           self.selected = markets[0];
         }
       });
