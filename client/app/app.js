@@ -6,7 +6,8 @@
   angular.module('loppemarkedApp', [
       'ngMaterial',
       'ngResource',
-      'ngRoute'
+      'ngRoute',
+      'leaflet-directive'
     ])
     .config(function($routeProvider) {
       $routeProvider

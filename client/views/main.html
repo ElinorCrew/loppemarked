@@ -1,3 +1,6 @@
-  <div ng-include="'views/sidebar.html'">
-  </div>
-  <div>LEAFLET</div>
+<div flex layout="row">
+<div flex='30' ng-include="'views/sidebar.html'"></div>
+      <div flex layout="row">
+      	<leaflet id="map"></leaflet>
+      </div>
+ </div>
