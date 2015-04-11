@@ -103,7 +103,11 @@ module.exports = function(grunt) {
 
     compass: {
       dist: {
+        files: {
+          'main.css': 'main.scss'
+        },
         options: {
+          'main.css': 'main.scss',
           sassDir: 'client/styles',
           cssDir: 'client/styles',
           httpPath: '/',
@@ -158,7 +162,8 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           src: ['client/bower_components/*/*.min.js',
-                'client/bower_components/*/dist/*.min.js'],
+            'client/bower_components/*/dist/*.min.js'
+          ],
           dest: 'build/',
           ext: '.js'
         }]
@@ -167,7 +172,8 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           src: ['client/bower_components/*/*.min.js.map',
-                'client/bower_components/*/dist/*.min.js.map'],
+            'client/bower_components/*/dist/*.min.js.map'
+          ],
           dest: 'build/'
         }]
       },
