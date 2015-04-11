@@ -6,14 +6,13 @@
   angular.module('loppemarkedApp', [
       'ngMaterial',
       'ngResource',
-      'ngRoute',
-      'leaflet-directive'
+      'ngRoute'
     ])
     .config(function($routeProvider) {
       $routeProvider
         .when('/', {
-          templateUrl: 'views/map.html',
-          controller: 'MapCtrl'
+          templateUrl: 'views/main.html',
+          controller: 'MainCtrl'
         })
         .when('/about', {
           templateUrl: 'views/about.html',

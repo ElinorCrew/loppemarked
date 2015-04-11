@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('loppemarkedApp')
-    .controller('MapCtrl', function($scope) {
+    .controller('MainCtrl', function($scope) {
       $scope.test = 'dette er main, og muligens snart et kart';
     });
 })();
