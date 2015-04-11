@@ -30,6 +30,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: bowerDependencyPaths(bowerJson, bowerFolder, ['dependencies', 'devDependencies']).concat([
+      'client/bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
       'client/app/*.js',
       'client/app/*/*.js',
       'client/spec/*spec.js',
