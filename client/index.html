@@ -30,22 +30,7 @@
       <md-button href="#/about">About</md-button>
     </div>
   </md-toolbar>
-  <div flex layout="row">
-    <md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('min-width: 333px')" class="md-sidenav-left md-whiteframe-z2">
-      <div layout="column" layout-fill>
-        <md-subheader class="md-primary">Markets</md-subheader>
-        <md-content>
-          <md-list>
-            <md-list-item ng-repeat="market in mc.markets">
-              <md-market-card ng-click="mc.selectMarket(market)" ng-class="{'selected' : market === mc.selected }"></md-market-card>
-            </md-list-item>
-          </md-list>
-        </md-content>
-      </div>
-    </md-sidenav>
-    <md-content flex id="content">
-      <div ng-view=""></div>
-    </md-content>
+  <div flex layout="row" ng-view="">
   </div>
 </body>
 </div>

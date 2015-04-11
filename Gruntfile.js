@@ -157,7 +157,8 @@ module.exports = function(grunt) {
       bowerjs: {
         files: [{
           expand: true,
-          src: ['client/bower_components/*/*.min.js'],
+          src: ['client/bower_components/*/*.min.js',
+                'client/bower_components/*/dist/*.min.js'],
           dest: 'build/',
           ext: '.js'
         }]
@@ -165,7 +166,8 @@ module.exports = function(grunt) {
       bowermin: {
         files: [{
           expand: true,
-          src: ['client/bower_components/*/*.min.js.map'],
+          src: ['client/bower_components/*/*.min.js.map',
+                'client/bower_components/*/dist/*.min.js.map'],
           dest: 'build/'
         }]
       },

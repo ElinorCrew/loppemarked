@@ -12,7 +12,7 @@
       $routeProvider
         .when('/', {
           templateUrl: 'views/main.html',
-          controller: 'MainCtrl'
+          controller: 'MarketCtrl'
         })
         .when('/about', {
           templateUrl: 'views/about.html',
