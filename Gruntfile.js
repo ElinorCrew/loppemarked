@@ -104,14 +104,10 @@ module.exports = function(grunt) {
     compass: {
       dist: {
         files: {
-          'main.css': 'main.scss'
+          'client/styles/main.scss': 'client/styles/main.css'
         },
         options: {
-          sassDir: 'client/styles',
-          cssDir: 'client/styles',
-          httpPath: '/',
           imagesDir: 'img',
-          javascriptsDir: 'js',
           relativeAssets: true,
           lineComments: false
         }
