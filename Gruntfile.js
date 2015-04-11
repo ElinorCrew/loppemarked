@@ -9,7 +9,7 @@ module.exports = function(grunt) {
 
     express: {
       options: {
-        // Override defaults here
+        port: 5000
       },
       web: {
         options: {
@@ -35,11 +35,14 @@ module.exports = function(grunt) {
           'client/**/*.html',
           '!./client/bower_components/**'
 
-        ],
-        tasks: ['newer:jshint:code'],
+        ]
       },
       jsTest: {
-        files: ['./client/spec/**/*.js'],
+        files: ['client/app/*.js',
+          'client/app/*/*.js',
+          'client/spec/*spec.js',
+          'client/spec/**/*spec.js'
+        ],
         tasks: ['newer:jshint:spec', 'karma']
       },
       compass: {
@@ -51,8 +54,7 @@ module.exports = function(grunt) {
           'server/**/*.js',
         ],
         tasks: [
-          'express:web',
-          'newer:jshint:code'
+          'express:web'
         ],
         options: {
           nospawn: true,
@@ -196,6 +198,29 @@ module.exports = function(grunt) {
           dest: 'build/client/app'
         }]
       }
+    },
+    parallel: {
+      web: {
+        options: {
+          stream: true
+        },
+        tasks: [{
+          grunt: true,
+          args: ['watch:frontend']
+        }, {
+          grunt: true,
+          args: ['watch:compass']
+        }, {
+          grunt: true,
+          args: ['watch:web']
+        }, {
+          grunt: true,
+          args: ['watch:bower']
+        }, {
+          grunt: true,
+          args: ['watch:jsTest']
+        }]
+      },
     }
   });
 
@@ -215,7 +240,7 @@ module.exports = function(grunt) {
     'wiredep',
     'compass',
     'autoprefixer:all',
-    'watch'
+    'parallel:web'
   ]);
 
   grunt.registerTask('default', [
