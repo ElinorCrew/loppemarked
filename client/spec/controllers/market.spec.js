@@ -34,7 +34,8 @@ describe('Controller: MarketCtrl is loaded,', function() {
     it('should attach a list of two markets to the scope', function() {
       httpBackend.flush();
 
-      expect(ctrl.markets.length).toBe(2);
+      expect(ctrl.markets).toBeArrayOfSize(2);
+      expect(ctrl.markets).toBeArrayOfObjects();
     });
 
     it('should attach market object to the scope', function() {
@@ -92,7 +93,7 @@ describe('Controller: MarketCtrl is loaded,', function() {
     it(',should attach an empty list to markets', function() {
       httpBackend.flush();
 
-      expect(ctrl.markets).toEqual([]);
+      expect(ctrl.markets).toBeEmptyArray();
     });
 
     it('should not hava a selected market', function() {

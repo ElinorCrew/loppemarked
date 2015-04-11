@@ -26,7 +26,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'jasmine-matchers'],
 
     // list of files / patterns to load in the browser
     files: bowerDependencyPaths(bowerJson, bowerFolder, ['dependencies', 'devDependencies']).concat([
@@ -68,7 +68,8 @@ module.exports = function(config) {
     // Which plugins to enable
     plugins: [
       'karma-phantomjs-launcher',
-      'karma-jasmine'
+      'karma-jasmine',
+      'karma-jasmine-matchers'
     ],
 
     // Continuous Integration mode
