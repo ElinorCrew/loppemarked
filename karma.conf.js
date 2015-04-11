@@ -16,6 +16,9 @@ module.exports = function(config) {
         }
       });
 
+      // WILL BE REMOVED WHEN DEPENDENCY INJECTION WORKS
+      paths.push(componentFolder +'/angular-leaflet-directive/dist/angular-leaflet-directive.js');
+
       return paths;
     };
 
