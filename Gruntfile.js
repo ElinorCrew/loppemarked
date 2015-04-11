@@ -103,6 +103,9 @@ module.exports = function(grunt) {
 
     compass: {
       dist: {
+        files: {
+          'main.css': 'main.scss'
+        },
         options: {
           sassDir: 'client/styles',
           cssDir: 'client/styles',
@@ -158,8 +161,9 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           src: ['client/bower_components/*/*.min.js',
-                'client/bower_components/*/dist/*.min.js',
-                'client/bower_components/leaflet/dist/*.js'],
+            'client/bower_components/*/dist/*.min.js',
+            'client/bower_components/leaflet/dist/*.js'
+          ],
           dest: 'build/',
           ext: '.js'
         }]
@@ -168,7 +172,8 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           src: ['client/bower_components/*/*.min.js.map',
-                'client/bower_components/*/dist/*.min.js.map'],
+            'client/bower_components/*/dist/*.min.js.map'
+          ],
           dest: 'build/'
         }]
       },
@@ -176,8 +181,9 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           src: ['client/bower_components/*/*.css',
-          'client/bower_components/leaflet/dist/*.css',
-          'client/bower_components/font-awesome/css/*.css'],
+            'client/bower_components/leaflet/dist/*.css',
+            'client/bower_components/font-awesome/css/*.css'
+          ],
           dest: 'build/'
         }]
       }
