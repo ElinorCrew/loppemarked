@@ -158,7 +158,8 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           src: ['client/bower_components/*/*.min.js',
-                'client/bower_components/*/dist/*.min.js'],
+                'client/bower_components/*/dist/*.min.js',
+                'client/bower_components/leaflet/dist/*.js'],
           dest: 'build/',
           ext: '.js'
         }]
@@ -174,7 +175,9 @@ module.exports = function(grunt) {
       bowercss: {
         files: [{
           expand: true,
-          src: ['client/bower_components/*/*.css'],
+          src: ['client/bower_components/*/*.css',
+          'client/bower_components/leaflet/dist/*.css',
+          'client/bower_components/font-awesome/css/*.css'],
           dest: 'build/'
         }]
       }
