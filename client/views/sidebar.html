@@ -1,12 +1,3 @@
-<md-content>
-  <div layout="column" layout-fill>
-    <md-subheader class="md-primary">Markets</md-subheader>
-    <md-content>
-      <md-list>
-        <md-list-item ng-click="mc.selectMarket(market) " ng-class="{ 'selected' : market===mc.selected }" ng-repeat=" market in mc.markets" class="md-3-line">
-          <md-market-card></md-market-card>
-        </md-list-item>
-      </md-list>
-    </md-content>
-  </div>
-</md-content>
+<section layout="column" layout-fill>
+  <md-market-card ng-repeat=" market in mc.markets"></md-market-card>
+</section>

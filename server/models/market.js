@@ -1,4 +1,4 @@
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   'use strict';
 
   var Market = sequelize.define('market', {
@@ -7,7 +7,7 @@ module.exports = function (sequelize, DataTypes) {
 
   Market.sync({
     force: true
-  }).then(function () {
+  }).then(function() {
     Market.create({
       name: 'Briskeby Janitsar loppemarked'
     });
@@ -16,6 +16,15 @@ module.exports = function (sequelize, DataTypes) {
     });
     Market.create({
       name: 'Gryners Gate velforenings kvartale gatesalg'
+    });
+    Market.create({
+      name: 'Gryners Gate gatesalg'
+    });
+    Market.create({
+      name: 'Gryners velforenings gatesalg'
+    });
+    Market.create({
+      name: 'Gryners velforenings gatesalg'
     });
   });
 
