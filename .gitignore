@@ -76,3 +76,4 @@ Temporary Items
 
 # Local test DB
 server/db.development.sqlite
+ignore/
