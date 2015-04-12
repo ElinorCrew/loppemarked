@@ -5,6 +5,7 @@
 
   angular.module('loppemarkedApp', [
       'ngMaterial',
+      'ngMdIcons',
       'ngResource',
       'ngRoute',
       'leaflet-directive'
