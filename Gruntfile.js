@@ -172,7 +172,8 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           src: ['client/bower_components/*/*.min.js.map',
-            'client/bower_components/*/dist/*.min.js.map'
+            'client/bower_components/*/dist/*.min.js.map',
+            'client/bower_components/angular-material-icons/angular-material-icons.min.js'
           ],
           dest: 'build/'
         }]
