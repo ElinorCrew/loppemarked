@@ -1,6 +1,6 @@
-<div flex layout="row">
+<div flex layout="row" ng-controller="MarketCtrl">
   <div flex='30' ng-include="'views/sidebar.html'" class="sidenav"></div>
   <div flex layout="row" ng-controller="MapCtrl">
-    <leaflet center="center" id="map"></leaflet>
+    <leaflet center="center" markers="markers" id="map"></leaflet>
   </div>
 </div>

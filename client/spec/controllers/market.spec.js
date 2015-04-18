@@ -34,21 +34,21 @@ describe('Controller: MarketCtrl is loaded,', function() {
     it('should attach a list of two markets to the scope', function() {
       httpBackend.flush();
 
-      expect(ctrl.markets).toBeArrayOfSize(2);
-      expect(ctrl.markets).toBeArrayOfObjects();
+      expect(scope.markets).toBeArrayOfSize(2);
+      expect(scope.markets).toBeArrayOfObjects();
     });
 
     it('should attach market object to the scope', function() {
       httpBackend.flush();
 
-      expect(ctrl.markets[0].name).toBe('test');
-      expect(ctrl.markets[1].name).toBe('test1');
+      expect(scope.markets[0].name).toBe('test');
+      expect(scope.markets[1].name).toBe('test1');
     });
 
     it('should mark the first market as selected', function() {
       httpBackend.flush();
 
-      expect(ctrl.markets[0]).toBe(ctrl.selected);
+      expect(scope.markets[0]).toBe(scope.selected);
     });
 
     describe('and the user clicks on a market item,', function() {
@@ -57,12 +57,12 @@ describe('Controller: MarketCtrl is loaded,', function() {
       beforeEach(function() {
         httpBackend.flush();
 
-        clickedItem = ctrl.markets[1];
-        ctrl.selectMarket(clickedItem);
+        clickedItem = scope.markets[1];
+        scope.selectMarket(clickedItem);
       });
 
       it(',should select the clicked item', function() {
-        expect(ctrl.selected).toEqual(clickedItem);
+        expect(scope.selected).toEqual(clickedItem);
       });
     });
   });
@@ -93,13 +93,13 @@ describe('Controller: MarketCtrl is loaded,', function() {
     it(',should attach an empty list to markets', function() {
       httpBackend.flush();
 
-      expect(ctrl.markets).toBeEmptyArray();
+      expect(scope.markets).toBeEmptyArray();
     });
 
     it('should not hava a selected market', function() {
       httpBackend.flush();
 
-      expect(ctrl.selected).toEqual(null);
+      expect(scope.selected).toEqual(null);
     });
   });
 });
