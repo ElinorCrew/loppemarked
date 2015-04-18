@@ -3,23 +3,24 @@
 
   angular.module('loppemarkedApp')
     .controller('MarketCtrl', function($scope, Market, $mdSidenav) {
+      var self = this;
 
-      $scope.selected = null;
-      $scope.markets = [];
+      self.selected = null;
+      self.markets = [];
 
       Market.query(function(markets) {
-        $scope.markets = [].concat(markets);
-        if ($scope.markets.length > 0) {
-          $scope.selected = markets[0];
+        self.markets = [].concat(markets);
+        if (self.markets.length > 0) {
+          self.selected = markets[0];
         }
       });
 
-      $scope.openLeftMenu = function() {
+      self.openLeftMenu = function() {
         $mdSidenav('left').toggle();
       };
 
-      $scope.selectMarket = function(market) {
-        $scope.selected = angular.isNumber(market) ? $scope.markets[market] : market;
+      self.selectMarket = function(market) {
+        self.selected = angular.isNumber(market) ? self.markets[market] : market;
       };
     });
 })();
