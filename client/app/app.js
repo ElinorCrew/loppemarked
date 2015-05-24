@@ -6,18 +6,19 @@
   angular.module('loppemarkedApp', [
       'ngMaterial',
       'ngMdIcons',
+      'leaflet-directive',
       'ngResource',
-      'ngRoute',
-      'leaflet-directive'
+      'ngSanitize',
+      'ngRoute'
     ])
     .config(function($routeProvider) {
       $routeProvider
         .when('/', {
-          templateUrl: 'views/main.html',
-          controller: 'MarketCtrl'
+          templateUrl: 'app/main/main.html',
+          controller: 'MainCtrl'
         })
         .when('/about', {
-          templateUrl: 'views/about.html',
+          templateUrl: 'app/about/about.html',
           controller: 'AboutCtrl'
         })
         .otherwise({

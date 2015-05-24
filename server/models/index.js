@@ -1,15 +1,12 @@
 if (!global.hasOwnProperty('db')) {
   var Sequelize = require('sequelize'),
-    sequelize = null;
+    sequelize = null,
+    config = require('../config/environment');
 
-  if (process.env.DATABASE_URL) {
+  if (process.env.NODE_ENV === 'production') {
     sequelize = new Sequelize(process.env.DATABASE_URL);
   } else {
-    sequelize = new Sequelize('database', 'root', 'null', {
-      host: 'localhost',
-      dialect: 'sqlite',
-      storage: './server/db.development.sqlite'
-    });
+    sequelize = new Sequelize(config.database, config.user, config.password, config.options);
   }
 
   global.db = {
