@@ -7,7 +7,7 @@ module.exports = function(config) {
     basePath: '',
 
     // testing framework to use (jasmine/mocha/qunit/...)
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'jasmine-matchers'],
 
     // list of files / patterns to load in the browser
     files: [
@@ -31,15 +31,9 @@ module.exports = function(config) {
       'client/components/**/*.html'
     ],
 
-    preprocessors: {
-      '**/*.jade': 'ng-jade2js',
-      '**/*.html': 'html2js',
-      '**/*.coffee': 'coffee',
-    },
+    preprocessors: {},
 
-    ngHtml2JsPreprocessor: {
-      stripPrefix: 'client/'
-    },
+    ngHtml2JsPreprocessor: {},
 
     ngJade2JsPreprocessor: {
       stripPrefix: 'client/'
@@ -70,9 +64,15 @@ module.exports = function(config) {
     // - IE (only Windows)
     browsers: ['PhantomJS'],
 
+    plugins: [
+      'karma-phantomjs-launcher',
+      'karma-jasmine',
+      'karma-jasmine-matchers'
+    ],
+
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false
+    singleRun: true
   });
 };
