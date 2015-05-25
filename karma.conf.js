@@ -11,24 +11,23 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'client/bower_components/jquery/dist/jquery.js',
       'client/bower_components/angular/angular.js',
-      'client/bower_components/angular-mocks/angular-mocks.js',
       'client/bower_components/angular-resource/angular-resource.js',
-      'client/bower_components/angular-cookies/angular-cookies.js',
-      'client/bower_components/angular-sanitize/angular-sanitize.js',
+      'client/bower_components/angular-animate/angular-animate.js',
       'client/bower_components/angular-route/angular-route.js',
-      'client/bower_components/lodash/dist/lodash.compat.js',
-      'client/app/app.js',
-      'client/app/app.coffee',
-      'client/app/**/*.js',
-      'client/app/**/*.coffee',
-      'client/components/**/*.js',
-      'client/components/**/*.coffee',
-      'client/app/**/*.jade',
-      'client/components/**/*.jade',
+      'client/bower_components/angular-aria/angular-aria.js',
+      'client/bower_components/angular-material/angular-material.js',
+      'client/bower_components/leaflet/dist/leaflet.js',
+      'client/bower_components/leaflet/dist/leaflet-src.js',
+      'client/bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js',
+      'client/bower_components/angular-material-icons/angular-material-icons.min.js',
+      'client/bower_components/angular-sanitize/angular-sanitize.js',
+      'client/bower_components/angular-mocks/angular-mocks.js',
       'client/app/**/*.html',
-      'client/components/**/*.html'
+      'client/components/**/*.html',
+      'client/app/app.js',
+      'client/app/**/*.js',
+      'client/components/**/*.js'
     ],
 
     preprocessors: {},
