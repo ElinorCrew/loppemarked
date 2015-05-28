@@ -3,5 +3,5 @@
 // Production specific configuration
 // =================================
 module.exports = {
-  dbUrl: process.env.DATABASE_URL
+  dbUrl: process.env.DATABASE_URL || 'sqlite://db.sqlite'
 };

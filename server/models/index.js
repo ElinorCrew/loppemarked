@@ -4,7 +4,7 @@ if (!global.hasOwnProperty('db')) {
     config = require('../config/environment');
 
   if (process.env.NODE_ENV === 'production') {
-    sequelize = new Sequelize(process.env.DATABASE_URL);
+    sequelize = new Sequelize(config.dbUrl);
   } else {
     sequelize = new Sequelize(config.database, config.user, config.password, config.options);
   }

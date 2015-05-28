@@ -16,7 +16,6 @@
       });
 
       $scope.$watch('mc.markets', function(newValue) {
-        console.log('mapctrl');
         $scope.markers = {};
         angular.forEach(newValue, function(market) {
           var newMarker = $scope.makeMarker(market.name, market.lat, market.lng);
