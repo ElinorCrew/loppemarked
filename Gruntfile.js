@@ -2,7 +2,9 @@
 'use strict';
 
 module.exports = function(grunt) {
-  var localConfig;
+  var localConfig,
+    pkg = require('./package.json');
+
   try {
     localConfig = require('./server/config/local.env');
   } catch (e) {
@@ -392,8 +394,10 @@ module.exports = function(grunt) {
       },
       heroku: {
         options: {
-          remote: 'heroku',
-          branch: 'master'
+          remote: 'https://git.heroku.com/loppemarked.git',
+          branch: 'master',
+          force: true,
+          tag: pkg.version
         }
       },
       openshift: {
@@ -661,5 +665,9 @@ module.exports = function(grunt) {
     'newer:jshint',
     'test',
     'build'
+  ]);
+
+  grunt.registerTask('heroku', [
+    'buildcontrol:heroku'
   ]);
 };
