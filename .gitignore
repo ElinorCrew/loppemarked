@@ -75,7 +75,7 @@ Temporary Items
 .Trash-*
 
 # Local test DB
-server/db.development.sqlite
+*.sqlite
 ignore/
 
 node_modules
