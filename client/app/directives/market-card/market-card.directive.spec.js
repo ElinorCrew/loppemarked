@@ -3,7 +3,7 @@
 describe('Directive: marketCard', function() {
 
   beforeEach(module('loppemarkedApp'));
-  beforeEach(module('app/directives/market-card/market-card.html'));
+  beforeEach(module('templates'));
 
   var element, scope;
 
