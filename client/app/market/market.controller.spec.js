@@ -20,7 +20,7 @@ describe('Controller: MarketCtrl is loaded,', function() {
           }, {
             name: 'test1'
           }];
-          var url = '/api/market';
+          var url = '/api/markets';
           httpBackend.whenGET(url).respond(mockData);
         }
       )
@@ -79,7 +79,7 @@ describe('Controller: MarketCtrl is loaded,', function() {
           });
 
           var mockData = [];
-          var url = '/api/market';
+          var url = '/api/markets';
           httpBackend.whenGET(url).respond(mockData);
         }
       )
