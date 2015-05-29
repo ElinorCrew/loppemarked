@@ -3,8 +3,20 @@ module.exports = function(sequelize, DataTypes) {
 
   var Market = sequelize.define('market', {
     name: DataTypes.STRING,
-    lat: DataTypes.DECIMAL(10, 2),
-    lng: DataTypes.DECIMAL(10, 2)
+    lat: {
+      type: DataTypes.DECIMAL(10, 2),
+      get: function() {
+        var lat = this.getDataValue('lat');
+        return parseFloat(lat);
+      }
+    },
+    lng: {
+      type: DataTypes.DECIMAL(10, 2),
+      get: function() {
+        var lat = this.getDataValue('lng');
+        return parseFloat(lat);
+      }
+    },
   });
 
   return Market;
