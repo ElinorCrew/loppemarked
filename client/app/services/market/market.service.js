@@ -3,6 +3,6 @@
 
   angular.module('loppemarkedApp')
     .factory('Market', function($resource) {
-      return $resource('/api/market/:id');
+      return $resource('/api/markets/:id');
     });
 })();
