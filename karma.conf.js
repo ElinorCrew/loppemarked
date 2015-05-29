@@ -30,12 +30,13 @@ module.exports = function(config) {
       'client/components/**/*.js'
     ],
 
-    preprocessors: {},
+    preprocessors: {
+      '**/*.html': 'html2js',
+    },
 
-    ngHtml2JsPreprocessor: {},
-
-    ngJade2JsPreprocessor: {
-      stripPrefix: 'client/'
+    ngHtml2JsPreprocessor: {
+      stripPrefix: 'client/',
+      moduleName: 'templates'
     },
 
     // list of files / patterns to exclude
@@ -50,7 +51,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
 
     // Start these browsers, currently available:
@@ -66,7 +67,8 @@ module.exports = function(config) {
     plugins: [
       'karma-phantomjs-launcher',
       'karma-jasmine',
-      'karma-jasmine-matchers'
+      'karma-jasmine-matchers',
+      'karma-ng-html2js-preprocessor'
     ],
 
 

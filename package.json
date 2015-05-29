@@ -65,7 +65,7 @@
     "karma-jade-preprocessor": "0.0.11",
     "karma-jasmine": "~0.1.5",
     "karma-jasmine-matchers": "^2.0.0-beta1",
-    "karma-ng-html2js-preprocessor": "~0.1.0",
+    "karma-ng-html2js-preprocessor": "^0.1.2",
     "karma-ng-jade2js-preprocessor": "^0.1.2",
     "karma-ng-scenario": "~0.1.0",
     "karma-phantomjs-launcher": "~0.1.4",
