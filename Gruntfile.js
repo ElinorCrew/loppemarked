@@ -396,7 +396,6 @@ module.exports = function(grunt) {
         options: {
           remote: 'https://git.heroku.com/loppemarked.git',
           branch: 'master',
-          force: true,
           tag: pkg.version
         }
       },
