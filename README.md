@@ -25,7 +25,7 @@ Commit and push the resulting build, located in your dist folder:
 
     grunt heroku
 
-To test dist folder before deplayment use
+To test dist folder before deployment use
 
     grunt serve:dist
 
