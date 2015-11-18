@@ -51,6 +51,32 @@ module.exports = function (grunt) {
       styles: {
         files: ['<%= config.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'postcss']
+      },
+      livereload: {
+        files: [
+          '{.tmp, app/**/*.css',
+          '{.tmp,app}/**/*.html',
+          '{.tmp,app/**/*.js',
+          '!{.tmp,app,components}/**/*.spec.js',
+          '!{.tmp,{app,components}/**/*.mock.js',
+          '<%= config.app %>/{,*/}*.html',
+          '.tmp/styles/{,*/}*.css',
+          '<%= config.app %>/images/{,*/}*',
+          '.tmp/scripts/{,*/}*.js'
+        ],
+        options: {
+          livereload: true
+        }
+      },
+      express: {
+        files: [
+          'server/**/*.{js,json}'
+        ],
+        tasks: ['express:dev', 'wait'],
+        options: {
+          livereload: true,
+          nospawn: true //Without this option specified express won't be reloaded
+        }
       }
     },
 
@@ -381,7 +407,7 @@ module.exports = function (grunt) {
       'concurrent:server',
       'postcss',
       'express:dev',
-      'browserSync:livereload',
+      // 'browserSync:livereload', // Denne server statiske filer på 9001, mens server kjører på 9000. Dette gjør at klietnen har vanseligheter med å snakke med server
       'watch'
     ]);
   });
