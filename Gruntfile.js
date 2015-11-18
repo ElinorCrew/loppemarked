@@ -16,7 +16,7 @@ module.exports = function (grunt) {
   // Automatically load required grunt tasks
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
-    express: 'grunt-express-server'
+    express: 'grunt-express-server',
   });
 
   // Configurable paths
@@ -37,10 +37,10 @@ module.exports = function (grunt) {
         files: ['bower.json'],
         tasks: ['wiredep']
       },
-      babel: {
-        files: ['<%= config.app %>/scripts/{,*/}*.js'],
-        tasks: ['babel:dist']
-      },
+      // babel: {
+      // files: ['<%= config.app %>/scripts/{,*/}*.js'],
+      // tasks: ['babel:dist']
+      // },
       babelTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['babel:test', 'test:watch']
@@ -386,15 +386,15 @@ module.exports = function (grunt) {
         'copy:styles'
       ],
       dist: [
-        'babel',
+        // 'babel',
         'copy:styles',
-        'imagemin',
-        'svgmin'
+        // 'imagemin',
+        // 'svgmin'
       ]
-      },
-      loop: {
-        configFile: 'karma.conf.js',
-        singleRun: false
+    },
+    loop: {
+      configFile: 'karma.conf.js',
+      singleRun: false
     }
   });
 
@@ -444,8 +444,8 @@ module.exports = function (grunt) {
     'copy:dist',
     // 'modernizr',
     'filerev',
-    'usemin'
-    // 'htmlmin'
+    'usemin',
+    'htmlmin'
   ]);
 
   grunt.registerTask('default', [
