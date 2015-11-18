@@ -83,6 +83,6 @@ public
 .tmp
 .sass-cache
 .idea
-client/bower_components
+/app/scripts/tokens.js
 /server/config/local.env.js
 dist
