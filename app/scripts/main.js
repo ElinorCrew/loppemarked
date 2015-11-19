@@ -1,4 +1,4 @@
-mapboxgl.accessToken = mapBoxToken;
+mapboxgl.accessToken = mapBoxToken || process.env.mapBoxToken;
 var map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
