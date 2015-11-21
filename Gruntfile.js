@@ -19,8 +19,6 @@ module.exports = function (grunt) {
     express: 'grunt-express-server',
   });
 
-  grunt.loadNpmTasks('grunt-wiredep');
-
   // Configurable paths
   var config = {
     app: 'app',
