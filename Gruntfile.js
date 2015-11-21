@@ -19,6 +19,8 @@ module.exports = function (grunt) {
     express: 'grunt-express-server',
   });
 
+  grunt.loadNpmTasks('grunt-wiredep');
+
   // Configurable paths
   var config = {
     app: 'app',
@@ -37,16 +39,11 @@ module.exports = function (grunt) {
         files: ['bower.json'],
         tasks: ['wiredep']
       },
-      // babel: {
-      // files: ['<%= config.app %>/scripts/{,*/}*.js'],
-      // tasks: ['babel:dist']
-      // },
-      babelTest: {
-        files: ['test/spec/{,*/}*.js'],
-        tasks: ['babel:test', 'test:watch']
-      },
-      gruntfile: {
-        files: ['Gruntfile.js']
+      configFiles: {
+        files: ['Gruntfile.js', 'config/*.js'],
+        options: {
+          reload: true
+        }
       },
       styles: {
         files: ['<%= config.app %>/styles/{,*/}*.css'],
@@ -54,15 +51,10 @@ module.exports = function (grunt) {
       },
       livereload: {
         files: [
-          '{.tmp, app/**/*.css',
-          '{.tmp,app}/**/*.html',
-          '{.tmp,app/**/*.js',
-          '!{.tmp,app,components}/**/*.spec.js',
-          '!{.tmp,{app,components}/**/*.mock.js',
-          '<%= config.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
-          '<%= config.app %>/images/{,*/}*',
-          '.tmp/scripts/{,*/}*.js'
+          '<%= config.app %>/**/*.css',
+          '<%= config.app %>/**/*.html',
+          '<%= config.app %>/*.html',
+          '<%= config.app %>/**/*.js',
         ],
         options: {
           livereload: true
@@ -80,52 +72,6 @@ module.exports = function (grunt) {
       }
     },
 
-    browserSync: {
-      options: {
-        notify: false,
-        background: true,
-        watchOptions: {
-          ignored: ''
-        }
-      },
-      livereload: {
-        options: {
-          files: [
-            '<%= config.app %>/{,*/}*.html',
-            '.tmp/styles/{,*/}*.css',
-            '<%= config.app %>/images/{,*/}*',
-            '.tmp/scripts/{,*/}*.js'
-          ],
-          port: 9000,
-          server: {
-            baseDir: ['.tmp', config.app],
-            routes: {
-              '/bower_components': './bower_components'
-            }
-          }
-        }
-      },
-      test: {
-        options: {
-          port: 9001,
-          open: false,
-          logLevel: 'silent',
-          host: 'localhost',
-          server: {
-            baseDir: ['.tmp', './test', config.app],
-            routes: {
-              '/bower_components': './bower_components'
-            }
-          }
-        }
-      },
-      dist: {
-        options: {
-          background: false,
-          server: '<%= config.dist %>'
-        }
-      }
-    },
     express: {
       options: {
         port: process.env.PORT || 9000
@@ -137,6 +83,22 @@ module.exports = function (grunt) {
         }
       }
     },
+    // Automatically inject Bower components into the HTML file
+    wiredep: {
+      app: {
+        src: ['<%= config.app %>/index.html'],
+        ignorePath: /^(\.\.\/)*\.\./
+      }
+    },
+    // Reads HTML for usemin blocks to enable smart builds that automatically
+    // concat, minify and revision files. Creates configurations in memory so
+    // additional tasks can operate on them
+    useminPrepare: {
+      options: {
+        dest: '<%= config.dist %>'
+      },
+      html: '<%= config.app %>/index.html'
+    },
     // Empties folders to start fresh
     clean: {
       dist: {
@@ -144,12 +106,10 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '.tmp',
-            '<%= config.dist %>/*',
-            '!<%= config.dist %>/.git*'
+            '<%= config.dist %>/*'
           ]
         }]
-      },
-      server: '.tmp'
+      }
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
@@ -160,16 +120,6 @@ module.exports = function (grunt) {
         '!<%= config.app %>/scripts/vendor/*',
         'test/spec/{,*/}*.js'
       ]
-    },
-
-    // Mocha testing framework configuration options
-    mocha: {
-      all: {
-        options: {
-          run: true,
-          urls: ['http://<%= browserSync.test.options.host %>:<%= browserSync.test.options.port %>/index.html']
-        }
-      }
     },
 
     // Compiles ES6 with Babel
@@ -217,14 +167,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Automatically inject Bower components into the HTML file
-    wiredep: {
-      app: {
-        src: ['<%= config.app %>/index.html'],
-        ignorePath: /^(\.\.\/)*\.\./
-      }
-    },
-
     // Renames files for browser caching purposes
     filerev: {
       dist: {
@@ -238,15 +180,6 @@ module.exports = function (grunt) {
       }
     },
 
-    // Reads HTML for usemin blocks to enable smart builds that automatically
-    // concat, minify and revision files. Creates configurations in memory so
-    // additional tasks can operate on them
-    useminPrepare: {
-      options: {
-        dest: '<%= config.dist %>'
-      },
-      html: '<%= config.app %>/index.html'
-    },
 
     // Performs rewrites based on rev and the useminPrepare configuration
     usemin: {
@@ -320,18 +253,6 @@ module.exports = function (grunt) {
         }
       }
     },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= config.dist %>/scripts/scripts.js': [
-    //         '<%= config.dist %>/scripts/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
-    // concat: {
-    //   dist: {}
-    // },
 
     // Copies remaining files to places other tasks can use
     copy: {
@@ -357,78 +278,25 @@ module.exports = function (grunt) {
         src: '{,*/}*.css'
       }
     },
-
-    // Generates a custom Modernizr build that includes only the tests you
-    // reference in your app
-    modernizr: {
-      dist: {
-        devFile: 'bower_components/modernizr/modernizr.js',
-        outputFile: '<%= config.dist %>/scripts/vendor/modernizr.js',
-        files: {
-          src: [
-            '<%= config.dist %>/scripts/{,*/}*.js',
-            '<%= config.dist %>/styles/{,*/}*.css',
-            '!<%= config.dist %>/scripts/vendor/*'
-          ]
-        },
-        uglify: true
-      }
-    },
-
-    // Run some tasks in parallel to speed up build process
-    concurrent: {
-      server: [
-        'babel:dist',
-        'copy:styles'
-      ],
-      test: [
-        'babel',
-        'copy:styles'
-      ],
-      dist: [
-        // 'babel',
-        'copy:styles',
-        // 'imagemin',
-        // 'svgmin'
-      ]
-    },
-    loop: {
-      configFile: 'karma.conf.js',
-      singleRun: false
-    }
   });
 
+  // Used for delaying livereload until after server has restarted
+  grunt.registerTask('wait', function () {
+    grunt.log.ok('Waiting for server reload...');
 
-  grunt.registerTask('serve', 'start the server and preview your app', function (target) {
+    var done = this.async();
 
-    if (target === 'dist') {
-      return grunt.task.run(['build', 'browserSync:dist']);
-    }
+    setTimeout(function () {
+      grunt.log.writeln('Done waiting!');
+      done();
+    }, 1500);
+  });
 
+  grunt.registerTask('serve', 'start the server and preview your app', function () {
     grunt.task.run([
-      'clean:server',
       'wiredep',
-      'concurrent:server',
-      'postcss',
       'express:dev',
-      // 'browserSync:livereload', // Denne server statiske filer på 9001, mens server kjører på 9000. Dette gjør at klietnen har vanseligheter med å snakke med server
       'watch'
-    ]);
-  });
-
-
-  grunt.registerTask('test', function (target) {
-    if (target !== 'watch') {
-      grunt.task.run([
-        'clean:server',
-        'concurrent:test',
-        'postcss'
-      ]);
-    }
-
-    grunt.task.run([
-      'browserSync:test',
-      'mocha'
     ]);
   });
 
@@ -436,21 +304,21 @@ module.exports = function (grunt) {
     'clean:dist',
     'wiredep',
     'useminPrepare',
-    'concurrent:dist',
+    'babel',
+    'copy:styles',
+    'imagemin',
+    'svgmin',
     'postcss',
     'concat',
     'cssmin',
     'uglify',
     'copy:dist',
-    // 'modernizr',
     'filerev',
     'usemin',
     'htmlmin'
   ]);
 
   grunt.registerTask('default', [
-    'newer:eslint',
-    'test',
     'build'
   ]);
 };
