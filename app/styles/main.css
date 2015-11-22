@@ -1,6 +1,21 @@
+#mapContainer{
+  position: fixed;
+  top:40px;
+  bottom: 40px;
+  right: 0;
+  left: 350px;
+  height: 100%;
+}
+
 #map{
-  position: absolute;
-  top:0;
-  bottom: 0;
-  width: 100%;
+	position:absolute; 
+	top:0; 
+	bottom:0; 
+	width:100%;
+}
+
+.leftmenu{
+	position: relative;
+	width: 350px;
+	padding: 8px;
 }
