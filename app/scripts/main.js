@@ -5,4 +5,10 @@ var map = new mapboxgl.Map({
 	    center: [10.725231170654297, 59.91200869359693], // starting position
 	    zoom: 12 // starting zoom
 	});
+
+var tooltip = new mapboxgl.Popup({closeOnClick: false})
+    .setLngLat([10.7273769,59.9170428])
+    .setHTML('<h3>Slottsparken loppemarked</h3><p>Om to dager, kl 18:00. Schweigaardsgate 41, 0366 OSLO</p>')
+    .addTo(map);
+
 $('.ui.dropdown').dropdown();
