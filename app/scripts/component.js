@@ -29,7 +29,6 @@ var Card = React.createClass({
             <div className="description">
               <p>Loppemarkedet inneholder lopper fra hele Oslo. Det vil bli servert kaffe, boller og brus. Det selges møbler, sykler, antikviteter og ski.</p>
             </div>
-            <a className="ui yellow left ribbon label">Populær</a>
           </div>
         <CardExtraContent/>
         </div>

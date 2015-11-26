@@ -86,3 +86,4 @@ public
 /app/scripts/tokens.js
 /server/config/local.env.js
 dist
+Procfile

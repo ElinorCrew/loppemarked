@@ -12,3 +12,11 @@ var tooltip = new mapboxgl.Popup({closeOnClick: false})
     .addTo(map);
 
 $('.ui.dropdown').dropdown();
+
+$('.leftmenu').click(function () {
+	$('#openCard').show("fast");
+})
+
+$('#openCard').click(function () {
+	$('#openCard').hide();
+})

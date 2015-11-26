@@ -18,4 +18,9 @@
 	position: relative;
 	width: 350px;
 	padding: 8px;
+	top: 40px;
+}
+
+#Cards{
+	padding-top: 7px;
 }
