@@ -1,3 +1,175 @@
+var MenuContentFooter = React.createClass({
+  displayName: 'MenuContentFooter',
+
+  getInitialState: function() {
+    return {content: 'MarketsAndMap'};
+  },
+
+  showMarketsAndMap: function() {
+    this.setState({content: 'MarketsAndMap'});
+  },
+
+  showCreateNewMarket: function() {
+    this.setState({content: 'CreateNewMarket'});
+  },
+
+  render: function() {
+    return (
+      <div>
+        <div className="ui fixed menu">
+          <a className="header item" onClick={this.showMarketsAndMap}>Skattekartet</a>
+          <div className=" item ui floating labeled icon dropdown tiny">
+            <span className="text"> Valgt område: <b>Oslo</b></span>
+            <i className="icon dropdown"></i>
+            <div className="menu">
+              <div className="header">
+                Velg område
+              </div>
+              <div className="ui left icon input">
+                <i className="search icon"></i>
+                <input type="text" name="search" placeholder="Søk..." />
+              </div>
+              <div className="header">
+                <i className="tags icon"></i>
+                Områder
+              </div>
+              <div className="divider"></div>
+              <div className="item">
+                <div className="ui red empty circular label"></div>
+                Bergen
+              </div>
+              <div className="item">
+                <div className="ui blue empty circular label"></div>
+                Trondheim
+              </div>
+              <div className="item">
+                <div className="ui black empty circular label"></div>
+                Oslo
+              </div>
+            </div>
+          </div>
+          <div className="right menu">
+            <a className="item" onClick={this.showCreateNewMarket}>Legg til nytt loppemarked</a>
+          </div>
+        </div>
+
+        {(() => {
+          switch (this.state.content) {
+            case "MarketsAndMap": return <MarketsAndMap/>;
+            case "CreateNewMarket": return <CreateNewMarket/>;
+            default: return <MarketsAndMap/>;
+          }
+        })()}
+
+        <div className="ui fixed bottom sticky menu">
+          <div className="right menu">
+            <a className="item">Laget av ElinorCrew</a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+var CreateNewMarket = React.createClass({
+  displayName: 'CreateNewMarket',
+
+  render: function() {
+    return (
+      <div className="ui text container">
+        <br />
+        <br />
+        <div className="ui header">Create another Market</div>
+      </div>
+    );
+  }
+});
+
+var MarketsAndMap = React.createClass({
+  displayName: 'MarketsAndMap',
+
+  render: function() {
+    return (
+      <div>
+        <Markets/>
+        <Map/>
+      </div>
+    );
+  }
+});
+
+var Map = React.createClass({
+  displayName: 'Map',
+
+  componentDidMount: function() {
+    if (this.isMounted()) {
+      mapboxgl.accessToken = "pk.eyJ1Ijoic3RlZmZlbnAiLCJhIjoiY2loYnBxMmtpMHd6M3Vra3RybXZxbjZ2byJ9.NXvjP_UDUfUJZ7_nwhVPzQ";
+      var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/steffenp/cihby9a4700cjbdm126ge53iq', //stylesheet location
+            center: [10.725231170654297, 59.91200869359693], // starting position
+            zoom: 12 // starting zoom
+        });
+
+      var tooltip = new mapboxgl.Popup({closeOnClick: false})
+          .setLngLat([10.7273769,59.9170428])
+          .setHTML('<h3>Slottsparken loppemarked</h3><p>Om to dager, kl 18:00. Schweigaardsgate 41, 0366 OSLO</p>')
+          .addTo(map);
+    }
+  },
+
+  render: function() {
+    return (
+      <div className="fixed" id="mapContainer">
+        <div id="map"></div>
+      </div>
+    );
+  }
+});
+
+var Markets = React.createClass({
+  displayName: 'Markets',
+  getInitialState: function() {
+    return {
+      markets: []
+    };
+  },
+
+  componentDidMount: function() {
+    var self = this;
+    // We could use dependency injection here
+    window.loppe.markets.all((markets) => {
+      if (this.isMounted()) {
+        this.setState({
+          markets: markets,
+        });
+      }
+    });
+  },
+
+  render: function() {
+    return (
+      <div className="four wide column leftmenu">
+        <div className="ui labeled icon dropdown button tiny">
+          <i className="filter icon"></i>
+          <span className="text">Sorter på...</span>
+          <div className="menu">
+            <div className="item">
+              Avstand
+            </div>
+            <div className="item">
+              Tid
+            </div>
+            <div className="item">
+              Populæritet
+            </div>
+          </div>
+        </div>
+        <Cards markets={this.state.markets}/>
+      </div>
+    );
+  }
+});
 
 var Cards = React.createClass({
   displayName: 'Cards',
@@ -116,7 +288,5 @@ var OpenCard = React.createClass({
 });
 
 $(function() {
-  window.loppe.markets.all(function  (markets) {
-    ReactDOM.render(<Cards markets = {markets}/>, $('#Cards')[0]);
-  });
+  ReactDOM.render(<MenuContentFooter/>, $('#MenuContentFooter')[0]);
 });
