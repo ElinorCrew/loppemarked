@@ -36,7 +36,7 @@ var Card = React.createClass({
             <div className="meta">
               <span className="category">Om to dager, kl 18:00</span>
               <br />
-              <span className="category">Schweigaardsgate 41, 0366 OSLO</span>
+              <span className="category">{market.address}</span>
             </div>
             <div className="description">
               <p>{market.description}</p>
@@ -94,7 +94,7 @@ var OpenCard = React.createClass({
           <div className="meta">
             <span className="category">Om to dager, kl 18:00</span>
             <br />
-            <span className="category">Schweigaardsgate 41, 0366 OSLO</span>
+            <span className="category">{market.address}</span>
           </div>
           <div className="description">
             <p>{market.description}</p>
