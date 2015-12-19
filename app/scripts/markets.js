@@ -1,5 +1,3 @@
-(function ($) {
-  'use strict';
 
   var market = function (market) {
     var self = market;
@@ -29,6 +27,4 @@
     return self;
   };
 
-  window.loppe = window.loppe || {};
-  window.loppe.markets = new Markets();
-})($);
+module.exports = Markets();

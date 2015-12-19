@@ -85,5 +85,5 @@ public
 .idea
 /app/scripts/tokens.js
 /server/config/local.env.js
-dist
+public
 Procfile

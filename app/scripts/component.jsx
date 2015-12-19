@@ -1,3 +1,7 @@
+import $ from 'jquery';
+import React from 'react';
+import Market from  'markets'
+var ReactDOM = require('react-dom');
 
 var Cards = React.createClass({
   displayName: 'Cards',
@@ -116,7 +120,7 @@ var OpenCard = React.createClass({
 });
 
 $(function() {
-  window.loppe.markets.all(function  (markets) {
+  Market.all(function  (markets) {
     ReactDOM.render(<Cards markets = {markets}/>, $('#Cards')[0]);
   });
 });
