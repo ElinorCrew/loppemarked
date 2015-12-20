@@ -19,10 +19,11 @@ models.sequelize.sync().then(function() {
   if (config.seedDB) {
     require('./config/seed');
   }
-  // Start server
-  server.listen(config.port, config.ip, function() {
-    console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
-  });
+});
+
+// Start server
+server.listen(config.port, config.ip, function() {
+  console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
 
 var isDev = process.env.NODE_ENV === 'development';
