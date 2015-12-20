@@ -1,1 +1,0 @@
-var components = require('component');

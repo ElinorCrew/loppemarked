@@ -16,7 +16,7 @@ module.exports = {
       // The output path from the view of the Javascript
       publicPath: '/assets/'
     },
-    context: path.join(__dirname, '..', 'app/scripts'),
+    context: path.join(__dirname, '..', 'app'),
     module: {
       loaders: [
       { test: /\.css$/, loader: 'style!css' },
@@ -27,12 +27,17 @@ module.exports = {
           presets: ['react', 'es2015']
         }
       },
+      { test: /\.scss$/,
+        loader: 'style!css?module&localIdentName=[local]__[hash:base64:5]' +
+        '&sourceMap!autoprefixer-loader!sass?sourceMap&outputStyle=expanded' +
+        '&includePaths[]=' + encodeURIComponent(path.resolve(__dirname, '..', 'app', 'scss'))
+      },
       ]
     },
     resolve: {
       extensions: ['', '.js', '.jsx', '.scss'],
       modulesDirectories: [
-      'app/scripts', 'node_modules','app/bower_components'
+      'app', 'node_modules','app'
       ],
     },
     plugins: [
