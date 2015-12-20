@@ -38,7 +38,7 @@
     "webpack": "^1.12.9"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": "5.x"
   },
   "scripts": {
     "clean": "rimraf public",
@@ -47,6 +47,7 @@
     "build": "npm run clean && npm run build:webpack &&  npm run copy",
     "start": "NODE_ENV=production node server/server.js",
     "dev": "NODE_ENV=development node server/server.js",
+    "lint": "eslint ./app",
     "postinstall": "npm run build"
   },
   "eslintConfig": {
