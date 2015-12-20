@@ -16,10 +16,12 @@
     "classnames": "^2.2.1",
     "compression": "^1.6.0",
     "cookie-parser": "^1.4.0",
+    "copyfiles": "^0.2.1",
     "css-loader": "^0.23.0",
     "ejs": "^2.3.4",
     "errorhandler": "^1.4.2",
     "express": "^4.13.3",
+    "extract-text-webpack-plugin": "^0.9.1",
     "html-loader": "^0.4.0",
     "jquery": "^2.1.4",
     "lodash": "^3.10.1",
@@ -40,9 +42,13 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "build": "NODE_ENV=production webpack --progress --colors --config ./webpack/webpack.config.prod.js",
+    "copy": "cp  -f -r app/bower_components/ public/bower_components",
+    "clean": "rimraf public",
+    "build:webpack": "NODE_ENV=production webpack --progress --colors --config ./webpack/webpack.config.prod.js",
+    "build": "npm run clean && npm run build:webpack",
     "start": "NODE_ENV=production node server/server.js",
-    "dev": "NODE_ENV=development node server/server.js"
+    "dev": "NODE_ENV=development node server/server.js",
+    "postinstall": "npm run build"
   },
   "eslintConfig": {
     "extends": [

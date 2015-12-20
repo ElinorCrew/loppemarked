@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var assetsPath = path.join(__dirname, '..', 'public', 'assets');
 
 module.exports = {
@@ -12,7 +13,7 @@ module.exports = {
       // The output path from the view of the Javascript
       publicPath: '/assets/'
     },
-    context: path.join(__dirname, '..', 'app/scripts'),
+    context: path.join(__dirname, '..', 'app'),
     module: {
       loaders: [
       { test: /\.css$/, loader: 'style!css' },
@@ -23,12 +24,15 @@ module.exports = {
           presets: ['react', 'es2015']
         }
       },
+      { test: /\.scss$/,
+        loader: "style!css!sass"
+      }
       ]
     },
     resolve: {
       extensions: ['', '.js', '.jsx', '.scss'],
       modulesDirectories: [
-      'app/scripts', 'node_modules','bower_components'
+      'app', 'node_modules','bower_components'
       ],
     },
     plugins: [
