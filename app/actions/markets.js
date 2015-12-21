@@ -1,5 +1,4 @@
-import fetch from 'isomorphic-fetch';
-import 'es6-promise';
+import $ from 'jquery';
 
 class Markets {
   constructor() {
@@ -7,13 +6,7 @@ class Markets {
   }
 
   all() {
-    return fetch(this.baseUrl, {
-      'method': 'GET',
-      'headers': {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    });
+    return $.getJSON(this.baseUrl);
   }
 }
 
