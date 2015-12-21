@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-const ENTER_KEY_CODE = 13;
 
 export default class OpenMarketCard extends Component {
 render(){

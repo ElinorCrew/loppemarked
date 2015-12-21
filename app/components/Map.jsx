@@ -2,7 +2,6 @@ import React from 'react';
 
 class Map extends React.Component {
   componentDidMount() {
-
       mapboxgl.accessToken = "pk.eyJ1Ijoic3RlZmZlbnAiLCJhIjoiY2loYnBxMmtpMHd6M3Vra3RybXZxbjZ2byJ9.NXvjP_UDUfUJZ7_nwhVPzQ";
       var map = new mapboxgl.Map({
             container: 'map', // container id

@@ -1,9 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-// import { Link } from 'react-router';
-// import { connect } from 'react-redux';
-// import { logOut } from 'actions/users';
-// import {Button} from 'react-semantify';
-// import styles from 'scss/components/_navigation';
+import { Link } from 'react-router';
 
 class Navigation extends Component {
 
@@ -42,8 +38,8 @@ class Navigation extends Component {
             </div>
           </div>
         </div>
-         <div className="right menu">
-          <a className="item">Logg inn</a>
+        <div className="right menu">
+         <Link className="item" to="/newmarket">Legg til nytt loppemarked</Link>
         </div>
       </div>
 
