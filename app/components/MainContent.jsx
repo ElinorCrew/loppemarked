@@ -10,7 +10,7 @@ class MainContent extends Component {
   }
 
   componentDidMount() {
-    Markets.all(function(markets) {
+    Markets.all().success(function(markets) {
       this.setState({
         markets: markets
       });
