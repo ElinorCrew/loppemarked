@@ -28,16 +28,9 @@ module.exports = function (app) {
   app.use(methodOverride());
   app.use(cookieParser());
 
-  if ('production' === env) {
-    // app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
-    app.use(express.static(path.join(config.root, 'dist')));
-    app.set('appPath', config.root + '/dist');
-    app.use(morgan('dev'));
-  }
+  app.use(express.static(path.join(config.root, 'public')));
 
   if ('development' === env || 'test' === env) {
-    app.use(require('connect-livereload')());
-    // app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(path.join(config.root, 'app')));
     app.set('appPath', 'app');
     app.use(morgan('dev'));

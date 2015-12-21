@@ -1,53 +1,56 @@
 {
   "private": true,
   "devDependencies": {
-    "connect-livereload": "^0.5.3",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-express-server": "^0.5.1",
-    "sqlite3": "^3.1.1"
+    "sqlite3": "^3.1.1",
+    "webpack-dev-server": "^1.14.0",
+    "webpack-hot-middleware": "^2.6.0"
   },
   "dependencies": {
-    "method-override": "^2.3.5",
+    "autoprefixer-loader": "^3.1.0",
+    "babel-core": "^6.3.17",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
     "body-parser": "^1.14.1",
-    "lodash": "^3.10.1",
+    "classnames": "^2.2.1",
     "compression": "^1.6.0",
     "cookie-parser": "^1.4.0",
+    "css-loader": "^0.23.0",
     "ejs": "^2.3.4",
+    "errorhandler": "^1.4.2",
     "express": "^4.13.3",
+    "extract-text-webpack-plugin": "^0.9.1",
+    "history": "^1.17.0",
+    "html-loader": "^0.4.0",
+    "jquery": "^2.1.4",
+    "lodash": "^3.10.1",
+    "method-override": "^2.3.5",
     "morgan": "^1.6.1",
+    "node-sass": "^3.4.2",
     "pg": "^4.4.3",
     "pg-hstore": "^2.3.2",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-router": "^1.0.2",
+    "rimraf": "^2.4.4",
+    "sass-loader": "^3.1.2",
+    "scss-loader": "0.0.1",
     "sequelize": "~3.0.*",
-    "grunt": "^0.4.5",
-    "grunt-babel": "^6.0.0",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-clean": "^0.7.0",
-    "grunt-contrib-concat": "^0.5.1",
-    "grunt-contrib-copy": "^0.8.2",
-    "grunt-contrib-cssmin": "^0.14.0",
-    "grunt-contrib-htmlmin": "^0.6.0",
-    "grunt-contrib-imagemin": "^1.0.0",
-    "grunt-contrib-uglify": "^0.11.0",
-    "grunt-filerev": "^2.3.1",
-    "wiredep": "^3.0.0-beta",
-    "grunt-postcss": "^0.7.1",
-    "grunt-svgmin": "^3.1.0",
-    "errorhandler": "^1.4.2",
-    "autoprefixer": "^6.1.0",
-    "grunt-usemin": "^3.1.1",
-    "grunt-wiredep": "^2.0.0",
-    "bower": "^1.6.5",
-    "jit-grunt": "^0.9.1",
-    "time-grunt": "^1.2.2"
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.9"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": "5.x"
   },
   "scripts": {
-    "test": "grunt test",
-    "postinstall": "if $BUILD_CLIENT; then npm run build_client; fi",
-    "build_client": "bash ./build_client.sh",
-    "start": "node server/app.js"
+    "clean": "rimraf public",
+    "copy": "cp  -f -r app/* public/",
+    "build:webpack": "NODE_ENV=production webpack --progress --colors --config ./webpack/webpack.config.prod.js",
+    "build": "npm run clean && npm run build:webpack &&  npm run copy",
+    "start": "NODE_ENV=production node server/server.js",
+    "dev": "NODE_ENV=development node server/server.js",
+    "lint": "eslint ./app",
+    "postinstall": "npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -55,10 +58,8 @@
     ],
     "env": {
       "node": true,
-      "browser": true,
       "es6": true,
-      "jquery": true,
-      "mocha": true
+      "jquery": true
     },
     "rules": {
       "quotes": [
