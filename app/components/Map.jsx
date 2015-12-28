@@ -20,6 +20,8 @@ class Map extends React.Component {
   render() {
     if (this.props.selectedMarket) {
       var market  = this.props.selectedMarket;
+      map.setCenter([market.lng, market.lat]);
+      
       var tooltip = new mapboxgl.Popup({closeOnClick: false})
       .setLngLat([market.lng,market.lat])
       .setHTML('<h3>'+market.name+'</h3><p>Om to dager, kl 18:00.</p>')
