@@ -13,17 +13,17 @@ class MainContent extends Component {
   componentDidMount() {
     this.marketAction.all().then(function(markets) {
       this.setState({
-        markets: markets
+        markets: markets,
+        selectedMarket : markets[0]
       });
     }.bind(this));
   }
 
   render() {
-    const markets = this.state.markets;
     return (
             <div>
-            <LeftMenu markets={markets}/>
-            <Map markets={markets}/>
+            <LeftMenu markets={this.state.markets}/>
+            <Map selectedMarket={this.state.selectedMarket}/>
             </div>
             );
   }

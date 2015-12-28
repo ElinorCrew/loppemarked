@@ -24,9 +24,4 @@ class LeftMenu extends Component {
   }
 }
 
-LeftMenu.propTypes = {
-  topic: PropTypes.string,
-  dispatch: PropTypes.func
-};
-
 export default LeftMenu;
