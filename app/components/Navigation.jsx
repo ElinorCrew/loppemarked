@@ -12,7 +12,7 @@ class Navigation extends Component {
       <div className="ui fixed menu">
         <div className="header item">Skattekartet</div>
         <div className=" item ui floating labeled icon dropdown tiny">
-          <span className="text"> Vwalgt område: <b>Oslo</b></span>
+          <span className="text"> Valgt område: <b>Oslo</b></span>
           <i className="icon dropdown"></i>
           <div className="menu">
             <div className="header">
