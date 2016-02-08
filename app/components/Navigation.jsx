@@ -10,7 +10,7 @@ class Navigation extends Component {
     const { dispatch } = this.props;
     return (
       <div className="ui fixed menu">
-        <div className="header item">Skattekartet</div>
+        <Link className="header item" to="/">Skattekartet</Link>
         <div className=" item ui floating labeled icon dropdown tiny">
           <span className="text"> Valgt område: <b>Oslo</b></span>
           <i className="icon dropdown"></i>
