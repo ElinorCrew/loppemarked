@@ -5,6 +5,10 @@ import styles from 'scss/components/_createNewMarket';
 const cx = classNames.bind(styles);
 
 export default class CreateNewMarket extends Component {
+	componentDidMount() {
+	    $('.ui.radio.checkbox').checkbox();  
+	}	
+	
 	render(){
 		return (
 			<div className={cx('ui','container','formContainer')}>
