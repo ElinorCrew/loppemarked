@@ -28,9 +28,7 @@ class MainContent extends Component {
     }.bind(this));
   }
 
-
   _selectedMarketChanged(selectedMarketId) {
-    debugger;
     var markets = this.state.markets;
     var selectedMarket = markets.find(function (market) {
       return market.id === selectedMarketId
