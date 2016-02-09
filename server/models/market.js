@@ -7,7 +7,8 @@ module.exports = function (sequelize, DataTypes) {
     address: DataTypes.STRING,
     eventDate: {
       type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
+      defaultValue: DataTypes.NOW,
+      validate: {isDate: true}
     },
     lat: {
       type: DataTypes.DECIMAL(10, 2),
