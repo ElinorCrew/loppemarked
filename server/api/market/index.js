@@ -8,6 +8,7 @@ var router = express.Router();
 router.param('id', controller.paramId)
 
 router.get('/', controller.index);
+router.get('/geojson/all', controller.geojson);
 router.post('/', controller.create);
 router.get('/:id([0-9]+)', controller.show);
 router.put('/:id([0-9]+)', controller.update);

@@ -15,18 +15,19 @@ class Map extends React.Component {
             center: [10.725231170654297, 59.91200869359693], // starting position
             zoom: 12 // starting zoom
           });
+    // Add zoom and rotation controls to the map.
+    self.map.addControl(new mapboxgl.Navigation({position: 'bottom-right'}));
   }
 
   render() {
-    if (this.props.selectedMarket) {
-      var market  = this.props.selectedMarket;
+    this.props.markets.map(function(market){
       map.setCenter([market.lng, market.lat]);
       
-      var tooltip = new mapboxgl.Popup({closeOnClick: false})
+      var tooltip = new mapboxgl.Popup()
       .setLngLat([market.lng,market.lat])
-      .setHTML('<h3>'+market.name+'</h3><p>Om to dager, kl 18:00.</p>')
+      .setHTML('<h3>'+market.name+'</h3><p>'+market.description+'</p>')
       .addTo(map);
-    };
+    })
 
     return(
            <div className="fixed" id="mapContainer">
