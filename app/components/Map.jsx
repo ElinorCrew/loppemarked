@@ -50,7 +50,7 @@ class Map extends React.Component {
 
           new mapboxgl.Popup()
           .setLngLat(feature.geometry.coordinates)
-          .setHTML(feature.properties.description)
+          .setHTML('<h1>'+feature.properties.name+'</h1><p>'+feature.properties.description+'</p>')
           .addTo(self.map);
         });
       });
