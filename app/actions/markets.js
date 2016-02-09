@@ -8,8 +8,16 @@ class Markets {
   all() {
     return $.getJSON(this.baseUrl);
   }
-  geojson(){
-  	return $.getJSON(this.baseUrl + 'geojson/all');
+
+  geojson() {
+    return $.getJSON(this.baseUrl + 'geojson/all');
+  }
+
+  clean(markets) {
+    return markets.map(function (market) {
+      market.selected = false;
+      return market;
+    });
   }
 }
 

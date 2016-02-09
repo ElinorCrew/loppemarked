@@ -11,12 +11,12 @@ class LeftMenu extends Component {
     super(props);
   }
   render() {
-    const { dispatch } = this.props;
+    const { selectedMarketChanged} = this.props;
     return (
        <div className={cx('four', 'wide', 'column', 'leftmenu')}>
           <div className="ui list">
          {this.props.markets.map(function(market) {
-             return <MarketCard key={market.id} market={market}/>;
+             return <MarketCard key={market.id} market={market} selectedMarketChanged={selectedMarketChanged}/>;
           })}
         </div>
     </div>
