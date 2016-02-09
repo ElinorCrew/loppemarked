@@ -7,7 +7,7 @@ render(){
     return (
       <div className="ui centered card middle" style={{"marginTop":"80px", "width": "600px"}}>
         <div className="image">
-          <img src={market.heroImage}/>
+          <img src={market.imageMedium}/>
         </div>
         <div className="content">
           <a className="header">{market.name}</a>

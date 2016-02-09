@@ -22,43 +22,28 @@ export default class MarketCard extends Component {
   render() {
     const {market} = this.props;
     return (
-      <div className="item">
-        <div className="ui card" style={{width: '100%'}} onClick={this._showOpenCard}>
-          <div className="content">
-            <div className="header">{market.name}</div>
-            <div className="meta">
-              <span className="category">Om to dager, kl 18:00</span>
-              <br />
-              <span className="category">{market.address}</span>
-            </div>
-            <div className="description">
-              <p>'sdsd'</p>
-            </div>
+      <div className="item" onClick={this._showOpenCard}>
+        <div className="image">
+          <img src={market.imageSmall} />
+        </div>
+        <div className="middle aligned content">
+          <a className="header">{market.name}</a>
+          <div className="meta">
+            <span className="category">Om to dager, kl 18:00</span> - 
+            <span className="category">{market.address}</span>
           </div>
-                  <div className = 'extra content'>
-            <span className = 'left floated like'>
-                <i className = 'like icon'> </i>
-                Lik
+          <div className="description">
+            <p>{market.description}</p>
+          </div>
+          <div className="bottom aligned extra">
+            <span className = 'like'>
+                <i className = 'like icon'></i>Lik
             </span>
-            <span className = 'right floated star'>
-                <i className = 'share alternate icon'> </i>
-                Del på facebook
-            </span >
+            <span className = 'star'>
+                <i className = 'share alternate icon'></i>Del på facebook
+            </span>
+          </div>
         </div>
-        </div>
-        {this.state.showOpenCard ?
-            <div className="segment openCardContent" 
-                onClick={this._hideOpenCard}
-                style={{"position": "fixed",
-                        "left": 0,
-                        "right": 0,
-                        "top": 0,
-                        "bottom": 0,
-                        "zIndex": 1000,
-                        "backgroundColor": "rgba(255,255,255,0.8)"}}>
-              <OpenMarketCard market={market}  />
-            </div>
-          : null}
       </div>
     );
   }

@@ -14,7 +14,7 @@ class LeftMenu extends Component {
     const { dispatch } = this.props;
     return (
        <div className={cx('four', 'wide', 'column', 'leftmenu')}>
-          <div className="ui list">
+          <div className="ui divided items">
          {this.props.markets.map(function(market) {
              return <MarketCard key={market.id} market={market}/>;
           })}
