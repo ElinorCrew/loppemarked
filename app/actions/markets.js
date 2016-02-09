@@ -8,6 +8,9 @@ class Markets {
   all() {
     return $.getJSON(this.baseUrl);
   }
+  geojson(){
+  	return $.getJSON(this.baseUrl + 'geojson/all');
+  }
 }
 
 export default Markets;

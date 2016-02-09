@@ -21,11 +21,11 @@ class MainContent extends Component {
 
   render() {
     return (
-            <div>
-            <LeftMenu markets={this.state.markets}/>
-            <Map markets={this.state.markets} selectedMarket={this.state.selectedMarket}/>
-            </div>
-            );
+      <div>
+      <LeftMenu markets={this.state.markets}/>
+      <Map markets={this.state.markets}/>
+      </div>
+      );
   }
 }
 
