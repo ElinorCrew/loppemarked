@@ -5,7 +5,7 @@ class Footer extends React.Component {
         return(
         <div className="ui fixed bottom sticky menu">
             <div className="right menu">
-                <a className="item">Laget av ElinorCrew</a>
+                <a className="item">Om Skattekartet</a>
             </div>
         </div>
         );
