@@ -4,6 +4,10 @@ import Footer from 'components/Footer';
 import Navigation from 'components/Navigation';
 
 class App extends Component {
+   constructor(props){
+    super(props);
+  }
+
   render() {
     return (
       <div>
