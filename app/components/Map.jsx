@@ -3,6 +3,7 @@ import MarketCard from 'components/MarketCard';
 import Markets from 'actions/markets';
 
 
+
 class Map extends React.Component {
 
   constructor(props){
@@ -29,20 +30,16 @@ class Map extends React.Component {
 
       self.map.addLayer({
         "id": "markers",
-        "type": "symbol",
+        "type": "circle",
         "source": "markers",
         "interactive": true,
-        "layout": {
-          "icon-image": "marker-15",
-          "text-field": "{title}",
-          "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-          "text-offset": [0, 0.6],
-          "text-anchor": "top"
-        }
+                'paint': {
+            'circle-radius': 12,
+            'circle-color': 'rgba(55,148,179,1)'
+        },
       });
       self.map.on('click', function (e) {
-        self.map.featuresAt(e.point, {layer: 'markers', radius: 1000, includeGeometry: true}, function (err, features) {
-        console.log(features);
+        self.map.featuresAt(e.point, {layer: 'markers', radius: 10, includeGeometry: true}, function (err, features) {
           if (err || !features.length)
             return;
 
@@ -50,8 +47,10 @@ class Map extends React.Component {
 
           new mapboxgl.Popup()
           .setLngLat(feature.geometry.coordinates)
-          .setHTML('<h1>'+feature.properties.name+'</h1><p>'+feature.properties.description+'</p>')
+          .setHTML('<h1>'+feature.properties.name+'</h1><img src="'+ feature.properties.heroImage + '"/><p>'+feature.properties.description+'</p>')
           .addTo(self.map);
+          self.map.flyTo({center: feature.geometry.coordinates});
+
         });
       });
 

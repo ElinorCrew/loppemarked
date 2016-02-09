@@ -34,7 +34,6 @@ marketApi.geojson = function(req, res, next) {
       var features = models.map(function(val){
         return val.dataValues
       });
-      console.log(features);
       var featureCollection = geojson.parse(features, {Point: ['lat','lng']});
       res.send(featureCollection);
     });

@@ -12,3 +12,7 @@
 	bottom:0; 
 	width:100%;
 }
+
+.mapboxgl-popup{
+	max-width: 420px;
+}
