@@ -7,7 +7,7 @@ render(){
     return (
       <div className="ui centered card middle" style={{"marginTop":"80px", "width": "600px"}}>
         <div className="image">
-          <img src="http://www.renas.no/_cached_files/files/yay-1487124_loppemarked.jpg.100.722.417.2012.10.15.9.19.f.2.jpg"/>
+          <img src={market.heroImage}/>
         </div>
         <div className="content">
           <a className="header">{market.name}</a>

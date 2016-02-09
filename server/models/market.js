@@ -5,6 +5,7 @@ module.exports = function (sequelize, DataTypes) {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     address: DataTypes.STRING,
+    heroImage: DataTypes.STRING,
     eventDate: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
