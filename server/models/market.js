@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     address: DataTypes.STRING,
-    heroImage: DataTypes.STRING,
+    imageSmall: DataTypes.STRING,
+    imageMedium: DataTypes.STRING,
     lat: {
       type: DataTypes.DECIMAL(10, 2),
       get: function() {
