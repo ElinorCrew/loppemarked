@@ -18,8 +18,8 @@ Market.sync({
     eventDate: '2016-02-15T18:23:33.000Z',
     imageSmall: 'http://lorempixel.com/175/145/people/1/',
     imageMedium: 'http://lorempixel.com/400/200/people/1/',
-    lat: '59.916741595387904',
-    lng: '10.728836059570312'
+    lat: '59.912869271389894',
+    lng: '10.715103149414062'
   });
   Market.create({
     name: 'Dælenenga idrettskrets loppebonanza',
@@ -28,8 +28,8 @@ Market.sync({
     eventDate: '2016-03-15T18:23:33.000Z',
     imageSmall: 'http://lorempixel.com/175/145/people/2/',
     imageMedium: 'http://lorempixel.com/400/200/people/2/',
-    lat: '59.916741595387904',
-    lng: '10.628836059570312'
+    lat: '59.9054675732672',
+    lng: '10.777931213378904'
   });
   Market.create({
     name: 'Gryners Gate velforenings kvartale gatesalg',
@@ -38,8 +38,8 @@ Market.sync({
     eventDate: '2016-05-15T18:23:33.000Z',
     imageSmall: 'http://lorempixel.com/175/145/people/3/',
     imageMedium: 'http://lorempixel.com/400/200/people/3/',
-    lat: '59.916741595387904',
-    lng: '10.228836059570312'
+    lat: '59.91975309063614',
+    lng: '10.752525329589844'
   });
   Market.create({
     name: 'Gryners Gate gatesalg',
@@ -48,8 +48,8 @@ Market.sync({
     eventDate: '2016-07-15T18:23:33.000Z',
     imageSmall: 'http://lorempixel.com/175/145/people/4/',
     imageMedium: 'http://lorempixel.com/400/200/people/4/',
-    lat: '59.916741595387904',
-    lng: '10.528836059570312'
+    lat: '59.89875297810411',
+    lng: '10.682487487792969'
   });
   Market.create({
     name: 'Gryners velforenings gatesalg',
@@ -58,8 +58,8 @@ Market.sync({
     eventDate: '2016-02-10T18:23:33.000Z',
     imageSmall: 'http://lorempixel.com/175/145/people/5/',
     imageMedium: 'http://lorempixel.com/400/200/people/5/',
-    lat: '59.916741595387904',
-    lng: '10.428836059570312'
+    lat: '59.929904118284846',
+    lng: '10.811576843261719'
   });
   Market.create({
     name: 'Gryners velforenings gatesalg',
@@ -68,7 +68,7 @@ Market.sync({
     eventDate: '2016-02-15T18:23:33.000Z',
     imageSmall: 'http://lorempixel.com/175/145/people/6/',
     imageMedium: 'http://lorempixel.com/400/200/people/6/',
-    lat: '59.916741595387904',
-    lng: '10.328836059570312'
+    lat: '59.93833227235004',
+    lng: '10.708236694335938'
   });
 });
