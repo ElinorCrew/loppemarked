@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import Route from 'react-router';
-import Navigation from 'components/Navigation';
 
 class App extends Component {
    constructor(props){
