@@ -1,6 +1,7 @@
 import React from 'react';
 import MarketCard from 'components/MarketCard';
 import Markets from 'actions/markets';
+import Search from 'components/Search';
 
 
 
@@ -96,9 +97,15 @@ class Map extends React.Component {
     this.props.selectedMarketChanged(feature.properties.id);
   }
 
+  zoomMapToSearchResult(result){
+    console.log(result);
+    this.map.flyTo({center: [result.aust, result.nord]})
+  }
+
   render() {
     return (
       <div className="fixed" id="mapContainer">
+      <Search zoomMapToSearchResult={this.zoomMapToSearchResult}/>
      <div id="map"></div>
      </div>
       );
