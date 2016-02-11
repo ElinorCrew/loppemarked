@@ -16,3 +16,7 @@
 .mapboxgl-popup{
 	max-width: 420px;
 }
+
+.selectedCard{
+	background-color: rgba(128, 128, 128, 0.09) !important;
+}

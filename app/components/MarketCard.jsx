@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import OpenMarketCard from 'components/OpenMarketCard';
+import 'scss/components/_MarketCard.scss';
 
 const ENTER_KEY_CODE = 13;
 
@@ -23,7 +24,7 @@ export default class MarketCard extends Component {
   render() {
     const {market} = this.props;
     return (
-      <div className="item" onClick={this._showOpenCard}>
+      <div className={'item ' + (market.selected ? 'selectedCard' : '')} onClick={this._showOpenCard}>
         <div className="image">
           <img src={market.imageSmall} />
         </div>

@@ -49,7 +49,7 @@ class MainContent extends Component {
     return (
       <div>
       <LeftMenu markets={this.state.markets} selectedMarketChanged={this._selectedMarketChanged}/>
-      <Map markets={this.state.markets}  selectedMarketChanged={this._selectedMarketChanged} />
+      <Map markets={this.state.markets} selectedMarketChanged={this._selectedMarketChanged} />
       </div>
     );
   }
