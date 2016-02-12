@@ -11,6 +11,7 @@ class Map extends React.Component {
     super(props);
     this.marketAction = new Markets();
     this.map = {};
+    this.popup = null;
   }
 
   createMap(geojson) {
@@ -76,30 +77,51 @@ class Map extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    this.selectWithId(nextProps.selectedMarket)
-    return false;  
+    if (nextProps.selectedMarket !== undefined && nextProps.selectedMarket.id) {
+      this.centerOnMarket(nextProps.selectedMarket)
+    }
+    return false;
   }
 
-  selectWithId(market_id){
-    if(market_id != undefined){
-      this.map.featuresIn({layer: 'markers'}, function (err, features) {
-        console.log(features);
-      })
+  centerOnMarket(market) {
+    if (this.popup) {
+      this.popup.remove();
     }
+    self = this;
+    self.map.flyTo({
+      center: [market.lng, market.lat]
+    });
+    self.map.once('moveend', function(e) {
+      self.map.featuresIn({
+        layer: 'markers',
+        radius: 10,
+        includeGeometry: true
+      }, function(err, features) {
+        if (err || !features.length) {
+          return;
+        }
+        for (var i = features.length - 1; i >= 0; i--) {
+          if (features[i].properties.id === market.id) {
+            self.selectMarketInMap(features[i])
+            break;
+          }
+        }
+      });
+    })
   }
 
   selectMarketInMap(feature) {
-    new mapboxgl.Popup()
+    this.popup = new mapboxgl.Popup()
       .setLngLat(feature.geometry.coordinates)
       .setHTML('<h1>' + feature.properties.name + '</h1><img src="' + feature.properties.imageSmall + '"/><p>' + feature.properties.description + '</p>')
       .addTo(self.map);
     this.map.panTo(feature.geometry.coordinates);
-    this.props.selectedMarketChanged(feature.properties.id);
   }
 
-  zoomMapToSearchResult(result){
-    console.log(result);
-    this.map.flyTo({center: [result.aust, result.nord]})
+  zoomMapToSearchResult(result) {
+    this.map.flyTo({
+      center: [result.aust, result.nord]
+    });
   }
 
   render() {

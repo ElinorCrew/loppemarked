@@ -10,9 +10,10 @@ class MainContent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      markets: []
+      markets: [],
     };
     this.selectedMarketId = 0;
+    this.selectedMarket = {};
     this.marketAction = new Markets();
     this._selectedMarketChanged = this._selectedMarketChanged.bind(this);
   }
@@ -24,6 +25,7 @@ class MainContent extends Component {
         markets: markets,
       });
       this.selectedMarketId = markets[0].id;
+      this.selectedMarket = markets[0];
       this._selectedMarketChanged(this.selectedMarketId);
     }.bind(this));
   }
@@ -36,6 +38,7 @@ class MainContent extends Component {
 
     if (selectedMarket != undefined) {
       markets = this.marketAction.clean(markets);
+      this.selectedMarket = selectedMarket;
       selectedMarket.selected = true;
       this.selectedMarketId = selectedMarketId;
 
@@ -49,7 +52,7 @@ class MainContent extends Component {
     return (
       <div>
       <LeftMenu markets={this.state.markets} selectedMarketChanged={this._selectedMarketChanged}/>
-      <Map markets={this.state.markets} selectedMarketChanged={this._selectedMarketChanged} />
+      <Map markets={this.state.markets} selectedMarket={this.selectedMarket} selectedMarketChanged={this._selectedMarketChanged} />
       </div>
     );
   }
