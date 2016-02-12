@@ -24,9 +24,22 @@
 .searchBox{
 	z-index: 1;
 	left: 10px;
-	top: 20px;
+	top: 7px;
 }
 
 .ui .input{
 	width: 240px;
 }
+
+.ui.menu .item:before {
+    width: 0px;
+}
+
+.ui.menu.fixed{
+    width: inherit;
+}
+
+.ui.divided.items{
+    margin-top: 50px;
+}
+

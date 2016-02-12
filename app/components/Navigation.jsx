@@ -9,10 +9,10 @@ class Navigation extends Component {
   render() {
     const { dispatch } = this.props;
     return (
-      <div className = "ui menu">
-        <Link className = "header item" to="/">Skattekartet</Link>  
+      <div className = "ui menu fixed">
+        <Link className = "header item " to="/">Skattekartet</Link>  
         <div className="ui category search right item ">
-            <div className="ui transparent icon input">
+            <div className="ui icon input">
               <input className="prompt" type="text" placeholder="Search markets..."/>
               <i className="search link icon"></i>
             </div>
