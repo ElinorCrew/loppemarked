@@ -15,6 +15,7 @@ export default class MarketCard extends Component {
   _showOpenCard() {
     this.setState({showOpenCard: true});
     this.props.selectedMarketChanged(this.props.market.id);
+    debugger;
   }
 
   _hideOpenCard() {
@@ -31,7 +32,8 @@ export default class MarketCard extends Component {
         <div className="middle aligned content">
           <a className="header">{market.name}</a>
           <div className="meta">
-            <span className="category">Om to dager, kl 18:00</span> - 
+            <span className="category">{moment(market.eventDate).calendar()}</span>
+            <br/>
             <span className="category">{market.address}</span>
           </div>
           <div className="description">
