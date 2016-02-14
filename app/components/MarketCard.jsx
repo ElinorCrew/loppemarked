@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import OpenMarketCard from 'components/OpenMarketCard';
+import moment from 'moment';
 import 'scss/components/_MarketCard.scss';
 
 const ENTER_KEY_CODE = 13;

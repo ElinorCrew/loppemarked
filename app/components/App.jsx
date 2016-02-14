@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Route from 'react-router';
+import moment from 'moment';
 
 class App extends Component {
    constructor(props){
