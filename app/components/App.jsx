@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Route from 'react-router';
+import Sidebar from 'components/Sidebar';
 
 class App extends Component {
    constructor(props){
@@ -10,7 +11,10 @@ class App extends Component {
   render() {
     return (
       <div>
+      <Sidebar />
+      <div className="pusher">
         {this.props.children}
+        </div>
       </div>
     );
   }

@@ -127,6 +127,7 @@ class Map extends React.Component {
   render() {
     return (
       <div className="fixed" id="mapContainer">
+      <div id="infoBox"><p>Naviger i kartet for å se markeder i ditt område</p></div>
       <Search zoomMapToSearchResult={this.zoomMapToSearchResult}/>
       <div id="links"><a href="https://www.facebook.com/Skattekartet-1142926499052047/"><i className="icon facebook"/></a><a href="https://www.instagram.com/skattekartet/"><i className="icon instagram"/></a><a href="https://twitter.com/skattekartet"><i className="icon twitter"/></a></div>
      <div id="map"></div>
