@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Route from 'react-router';
+import moment from 'moment';
 import Sidebar from 'components/Sidebar';
 
 class App extends Component {
