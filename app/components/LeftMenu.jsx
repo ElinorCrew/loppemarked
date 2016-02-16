@@ -16,36 +16,29 @@ class LeftMenu extends Component {
     this.marketList = this.marketList.bind(this);
   }
 
-  dateComparator(){
-      return function (m1,m2) {
-      return m1.eventDate > m2.eventDate
-    }
-  }
-
-  sortMarkets(markets){
-    if(true){ // if sort by date is true
-      return markets.sort(this.dateComparator);
-    }
+  divideMarkets(markets, divide) {
+     return _.chain(markets)
+             .groupBy(divide) 
+             .mapObject(function (markets) {
+               return _.sortBy(markets, function (market) {return moment(market.eventDate);})
+             })
+             .pairs()
+             .value();
   }
 
   marketList() {
     const { selectedMarketChanged, markets } = this.props;
-    var toList = function (list) {
-                    return Object.keys(list).map(function(key){
-                        return [key, list[key]]
-                      })
-    }
-    var yearDividedMarkets =  toList(_.chain(markets)
-                                      .sortBy(function (market) {return market.eventDate;})
-                                      .groupBy(function (market) {return moment(market.eventDate).year();})
-                                      .reverse()
-                                      .value())
+    var divideMarkets = this.divideMarkets;
+    var yearDividedMarkets = this.divideMarkets(markets, function (market) {return moment(market.eventDate).year();});
             
-    var l = _.chain(yearDividedMarkets).map(function (yearDivider) {
-                return toList(_.groupBy(yearDivider[1], function (market) {return moment(market.eventDate).month()}))})
-              .reduce(function (yearDivider1, yearDivider2) {return yearDivider1.concat(yearDivider2);},[])
-              .value();
-    return l
+    return _.chain(yearDividedMarkets)
+            .map(function (yearDivided) {
+              return divideMarkets(yearDivided[1], function (market) {return moment(market.eventDate).month()})
+            })
+            .reduce(function (yearDivider1, yearDivider2) {
+              return yearDivider1.concat(yearDivider2);
+            }, [])
+            .value();
   }
 
   render() {
