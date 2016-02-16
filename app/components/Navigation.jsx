@@ -24,10 +24,16 @@ class Navigation extends Component {
     $('.ui.dropdown').dropdown();
   }
 
+  toggleBar() {
+    $('.ui.sidebar')
+      .sidebar('toggle');
+  }
+
   render() {
     const {dispatch} = this.props;
     return (
       <div className = "ui menu fixed">
+      <i className="big sidebar icon" onClick={this.toggleBar}></i>
         <Link className = "header item " to="/">Skattekartet</Link>  
         <div className="ui category search right item searchMarket">
             <div className="ui icon input">

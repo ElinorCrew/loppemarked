@@ -39,3 +39,35 @@
     width: inherit;
 }
 
+.ui.divided.items{
+    margin-top: 50px;
+}
+
+#links{
+	    position: absolute;
+    bottom: 10px;
+    z-index: 10;
+    left: 10px;
+    background-color: rgba(255, 255, 255, 0.45);
+    border-radius: 10px;
+}
+
+#infoBox{
+	z-index: 10;
+    background-color: rgba(255, 255, 255, 0.90);
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 300px;
+    border-radius: 10px;
+    padding: 2px;
+    padding-left: 8px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.sidebar.icon{
+	padding:8px;
+	cursor: pointer; 
+}
