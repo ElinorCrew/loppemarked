@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import OpenMarketCard from 'components/OpenMarketCard';
 import moment from 'moment';
 import 'scss/components/_MarketCard.scss';
+import MarketsDispatcher from 'actions/marketDispatcher';
 
 const ENTER_KEY_CODE = 13;
 
@@ -15,7 +16,8 @@ export default class MarketCard extends Component {
 
   _showOpenCard() {
     this.setState({showOpenCard: true});
-    this.props.selectedMarketChanged(this.props.market.id);
+    MarketsDispatcher.selectedMarketChanged(this.props.market)
+    // this.props.selectedMarketChanged(this.props.market.id);
   }
 
   _hideOpenCard() {

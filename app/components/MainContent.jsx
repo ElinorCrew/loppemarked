@@ -5,6 +5,7 @@ from 'react';
 import LeftMenu from 'components/LeftMenu';
 import Map from 'components/Map';
 import Markets from 'actions/markets';
+import MarketsDispatcher from 'actions/marketDispatcher';
 
 class MainContent extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class MainContent extends Component {
     this.selectedMarket = {};
     this.marketAction = new Markets();
     this._selectedMarketChanged = this._selectedMarketChanged.bind(this);
+    MarketsDispatcher.marketChangedListeners.add(_selectedMarketChanged);
   }
 
   componentDidMount() {
@@ -51,7 +53,7 @@ class MainContent extends Component {
   render() {
     return (
       <div>
-      <LeftMenu markets={this.state.markets} selectedMarketChanged={this._selectedMarketChanged}/>
+      <LeftMenu markets={this.state.markets}/>
       <Map markets={this.state.markets} selectedMarket={this.selectedMarket} selectedMarketChanged={this._selectedMarketChanged} />
       </div>
     );

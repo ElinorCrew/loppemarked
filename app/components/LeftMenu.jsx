@@ -42,14 +42,14 @@ class LeftMenu extends Component {
   }
 
   render() {
-    const { selectedMarketChanged, markets } = this.props;
+    const {markets } = this.props;
     const dividedMarkets = this.marketList()
     return (
         <div className={cx('four', 'wide', 'column', 'leftmenu')}>
-          <Navigation markets={markets} selectedMarketChanged={selectedMarketChanged}/>
+          <Navigation markets={markets}/>
           <div className='marketList'>
           {dividedMarkets.map(function (divider) {
-              return <DividedMarketList key={divider} markets={divider[1]} divider={moment.months()[divider[0]]} selectedMarketChanged={selectedMarketChanged}/>
+              return <DividedMarketList key={divider} markets={divider[1]} divider={moment.months()[divider[0]]}/>
             })}
         </div>
         </div>
