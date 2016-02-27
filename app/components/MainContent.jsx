@@ -1,7 +1,5 @@
-import React, {
-  Component, PropTypes
-}
-from 'react';
+import React, { Component, PropTypes } from 'react';
+import _ from 'underscore';
 import LeftMenu from 'components/LeftMenu';
 import Map from 'components/Map';
 import Markets from 'actions/markets';
@@ -32,7 +30,7 @@ class MainContent extends Component {
 
   _selectedMarketChanged(selectedMarketId) {
     var markets = this.state.markets;
-    var selectedMarket = markets.find(function (market) {
+    var selectedMarket = _.find(markets, function (market) {
       return market.id === selectedMarketId
     });
 
