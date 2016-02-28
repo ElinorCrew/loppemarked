@@ -28,7 +28,7 @@ export default class MarketCard extends Component {
   render() {
     const {market} = this.props;
     return (
-      <div className={'item ' + (market.selected ? 'selectedCard' : '')} onClick={this._showOpenCard}>
+      <div className={'item marketCard ' + (market.selected ? 'selectedCard' : '')} onClick={this._showOpenCard}>
         <div className="image">
           <img src={market.imageSmall} />
         </div>

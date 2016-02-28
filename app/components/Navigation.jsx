@@ -41,13 +41,6 @@ class Navigation extends Component {
       <div className = "ui menu fixed">
       <i className="big sidebar icon" onClick={this.toggleBar}></i>
         <Link className = "header item " to="/">Skattekartet</Link>  
-        <div className="ui category search right item searchMarket">
-            <div className="ui icon input">
-              <input className="prompt" type="text" placeholder="Søk etter marked..."/>
-              <i className="search link icon"></i>
-            </div>
-            <div className="results"></div>
-        </div>
       </div>
       );
   }

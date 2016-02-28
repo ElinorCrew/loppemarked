@@ -1,7 +1,4 @@
-import React, {
-  Component, PropTypes
-}
-from 'react';
+import React, { Component, PropTypes } from 'react';
 import _ from 'underscore';
 import LeftMenu from 'components/LeftMenu';
 import Map from 'components/Map';
@@ -14,12 +11,14 @@ class MainContent extends Component {
     this.state = {
       markets: [],
     };
+    this.selectedMarketId = 0;
+    this.selectedMarket = {};
     this.marketAction = new Markets();
     this.marketDispatcher = new MarketsDispatcher();
+    this.marketDispatcher.onMarketChanged.push(this);
   }
 
   componentDidMount() {
-    this.marketDispatcher.onMarketChanged.push(this);
     this.marketAction.all().then(function (markets) {
       markets = this.marketAction.clean(markets);
       this.setState({
@@ -31,14 +30,17 @@ class MainContent extends Component {
 
   onMarketChanged(selectedMarket) {
     var markets = this.state.markets;
-    var selectedMarket = markets.find(function (market) {
-      return market.id === selectedMarket.id
-    });
-
-    if (selectedMarket != undefined) {
-      markets = this.marketAction.clean(markets);
+    if (selectedMarket === parseInt(selectedMarket, 10)) {
+      this.selectedMarket = _.find(markets, function (market) {
+        return market.id === selectedMarket
+      });
+    }else {
       this.selectedMarket = selectedMarket;
-      selectedMarket.selected = true;
+    }
+
+    if (this.selectedMarket != undefined) {
+      markets = this.marketAction.clean(markets);
+      this.selectedMarket.selected = true;
       this.selectedMarket = selectedMarket;
 
       this.setState({
@@ -49,11 +51,11 @@ class MainContent extends Component {
 
   render() {
     return (
-      <div>
-      <LeftMenu markets={this.state.markets}/>
-      <Map markets={this.state.markets}/>
-      </div>
-    );
+            <div>
+            <LeftMenu markets={this.state.markets}/>
+            <Map markets={this.state.markets}/>
+            </div>
+            );
   }
 }
 
