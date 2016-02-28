@@ -10,14 +10,14 @@ class DividedMarketList extends React.Component {
   }
 
   render() {
-    const { selectedMarketChanged, divider, markets} = this.props;
+    const { select, divider, markets} = this.props;
     return (
             <div>
               <Divider name={divider}/>
               <div className="ui divided items">
               {
                 markets.map(function (market) {
-                 return <MarketCard key={market.id} market={market} selectedMarketChanged={selectedMarketChanged}/>;
+                 return <MarketCard key={market.id} market={market}/>;
                 })
               }
               </div>

@@ -12,7 +12,7 @@ class Map extends React.Component {
     this.map = {};
     this.popup = null;
     this.marketDispatcher = new MarketsDispatcher();
-    this.marketDispatcher.onMarketChanged.push(this);
+    this.marketDispatcher.registrerOnSelected.push(this);
   }
 
   createMap(geojson) {
@@ -30,7 +30,7 @@ class Map extends React.Component {
     }));
 
     self.map.on('style.load', function() {
-      self.map.addSource("markets", {
+       self.map.addSource("markets", {
         "type": "geojson",
         "data": geojson
       });
@@ -80,7 +80,7 @@ class Map extends React.Component {
     return false;
   }
 
-  onMarketChanged(market) {
+  onMarketSelected(market) {
     if (market !== undefined && market.id) {
       this.centerOnMarket(market)
     }
@@ -106,7 +106,7 @@ class Map extends React.Component {
     .setHTML('<h1>' + feature.properties.name + '</h1><img src="' + feature.properties.imageSmall + '"/><p>' + feature.properties.description + '</p>')
     .addTo(self.map);
     this.map.panTo(feature.geometry.coordinates);
-    this.marketDispatcher.selectedMarketChanged(feature.properties.id);
+    this.marketDispatcher.select(feature.properties.id);
   }
 
   zoomMapToSearchResult(result) {

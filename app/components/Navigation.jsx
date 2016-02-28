@@ -23,7 +23,7 @@ class Navigation extends Component {
             description: ''
           },
           onSelect: function(result, response) {
-            this.marketsDispatcher.selectedMarketChanged(result);
+            this.marketsDispatcher.select(result);
           }
         });
     });

@@ -15,7 +15,7 @@ export default class MarketCard extends Component {
   _toggleOpenCard() {
     const newOpenState = !this.state.isOpen;
     this.setState({isOpen: newOpenState});
-    this.marketDispatcher.selectedMarketChanged(this.props.market)
+    this.marketDispatcher.select(this.props.market)
   }
 
   render() {

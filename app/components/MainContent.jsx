@@ -15,7 +15,7 @@ class MainContent extends Component {
     this.selectedMarket = {};
     this.marketAction = new Markets();
     this.marketDispatcher = new MarketsDispatcher();
-    this.marketDispatcher.onMarketChanged.push(this);
+    this.marketDispatcher.registrerOnSelected.push(this);
   }
 
   componentDidMount() {
@@ -24,11 +24,11 @@ class MainContent extends Component {
       this.setState({
         markets: markets,
       });
-      this.marketDispatcher.selectedMarketChanged(_.first(markets))
+      this.marketDispatcher.select(_.first(markets))
     }.bind(this));
   }
 
-  onMarketChanged(selectedMarket) {
+  onMarketSelected(selectedMarket) {
     var markets = this.state.markets;
     if (selectedMarket === parseInt(selectedMarket, 10)) {
       this.selectedMarket = _.find(markets, function (market) {

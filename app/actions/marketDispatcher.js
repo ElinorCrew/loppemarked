@@ -1,20 +1,17 @@
-var instance = null;
+var singelton = null;
 
 class MarketsDispatcher {
   constructor() {
-    // Making it a sigelton.
-    if (!instance) {
-      instance = this;
-      instance.onMarketChanged = [];
-      instance.selectedMarked = {};
+    if (!singelton) {
+      singelton = this;
+      singelton.registrerOnSelected = [];
     }
-    return instance;
+    return singelton;
   }
 
-  selectedMarketChanged(market) {
-    this.selectedMarked = market;
-    this.onMarketChanged.map(function (listener) {
-      listener.onMarketChanged(market);
+  select(market) {
+    this.registrerOnSelected.map(function (listener) {
+      listener.onMarketSelected(market);
     });
   }
 }

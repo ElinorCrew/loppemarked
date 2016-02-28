@@ -27,7 +27,7 @@ class LeftMenu extends Component {
   }
 
   marketList() {
-    const { selectedMarketChanged, markets } = this.props;
+    const { select, markets } = this.props;
     var divideMarkets = this.divideMarkets;
     var yearDividedMarkets = this.divideMarkets(markets, function (market) {return moment(market.eventDate).year();});
             
