@@ -3,8 +3,6 @@ import OpenMarketCard from 'components/OpenMarketCard';
 import moment from 'moment';
 import 'scss/components/_MarketCard.scss';
 
-const ENTER_KEY_CODE = 13;
-
 export default class MarketCard extends Component {
   constructor(props) {
     super(props);
@@ -44,6 +42,9 @@ export default class MarketCard extends Component {
             <span className = 'star'>
                 <i className = 'share alternate icon'></i>Del på facebook
             </span>
+          </div>
+          <div className="bottom aligned description">
+            <p>Dette er en test av hvordan ekstra informasjon om markeder kan representeres i en lengre tekst under kortet.</p>
           </div>
         </div>
       </div>
