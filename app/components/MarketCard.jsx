@@ -7,30 +7,26 @@ import MarketsDispatcher from 'actions/marketDispatcher';
 export default class MarketCard extends Component {
   constructor(props) {
     super(props);
-    this.state = {showOpenCard: false};
-    this._showOpenCard = this._showOpenCard.bind(this);
-    this._hideOpenCard = this._hideOpenCard.bind(this);
+    this.state = {isOpen: false};
+    this._toggleOpenCard = this._toggleOpenCard.bind(this);
     this.marketDispatcher = new MarketsDispatcher();
   }
 
-  _showOpenCard() {
-    this.setState({showOpenCard: true});
+  _toggleOpenCard() {
+    const newOpenState = !this.state.isOpen;
+    this.setState({isOpen: newOpenState});
     this.marketDispatcher.selectedMarketChanged(this.props.market)
-    // this.props.selectedMarketChanged(this.props.market.id);
-  }
-
-  _hideOpenCard() {
-    this.setState({showOpenCard: false});
   }
 
   render() {
     const {market} = this.props;
+    const isOpen = this.state.isOpen;
     return (
-      <div className={'item marketCard ' + (market.selected ? 'selectedCard' : '')} onClick={this._showOpenCard}>
+      <div className={'item link marketCard ' + (isOpen ? 'selectedCard' : '')} onClick={this._toggleOpenCard}>
         <div className="image">
           <img src={market.imageSmall} />
         </div>
-        <div className="middle aligned content">
+        <div className="top aligned content">
           <a className="header">{market.name}</a>
           <div className="meta">
             <span className="category">{moment(market.eventDate).calendar()}</span>
@@ -48,9 +44,6 @@ export default class MarketCard extends Component {
                 <i className = 'share alternate icon'></i>Del på facebook
             </span>
           </div>
-          <div className="bottom aligned description">
-            <p>Dette er en test av hvordan ekstra informasjon om markeder kan representeres i en lengre tekst under kortet.</p>
-          </div>
         </div>
       </div>
     );
@@ -59,8 +52,7 @@ export default class MarketCard extends Component {
 
 MarketCard.propTypes = {
   market: PropTypes.object,
-  showOpenCard: PropTypes.func,
-  hideOpenCard: PropTypes.func,
+  toggleOpenCard: PropTypes.func
 };
 
 
