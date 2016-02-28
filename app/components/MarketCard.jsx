@@ -12,11 +12,12 @@ export default class MarketCard extends Component {
     this.state = {showOpenCard: false};
     this._showOpenCard = this._showOpenCard.bind(this);
     this._hideOpenCard = this._hideOpenCard.bind(this);
+    this.marketDispatcher = new MarketsDispatcher();
   }
 
   _showOpenCard() {
     this.setState({showOpenCard: true});
-    MarketsDispatcher.selectedMarketChanged(this.props.market)
+    this.marketDispatcher.selectedMarketChanged(this.props.market)
     // this.props.selectedMarketChanged(this.props.market.id);
   }
 

@@ -5,6 +5,10 @@ import MarketsDispatcher from 'actions/marketDispatcher';
 
 
 class Navigation extends Component {
+  constructor(props) {
+    super(props);
+    this.marketDispatcher = new MarketsDispatcher();
+  }
 
   componentDidMount() {
     this.marketAction = new Markets();
@@ -19,7 +23,7 @@ class Navigation extends Component {
             description: ''
           },
           onSelect: function(result, response) {
-            MarketsDispatcher.selectedMarketChanged(result);
+            this.marketsDispatcher.selectedMarketChanged(result);
           }
         });
     });

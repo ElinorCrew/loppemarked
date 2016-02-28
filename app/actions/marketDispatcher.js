@@ -1,25 +1,22 @@
 var instance = null;
 
-// TODO: Finne et bra navn
 class MarketsDispatcher {
   constructor() {
     // Making it a sigelton.
     if (!instance) {
       instance = this;
-      this.marketChangedListeners = [];
-      this.selectedMarked = {};
+      instance.onMarketChanged = [];
+      instance.selectedMarked = {};
     }
-
     return instance;
   }
 
   selectedMarketChanged(market) {
     this.selectedMarked = market;
-    this.marketChangedListeners.map(function (listener) {
-      listener(market);
+    this.onMarketChanged.map(function (listener) {
+      listener.onMarketChanged(market);
     });
   }
 }
 
-export
-default MarketsDispatcher;
+export default MarketsDispatcher;

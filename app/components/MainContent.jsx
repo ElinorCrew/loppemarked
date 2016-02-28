@@ -2,6 +2,7 @@ import React, {
   Component, PropTypes
 }
 from 'react';
+import _ from 'underscore';
 import LeftMenu from 'components/LeftMenu';
 import Map from 'components/Map';
 import Markets from 'actions/markets';
@@ -13,36 +14,32 @@ class MainContent extends Component {
     this.state = {
       markets: [],
     };
-    this.selectedMarketId = 0;
-    this.selectedMarket = {};
     this.marketAction = new Markets();
-    this._selectedMarketChanged = this._selectedMarketChanged.bind(this);
-    MarketsDispatcher.marketChangedListeners.add(_selectedMarketChanged);
+    this.marketDispatcher = new MarketsDispatcher();
   }
 
   componentDidMount() {
+    this.marketDispatcher.onMarketChanged.push(this);
     this.marketAction.all().then(function (markets) {
       markets = this.marketAction.clean(markets);
       this.setState({
         markets: markets,
       });
-      this.selectedMarketId = markets[0].id;
-      this.selectedMarket = markets[0];
-      this._selectedMarketChanged(this.selectedMarketId);
+      this.marketDispatcher.selectedMarketChanged(_.first(markets))
     }.bind(this));
   }
 
-  _selectedMarketChanged(selectedMarketId) {
+  onMarketChanged(selectedMarket) {
     var markets = this.state.markets;
     var selectedMarket = markets.find(function (market) {
-      return market.id === selectedMarketId
+      return market.id === selectedMarket.id
     });
 
     if (selectedMarket != undefined) {
       markets = this.marketAction.clean(markets);
       this.selectedMarket = selectedMarket;
       selectedMarket.selected = true;
-      this.selectedMarketId = selectedMarketId;
+      this.selectedMarket = selectedMarket;
 
       this.setState({
         markets: markets
@@ -54,7 +51,7 @@ class MainContent extends Component {
     return (
       <div>
       <LeftMenu markets={this.state.markets}/>
-      <Map markets={this.state.markets} selectedMarket={this.selectedMarket} selectedMarketChanged={this._selectedMarketChanged} />
+      <Map markets={this.state.markets}/>
       </div>
     );
   }

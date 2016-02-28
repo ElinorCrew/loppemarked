@@ -2,6 +2,7 @@ import React from 'react';
 import MarketCard from 'components/MarketCard';
 import Markets from 'actions/markets';
 import Search from 'components/Search';
+import MarketsDispatcher from 'actions/marketDispatcher';
 
 
 
@@ -9,9 +10,11 @@ class Map extends React.Component {
 
   constructor(props) {
     super(props);
+    self = this;
     this.marketAction = new Markets();
     this.map = {};
     this.popup = null;
+    this.marketDispatcher = new MarketsDispatcher();
   }
 
   createMap(geojson) {
@@ -74,20 +77,23 @@ class Map extends React.Component {
 
   componentDidMount() {
     this.marketAction.geojson().then($.proxy(this.createMap, this));
+    this.marketDispatcher.onMarketChanged.push(this);
+  }
+
+  onMarketChanged(market) {
+    if (market !== undefined && market.id) {
+      this.centerOnMarket(market);
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.selectedMarket !== undefined && nextProps.selectedMarket.id) {
-      this.centerOnMarket(nextProps.selectedMarket)
-    }
     return false;
   }
 
   centerOnMarket(market) {
-    if (this.popup) {
-      this.popup.remove();
+    if (self.popup) {
+      self.popup.remove();
     }
-    self = this;
     self.map.flyTo({
       center: [market.lng, market.lat]
     });
@@ -112,9 +118,9 @@ class Map extends React.Component {
 
   selectMarketInMap(feature) {
     this.popup = new mapboxgl.Popup()
-      .setLngLat(feature.geometry.coordinates)
-      .setHTML('<h1>' + feature.properties.name + '</h1><img src="' + feature.properties.imageSmall + '"/><p>' + feature.properties.description + '</p>')
-      .addTo(self.map);
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('<h1>' + feature.properties.name + '</h1><img src="' + feature.properties.imageSmall + '"/><p>' + feature.properties.description + '</p>')
+    .addTo(self.map);
     this.map.panTo(feature.geometry.coordinates);
   }
 
@@ -126,13 +132,13 @@ class Map extends React.Component {
 
   render() {
     return (
-      <div className="fixed" id="mapContainer">
-      <div id="infoBox"><p>Naviger i kartet for å se markeder i ditt område</p></div>
-      <Search zoomMapToSearchResult={this.zoomMapToSearchResult}/>
-      <div id="links"><a href="https://www.facebook.com/Skattekartet-1142926499052047/"><i className="icon facebook"/></a><a href="https://www.instagram.com/skattekartet/"><i className="icon instagram"/></a><a href="https://twitter.com/skattekartet"><i className="icon twitter"/></a></div>
-     <div id="map"></div>
-     </div>
-      );
+            <div className="fixed" id="mapContainer">
+            <div id="infoBox"><p>Naviger i kartet for å se markeder i ditt område</p></div>
+            <Search zoomMapToSearchResult={this.zoomMapToSearchResult}/>
+            <div id="links"><a href="https://www.facebook.com/Skattekartet-1142926499052047/"><i className="icon facebook"/></a><a href="https://www.instagram.com/skattekartet/"><i className="icon instagram"/></a><a href="https://twitter.com/skattekartet"><i className="icon twitter"/></a></div>
+            <div id="map"></div>
+            </div>
+            );
   }
 }
 
