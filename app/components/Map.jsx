@@ -29,15 +29,15 @@ class Map extends React.Component {
     }));
 
     self.map.on('style.load', function() {
-      self.map.addSource("markers", {
+      self.map.addSource("markets", {
         "type": "geojson",
         "data": geojson
       });
 
       self.map.addLayer({
-        "id": "markers",
+        "id": "markets",
         "type": "circle",
-        "source": "markers",
+        "source": "markets",
         "interactive": true,
         'paint': {
           'circle-radius': 12,
@@ -48,7 +48,7 @@ class Map extends React.Component {
 
     self.map.on('click', function(e) {
       self.map.featuresAt(e.point, {
-        layer: 'markers',
+        layer: 'markets',
         radius: 10,
         includeGeometry: true
       }, function(err, features) {
@@ -59,13 +59,12 @@ class Map extends React.Component {
         self.selectMarketInMap(feature)
       });
     });
-
-    // Use the same approach as above to indicate that the symbols are clickable
-    // by changing the cursor style to 'pointer'.
+    
     self.map.on('mousemove', function(e) {
       self.map.featuresAt(e.point, {
-        layer: 'markers',
-        radius: 10
+        layer: 'markets',
+        radius: 10,
+        includeGeometry: false
       }, function(err, features) {
         self.map.getCanvas().style.cursor = (!err && features.length) ? 'pointer' : '';
       });
@@ -84,38 +83,26 @@ class Map extends React.Component {
   }
 
   centerOnMarket(market) {
-    if (this.popup) {
+    if (this.popup && this.popup._container.parentNode) {
       this.popup.remove();
     }
     self = this;
     self.map.flyTo({
       center: [market.lng, market.lat]
     });
-    self.map.once('moveend', function(e) {
-      self.map.featuresIn({
-        layer: 'markers',
-        radius: 10,
-        includeGeometry: true
-      }, function(err, features) {
-        if (err || !features.length) {
-          return;
-        }
-        for (var i = features.length - 1; i >= 0; i--) {
-          if (features[i].properties.id === market.id) {
-            self.selectMarketInMap(features[i])
-            break;
-          }
-        }
-      });
-    })
+    this.popup = new mapboxgl.Popup()
+    .setLngLat([market.lng, market.lat])
+    .setHTML('<h1>' + market.name + '</h1><img src="' + market.imageSmall + '"/><p>' + market.description + '</p>')
+    .addTo(self.map);
   }
 
   selectMarketInMap(feature) {
     this.popup = new mapboxgl.Popup()
-      .setLngLat(feature.geometry.coordinates)
-      .setHTML('<h1>' + feature.properties.name + '</h1><img src="' + feature.properties.imageSmall + '"/><p>' + feature.properties.description + '</p>')
-      .addTo(self.map);
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('<h1>' + feature.properties.name + '</h1><img src="' + feature.properties.imageSmall + '"/><p>' + feature.properties.description + '</p>')
+    .addTo(self.map);
     this.map.panTo(feature.geometry.coordinates);
+    this.props.selectedMarketChanged(feature.properties.id);
   }
 
   zoomMapToSearchResult(result) {
@@ -127,11 +114,10 @@ class Map extends React.Component {
   render() {
     return (
       <div className="fixed" id="mapContainer">
-      <div id="infoBox"><p>Naviger i kartet for å se markeder i ditt område</p></div>
       <Search zoomMapToSearchResult={this.zoomMapToSearchResult}/>
       <div id="links"><a href="https://www.facebook.com/Skattekartet-1142926499052047/"><i className="icon facebook"/></a><a href="https://www.instagram.com/skattekartet/"><i className="icon instagram"/></a><a href="https://twitter.com/skattekartet"><i className="icon twitter"/></a></div>
-     <div id="map"></div>
-     </div>
+      <div id="map"></div>
+      </div>
       );
   }
 }
