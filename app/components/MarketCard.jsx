@@ -2,30 +2,35 @@ import React, { Component, PropTypes } from 'react';
 import OpenMarketCard from 'components/OpenMarketCard';
 import moment from 'moment';
 import 'scss/components/_MarketCard.scss';
+import MarketsDispatcher from 'actions/marketDispatcher';
 
 export default class MarketCard extends Component {
   constructor(props) {
     super(props);
-    this.state = {isOpen: false};
-    this._toggleOpenCard = this._toggleOpenCard.bind(this);
+    this.state = {showOpenCard: false};
+    this._showOpenCard = this._showOpenCard.bind(this);
+    this._hideOpenCard = this._hideOpenCard.bind(this);
+    this.marketDispatcher = new MarketsDispatcher();
   }
 
-  _toggleOpenCard() {
-    const newState = !this.state.isOpen;
+  _showOpenCard() {
+    this.setState({showOpenCard: true});
+    this.marketDispatcher.selectedMarketChanged(this.props.market)
+    // this.props.selectedMarketChanged(this.props.market.id);
+  }
 
-    this.setState({isOpen: newState});
-    this.props.selectedMarketChanged(this.props.market.id);
+  _hideOpenCard() {
+    this.setState({showOpenCard: false});
   }
 
   render() {
     const {market} = this.props;
-    const isOpen = this.state.isOpen;
     return (
-      <div className={'item marketCard ' + (isOpen ? 'selectedCard' : '')} onClick={this._toggleOpenCard}>
+      <div className={'item marketCard ' + (market.selected ? 'selectedCard' : '')} onClick={this._showOpenCard}>
         <div className="image">
           <img src={market.imageSmall} />
         </div>
-        <div className="top aligned content">
+        <div className="middle aligned content">
           <a className="header">{market.name}</a>
           <div className="meta">
             <span className="category">{moment(market.eventDate).calendar()}</span>
@@ -54,5 +59,8 @@ export default class MarketCard extends Component {
 
 MarketCard.propTypes = {
   market: PropTypes.object,
-  toggleOpenCard: PropTypes.func
+  showOpenCard: PropTypes.func,
+  hideOpenCard: PropTypes.func,
 };
+
+

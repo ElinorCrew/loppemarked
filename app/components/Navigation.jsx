@@ -1,8 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import Markets from 'actions/markets';
+import MarketsDispatcher from 'actions/marketDispatcher';
+
 
 class Navigation extends Component {
+  constructor(props) {
+    super(props);
+    this.marketDispatcher = new MarketsDispatcher();
+  }
 
   componentDidMount() {
     this.marketAction = new Markets();
@@ -17,7 +23,7 @@ class Navigation extends Component {
             description: ''
           },
           onSelect: function(result, response) {
-            self.props.selectedMarketChanged(result.id);
+            this.marketsDispatcher.selectedMarketChanged(result);
           }
         });
     });

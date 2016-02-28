@@ -3,6 +3,7 @@ import _ from 'underscore';
 import LeftMenu from 'components/LeftMenu';
 import Map from 'components/Map';
 import Markets from 'actions/markets';
+import MarketsDispatcher from 'actions/marketDispatcher';
 
 class MainContent extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class MainContent extends Component {
     this.selectedMarketId = 0;
     this.selectedMarket = {};
     this.marketAction = new Markets();
-    this._selectedMarketChanged = this._selectedMarketChanged.bind(this);
+    this.marketDispatcher = new MarketsDispatcher();
+    this.marketDispatcher.onMarketChanged.push(this);
   }
 
   componentDidMount() {
@@ -22,34 +24,24 @@ class MainContent extends Component {
       this.setState({
         markets: markets,
       });
-      var nextMarket = this.getNextMarket(markets);
-      this.selectedMarketId = nextMarket.id;
-      this.selectedMarket = nextMarket;
-      this._selectedMarketChanged(this.selectedMarketId);
+      this.marketDispatcher.selectedMarketChanged(_.first(markets))
     }.bind(this));
   }
 
-  getNextMarket(markets){
-    var market = markets[0];
-    for (var i = markets.length - 1; i >= 0; i--) {
-      if(markets[i].eventDate < market.eventDate){
-        market = markets[i]
-      }
-    }
-    return market;
-  }
-
-  _selectedMarketChanged(selectedMarketId) {
+  onMarketChanged(selectedMarket) {
     var markets = this.state.markets;
-    var selectedMarket = _.find(markets, function (market) {
-      return market.id === selectedMarketId
-    });
-
-    if (selectedMarket != undefined) {
-      markets = this.marketAction.clean(markets);
+    if (selectedMarket === parseInt(selectedMarket, 10)) {
+      this.selectedMarket = _.find(markets, function (market) {
+        return market.id === selectedMarket
+      });
+    }else {
       this.selectedMarket = selectedMarket;
-      selectedMarket.selected = true;
-      this.selectedMarketId = selectedMarketId;
+    }
+
+    if (this.selectedMarket != undefined) {
+      markets = this.marketAction.clean(markets);
+      this.selectedMarket.selected = true;
+      this.selectedMarket = selectedMarket;
 
       this.setState({
         markets: markets
@@ -59,11 +51,11 @@ class MainContent extends Component {
 
   render() {
     return (
-      <div>
-      <LeftMenu markets={this.state.markets} selectedMarketChanged={this._selectedMarketChanged}/>
-      <Map markets={this.state.markets} selectedMarket={this.selectedMarket} selectedMarketChanged={this._selectedMarketChanged.bind(this)} />
-      </div>
-    );
+            <div>
+            <LeftMenu markets={this.state.markets}/>
+            <Map markets={this.state.markets}/>
+            </div>
+            );
   }
 }
 
