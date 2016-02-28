@@ -22,10 +22,21 @@ class MainContent extends Component {
       this.setState({
         markets: markets,
       });
-      this.selectedMarketId = markets[0].id;
-      this.selectedMarket = markets[0];
+      var nextMarket = this.getNextMarket(markets);
+      this.selectedMarketId = nextMarket.id;
+      this.selectedMarket = nextMarket;
       this._selectedMarketChanged(this.selectedMarketId);
     }.bind(this));
+  }
+
+  getNextMarket(markets){
+    var market = markets[0];
+    for (var i = markets.length - 1; i >= 0; i--) {
+      if(markets[i].eventDate < market.eventDate){
+        market = markets[i]
+      }
+    }
+    return market;
   }
 
   _selectedMarketChanged(selectedMarketId) {

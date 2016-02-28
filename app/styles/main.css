@@ -18,13 +18,23 @@
 }
 
 .selectedCard{
-	background-color: rgba(128, 128, 128, 0.09) !important;
+	// background-color: rgba(128, 128, 128, 0.09) !important;
+	height: 350px !important;
+}
+
+.marketCard{
+	height: 180px;
+	transition: height 0.5s!important;
+    -moz-transition: height 0.5s !important; /* Firefox 4 */
+    -webkit-transition: height 0.5s !important; /* Safari and Chrome */
+    -o-transition: height 0.5s !important; /* Opera */
 }
 
 .searchBox{
 	z-index: 1;
 	left: 10px;
 	top: 7px;
+	width: 240px;
 }
 
 .ui .input{
