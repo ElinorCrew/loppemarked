@@ -77,3 +77,11 @@
 	padding:8px;
 	cursor: pointer; 
 }
+
+#sidebarButton{
+	z-index: 1;
+    position: fixed;
+    right: 10px;
+    top: 10px;
+}
+}

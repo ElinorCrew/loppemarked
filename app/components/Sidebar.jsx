@@ -8,7 +8,7 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <div className="ui left demo vertical sidebar labeled icon menu">
+      <div className="ui right demo vertical sidebar labeled icon menu">
   <a className="item">
     <i className="add circle icon"></i>
     Registrer marked

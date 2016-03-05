@@ -49,9 +49,17 @@ class MainContent extends Component {
     }
   }
 
+    toggleBar() {
+    $('.ui.sidebar')
+      .sidebar('toggle');
+  }
+
   render() {
     return (
             <div>
+            <button id="sidebarButton" className="yellow circular big ui icon button" onClick={this.toggleBar}>
+              <i className="ellipsis vertical icon"></i>
+            </button>
             <LeftMenu markets={this.state.markets}/>
             <Map markets={this.state.markets}/>
             </div>
