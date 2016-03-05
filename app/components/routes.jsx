@@ -3,12 +3,13 @@ import Route from 'react-router';
 
 import MainContent from 'components/MainContent';
 import App from 'components/App';
-import CreateNewMarket from 'components/CreateNewMarket';
+import LandingPage from 'components/LandingPage';
+// import CreateNewMarket from 'components/CreateNewMarket';
 
 
 export default (
   <Route component={App}>
-    <Route path="/" component={MainContent} />
-    <Route path="newmarket" component={CreateNewMarket} />
+  <Route path="/" component={LandingPage} />
+    <Route path="/home" component={MainContent} />
   </Route>
 );
