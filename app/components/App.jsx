@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <div>
       <Sidebar />
-      <div className="pusher">
+      <div >
         {this.props.children}
         </div>
       </div>
