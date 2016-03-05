@@ -13,6 +13,7 @@ class Map extends React.Component {
     this.popup = null;
     this.marketDispatcher = new MarketsDispatcher();
     this.marketDispatcher.registrerOnSelected.push(this);
+    this.marketDispatcher.registrerOnHover.push(this);
   }
 
   createMap(geojson) {
@@ -30,22 +31,34 @@ class Map extends React.Component {
     }));
 
     self.map.on('style.load', function() {
-       self.map.addSource("markets", {
-        "type": "geojson",
-        "data": geojson
-      });
-
-      self.map.addLayer({
-        "id": "markets",
-        "type": "circle",
-        "source": "markets",
-        "interactive": true,
-        'paint': {
-          'circle-radius': 12,
-          'circle-color': 'rgba(55,148,179,1)'
-        },
-      });
+     self.map.addSource("markets", {
+      "type": "geojson",
+      "data": geojson
     });
+
+     self.map.addLayer({
+      "id": "markets",
+      "type": "circle",
+      "source": "markets",
+      "interactive": true,
+      'paint': {
+        'circle-radius': 12,
+        'circle-color': 'rgba(55,148,179,1)'
+      },
+    });
+
+     self.map.addLayer({
+      "id": "market-hover",
+      "type": "circle",
+      "source": "markets",
+      "interactive": true,
+      'paint': {
+        'circle-radius': 15,
+        'circle-color': 'rgba(55,148,179,1)'
+      },
+      "filter": ["==", "id", ""]
+    });
+   });
 
     self.map.on('click', function(e) {
       self.map.featuresAt(e.point, {
@@ -61,15 +74,37 @@ class Map extends React.Component {
       });
     });
     
+    self.setHoveredMarket.bind(this);
     self.map.on('mousemove', function(e) {
       self.map.featuresAt(e.point, {
         layer: 'markets',
         radius: 10,
         includeGeometry: false
       }, function(err, features) {
-        self.map.getCanvas().style.cursor = (!err && features.length) ? 'pointer' : '';
+        if (!err && features.length) {
+          self.setHoveredMarket(features[0].properties.id);
+          self.map.getCanvas().style.cursor = "pointer";
+        } else {
+          self.map.getCanvas().style.cursor = "";
+          self.setHoveredMarket("");
+        }
       });
     });
+  }
+
+  setHoveredMarket(marketId) {
+    if (!this.map.setFilter) {return;}
+    marketId = marketId || ""; 
+    
+    this.map.setFilter("market-hover", ["==", "id", marketId]);
+  }
+
+  onMarketHover (market) {
+    if (market && market.id) {
+      this.setHoveredMarket(market.id);
+    }else{
+      this.setHoveredMarket(market);
+    }
   }
 
   componentDidMount() {

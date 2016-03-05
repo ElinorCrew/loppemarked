@@ -7,6 +7,8 @@ import OpenMarketCard from 'components/OpenMarketCard';
 import Navigation from 'components/Navigation';
 import classNames from 'classnames/bind';
 import styles from 'scss/components/_leftmenu';
+import MarketsDispatcher from 'actions/marketDispatcher';
+
 
 const cx = classNames.bind(styles);
 
@@ -14,6 +16,8 @@ class LeftMenu extends Component {
   constructor(props){
     super(props);
     this.marketList = this.marketList.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
+    this.marketDispatcher = new MarketsDispatcher();
   }
 
   divideMarkets(markets, divide) {
@@ -41,13 +45,17 @@ class LeftMenu extends Component {
             .value();
   }
 
+  onMouseOut(){
+    this.marketDispatcher.fireOnHover();
+  }
+
   render() {
     const {markets } = this.props;
     const dividedMarkets = this.marketList()
     return (
         <div className={cx('four', 'wide', 'column', 'leftmenu')}>
           <Navigation markets={markets}/>
-          <div className='marketList'>
+          <div className='marketList' onMouseOut={this.onMouseOut}>
           {dividedMarkets.map(function (divider) {
               return <DividedMarketList key={divider} markets={divider[1]} divider={moment.months()[divider[0]]}/>
             })}
