@@ -1,11 +1,15 @@
 import React, { Component, PropTypes } from 'react';
+import {Router, Link, } from 'react-router';
 
 class LandingPage extends Component {
 
     componentDidMount() {
     $('.ui.dropdown')
-  .dropdown()
-;
+  .dropdown({
+      onChange: function(){
+        debugger;
+      }
+    });
   }
 
   render() {
