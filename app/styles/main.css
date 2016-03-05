@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Amatic+SC);
+@import url(https://fonts.googleapis.com/css?family=Josefin+Sans);
 
 #mapContainer{
   position: fixed;
@@ -102,6 +103,12 @@
   align-items: center;
 }
 
+#landingBackground button{
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+}
+
 #headingBox{
 	color: white;
 	text-align: center;
@@ -110,4 +117,9 @@
 #headingBox h1{
 	font-family: 'Amatic SC', cursive;
 	font-size: 8em;
+}
+
+#headingBox h3{
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 2em;
 }

@@ -24,6 +24,9 @@ class LandingPage extends Component {
   </div>
 </div>
       </div>
+      <button className="circular ui icon button yellow">
+  <i className="icon info"></i>
+</button>
       </div>
     );
   }
