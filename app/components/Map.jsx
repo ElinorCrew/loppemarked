@@ -30,22 +30,34 @@ class Map extends React.Component {
     }));
 
     self.map.on('style.load', function() {
-       self.map.addSource("markets", {
-        "type": "geojson",
-        "data": geojson
-      });
-
-      self.map.addLayer({
-        "id": "markets",
-        "type": "circle",
-        "source": "markets",
-        "interactive": true,
-        'paint': {
-          'circle-radius': 12,
-          'circle-color': 'rgba(55,148,179,1)'
-        },
-      });
+     self.map.addSource("markets", {
+      "type": "geojson",
+      "data": geojson
     });
+
+     self.map.addLayer({
+      "id": "markets",
+      "type": "circle",
+      "source": "markets",
+      "interactive": true,
+      'paint': {
+        'circle-radius': 12,
+        'circle-color': 'rgba(55,148,179,1)'
+      },
+    });
+
+     self.map.addLayer({
+      "id": "market-hover",
+      "type": "circle",
+      "source": "markets",
+      "interactive": true,
+      'paint': {
+        'circle-radius': 15,
+        'circle-color': 'rgba(55,148,179,1)'
+      },
+      "filter": ["==", "id", ""]
+    });
+   });
 
     self.map.on('click', function(e) {
       self.map.featuresAt(e.point, {
@@ -67,9 +79,20 @@ class Map extends React.Component {
         radius: 10,
         includeGeometry: false
       }, function(err, features) {
-        self.map.getCanvas().style.cursor = (!err && features.length) ? 'pointer' : '';
+        if (!err && features.length) {
+          self.setHoveredMarket(features[0].properties.id);
+          self.map.getCanvas().style.cursor = "pointer";
+        } else {
+          self.map.getCanvas().style.cursor = "";
+          self.setHoveredMarket("");
+        }
       });
     });
+  }
+
+  updateMarkethoverFilter(marketId) {
+    marketId = marketId || ""; 
+    this.map.setFilter("route-hover", ["==", "id", marketId]);
   }
 
   componentDidMount() {
