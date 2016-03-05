@@ -5,6 +5,7 @@ class MarketsDispatcher {
     if (!singelton) {
       singelton = this;
       singelton.registrerOnSelected = [];
+      singelton.registrerOnHover = [];
     }
     return singelton;
   }
@@ -12,6 +13,12 @@ class MarketsDispatcher {
   select(market) {
     this.registrerOnSelected.map(function (listener) {
       listener.onMarketSelected(market);
+    });
+  }
+
+  fireOnHover(market) {
+    this.registrerOnHover.map(function (listener) {
+      listener.onMarketHover(market);
     });
   }
 }

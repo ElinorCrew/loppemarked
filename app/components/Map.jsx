@@ -13,6 +13,7 @@ class Map extends React.Component {
     this.popup = null;
     this.marketDispatcher = new MarketsDispatcher();
     this.marketDispatcher.registrerOnSelected.push(this);
+    this.marketDispatcher.registrerOnHover.push(this);
   }
 
   createMap(geojson) {
@@ -73,6 +74,7 @@ class Map extends React.Component {
       });
     });
     
+    self.setHoveredMarket.bind(this);
     self.map.on('mousemove', function(e) {
       self.map.featuresAt(e.point, {
         layer: 'markets',
@@ -90,9 +92,19 @@ class Map extends React.Component {
     });
   }
 
-  updateMarkethoverFilter(marketId) {
+  setHoveredMarket(marketId) {
+    if (!this.map.setFilter) {return;}
     marketId = marketId || ""; 
-    this.map.setFilter("route-hover", ["==", "id", marketId]);
+    
+    this.map.setFilter("market-hover", ["==", "id", marketId]);
+  }
+
+  onMarketHover (market) {
+    if (market && market.id) {
+      this.setHoveredMarket(market.id);
+    }else{
+      this.setHoveredMarket(market);
+    }
   }
 
   componentDidMount() {

@@ -9,6 +9,7 @@ export default class MarketCard extends Component {
     super(props);
     this.state = {isOpen: false};
     this._toggleOpenCard = this._toggleOpenCard.bind(this);
+    this._onMouseOver = this._onMouseOver.bind(this);
     this.marketDispatcher = new MarketsDispatcher();
   }
 
@@ -18,11 +19,15 @@ export default class MarketCard extends Component {
     this.marketDispatcher.select(this.props.market)
   }
 
+  _onMouseOver(){
+    this.marketDispatcher.fireOnHover(this.props.market);
+  }
+
   render() {
     const {market} = this.props;
-    const isOpen = this.state.isOpen;
+    const {isOpen} = this.state;
     return (
-      <div className={'item link marketCard ' + (isOpen ? 'selectedCard' : '')} onClick={this._toggleOpenCard}>
+      <div className={'item link marketCard ' + (isOpen ? 'selectedCard' : '')} onClick={this._toggleOpenCard} onMouseOver={this._onMouseOver}>
         <div className="image">
           <img src={market.imageSmall} />
         </div>
