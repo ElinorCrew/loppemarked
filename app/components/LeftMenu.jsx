@@ -7,7 +7,7 @@ import OpenMarketCard from 'components/OpenMarketCard';
 import Navigation from 'components/Navigation';
 import classNames from 'classnames/bind';
 import styles from 'scss/components/_leftmenu';
-import MarketsDispatcher from 'actions/marketDispatcher';
+import MarketsDispatcher from 'dispatchers/marketDispatcher';
 
 
 const cx = classNames.bind(styles);

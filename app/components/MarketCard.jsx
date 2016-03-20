@@ -32,7 +32,7 @@ export default class MarketCard extends Component {
           <img src={market.imageSmall} />
         </div>
         <div className="top aligned content">
-          <a className="header">{market.name}</a>
+          <a className="header">{market.name + (market.selected ? '  ###Denne er valgt###' : '')}</a>
           <div className="meta">
             <span className="category">{moment(market.eventDate).calendar()}</span>
             <br/>

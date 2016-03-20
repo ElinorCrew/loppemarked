@@ -2,6 +2,7 @@
   "name": "SkatteKartet",
   "private": true,
   "devDependencies": {
+    "flux": "^2.1.1",
     "sqlite3": "^3.1.1",
     "webpack-dev-server": "^1.14.0",
     "webpack-hot-middleware": "^2.6.0"

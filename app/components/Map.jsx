@@ -2,7 +2,7 @@ import React from 'react';
 import MarketCard from 'components/MarketCard';
 import Markets from 'actions/markets';
 import Search from 'components/Search';
-import MarketsDispatcher from 'actions/marketDispatcher';
+import MarketsDispatcher from 'dispatchers/marketDispatcher';
 
 class Map extends React.Component {
 
