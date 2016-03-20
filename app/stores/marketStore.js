@@ -1,10 +1,10 @@
 'use strict';
 import $ from 'jquery';
 import _ from 'underscore';
+import Events from 'events';
 
 import MarketDispatcher from '../dispatchers/marketDispatcher';
 import MarketConstants from '../constants/marketConstants';
-import Events from 'events';
 
 const CHANGE_EVENT = 'change';
 
@@ -22,7 +22,7 @@ class MarketStore extends Events.EventEmitter {
     $.getJSON(this.baseUrl).then(function(data) {
       this.markets = this.clean(data);
       this.emitChange();
-    }.bind(this))
+    }.bind(this));
   }
 
   clean(markets) {
@@ -91,7 +91,6 @@ class MarketStore extends Events.EventEmitter {
   isInt(n) {
     return Number(n) === n && n % 1 === 0;
   }
-
 }
 
 export
