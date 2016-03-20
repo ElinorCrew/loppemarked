@@ -18,7 +18,6 @@ class MainContent extends Component {
     this.selectedMarket = {};
   }
 
-
   componentDidMount() {
     MarketStore.addChangeListener(this.onChange.bind(this));
   }

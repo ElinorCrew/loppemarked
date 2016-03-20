@@ -21,7 +21,7 @@ class MarketStore extends Events.EventEmitter {
   refreshCashe() {
     $.getJSON(this.baseUrl).then(function(data) {
       this.markets = this.clean(data);
-        this.emitChange();
+      this.emitChange();
     }.bind(this))
   }
 
@@ -33,7 +33,6 @@ class MarketStore extends Events.EventEmitter {
   }
 
   handleAction(payload) {
-    debugger;
     const action = payload.action;
     let id = -1;
 
@@ -42,7 +41,7 @@ class MarketStore extends Events.EventEmitter {
       case MarketConstants.MARKET_SELECT:
 
         id = action.id;
-        if (id === -1 || !isInt(id)) {
+        if (id === -1 || !this.isInt(id)) {
           break;
         }
 
@@ -56,9 +55,6 @@ class MarketStore extends Events.EventEmitter {
     return true; // No errors. Needed by promise in Dispatcher.
   }
 
-  /**
-   * Select a market item
-   */
   select(id) {
     this.markets = _(this.markets).map(function(market) {
       if (market.id === id) {
@@ -70,27 +66,24 @@ class MarketStore extends Events.EventEmitter {
     });
   }
 
-  /**
-   * Get the entire collection of Markets.
-   */
   getAll() {
     return this.markets;
+  }
+
+  getSelected() {
+    return _(this.markets).find(function(market) {
+      return market.selected;
+    });
   }
 
   emitChange() {
     this.emit(CHANGE_EVENT);
   }
 
-  /**
-   * @param {function} callback
-   */
   addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
   }
 
-  /**
-   * @param {function} callback
-   */
   removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   }

@@ -9,7 +9,6 @@ class MarketDispatcher extends Flux.Dispatcher {
    * @param  {object} action The data coming from the view.
    */
     handleViewAction(action) {
-
         this.dispatch({
             source: 'VIEW_ACTION',
             action: action

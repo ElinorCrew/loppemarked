@@ -45,7 +45,7 @@ class LeftMenu extends Component {
   }
 
   onMouseOut(){
-    MarketsDispatcher.fireOnHover();
+    // MarketsDispatcher.fireOnHover();
   }
 
   render() {

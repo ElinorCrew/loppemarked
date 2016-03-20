@@ -7,7 +7,6 @@ class LandingPage extends Component {
     $('.ui.dropdown')
   .dropdown({
       onChange: function(){
-        debugger;
       }
     });
   }

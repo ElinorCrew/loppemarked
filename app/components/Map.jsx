@@ -2,17 +2,35 @@ import React from 'react';
 import MarketCard from 'components/MarketCard';
 import Markets from 'actions/markets';
 import Search from 'components/Search';
-import MarketsDispatcher from 'dispatchers/marketDispatcher';
+import MarketActions from 'actions/marketActions';
+import MarketStore from 'stores/marketStore';
 
 class Map extends React.Component {
 
   constructor(props) {
     super(props);
-    this.marketAction = new Markets();
+    this.markets = new Markets();
     this.map = {};
     this.popup = null;
-    // MarketsDispatcher.registrerOnSelected.push(this);
-    // MarketsDispatcher.registrerOnHover.push(this);
+  }
+
+  componentDidMount() {
+    this.markets.geojson().then($.proxy(this.createMap, this));
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return false;
+  }
+
+  componentWillUnmount() {
+    MarketStore.removeChangeListener(this.onChange.bind(this));
+  }
+
+  onChange() {
+    let selectedMarket = MarketStore.getSelected();
+    if (selectedMarket !== undefined && selectedMarket.id) {
+      this.centerOnMarket(selectedMarket)
+    }
   }
 
   createMap(geojson) {
@@ -30,34 +48,34 @@ class Map extends React.Component {
     }));
 
     self.map.on('style.load', function() {
-     self.map.addSource("markets", {
-      "type": "geojson",
-      "data": geojson
-    });
+      self.map.addSource("markets", {
+        "type": "geojson",
+        "data": geojson
+      });
 
-     self.map.addLayer({
-      "id": "markets",
-      "type": "circle",
-      "source": "markets",
-      "interactive": true,
-      'paint': {
-        'circle-radius': 12,
-        'circle-color': 'rgba(55,148,179,1)'
-      },
-    });
+      self.map.addLayer({
+        "id": "markets",
+        "type": "circle",
+        "source": "markets",
+        "interactive": true,
+        'paint': {
+          'circle-radius': 12,
+          'circle-color': 'rgba(55,148,179,1)'
+        },
+      });
 
-     self.map.addLayer({
-      "id": "market-hover",
-      "type": "circle",
-      "source": "markets",
-      "interactive": true,
-      'paint': {
-        'circle-radius': 15,
-        'circle-color': 'rgba(55,148,179,1)'
-      },
-      "filter": ["==", "id", ""]
+      self.map.addLayer({
+        "id": "market-hover",
+        "type": "circle",
+        "source": "markets",
+        "interactive": true,
+        'paint': {
+          'circle-radius': 15,
+          'circle-color': 'rgba(55,148,179,1)'
+        },
+        "filter": ["==", "id", ""]
+      });
     });
-   });
 
     self.map.on('click', function(e) {
       self.map.featuresAt(e.point, {
@@ -72,7 +90,7 @@ class Map extends React.Component {
         self.selectMarketInMap(feature)
       });
     });
-    
+
     self.setHoveredMarket.bind(this);
     self.map.on('mousemove', function(e) {
       self.map.featuresAt(e.point, {
@@ -89,34 +107,25 @@ class Map extends React.Component {
         }
       });
     });
+
+    // Map is ready for changes;
+    MarketStore.addChangeListener(this.onChange.bind(this));
   }
 
   setHoveredMarket(marketId) {
-    if (!this.map.setFilter) {return;}
-    marketId = marketId || ""; 
-    
+    if (!this.map.setFilter) {
+      return;
+    }
+    marketId = marketId || "";
+
     this.map.setFilter("market-hover", ["==", "id", marketId]);
   }
 
-  onMarketHover (market) {
+  onMarketHover(market) {
     if (market && market.id) {
       this.setHoveredMarket(market.id);
-    }else{
+    } else {
       this.setHoveredMarket(market);
-    }
-  }
-
-  componentDidMount() {
-    this.marketAction.geojson().then($.proxy(this.createMap, this));
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return false;
-  }
-
-  onMarketSelected(market) {
-    if (market !== undefined && market.id) {
-      this.centerOnMarket(market)
     }
   }
 
@@ -129,18 +138,18 @@ class Map extends React.Component {
       center: [market.lng, market.lat]
     });
     this.popup = new mapboxgl.Popup()
-    .setLngLat([market.lng, market.lat])
-    .setHTML('<h1>' + market.name + '</h1><img src="' + market.imageSmall + '"/><p>' + market.description + '</p>')
-    .addTo(self.map);
+      .setLngLat([market.lng, market.lat])
+      .setHTML('<h1>' + market.name + '</h1><img src="' + market.imageSmall + '"/><p>' + market.description + '</p>')
+      .addTo(self.map);
   }
 
   selectMarketInMap(feature) {
     this.popup = new mapboxgl.Popup()
-    .setLngLat(feature.geometry.coordinates)
-    .setHTML('<h1>' + feature.properties.name + '</h1><img src="' + feature.properties.imageSmall + '"/><p>' + feature.properties.description + '</p>')
-    .addTo(self.map);
+      .setLngLat(feature.geometry.coordinates)
+      .setHTML('<h1>' + feature.properties.name + '</h1><img src="' + feature.properties.imageSmall + '"/><p>' + feature.properties.description + '</p>')
+      .addTo(self.map);
     this.map.panTo(feature.geometry.coordinates);
-    MarketsDispatcher.select(feature.properties.id);
+    MarketActions.select(feature.properties.id);
   }
 
   zoomMapToSearchResult(result) {
@@ -150,15 +159,20 @@ class Map extends React.Component {
   }
 
   render() {
-    return (
-            <div className="fixed" id="mapContainer">
-            <Search zoomMapToSearchResult={this.zoomMapToSearchResult}/>
-            <div id="links"><a href="https://www.facebook.com/Skattekartet-1142926499052047/"><i className="icon facebook"/></a><a href="https://www.instagram.com/skattekartet/"><i className="icon instagram"/></a><a href="https://twitter.com/skattekartet"><i className="icon twitter"/></a></div>
-            <div id="map"></div>
-            </div>
-            );
+    return ( < div className = "fixed"
+      id = "mapContainer" >
+      < Search zoomMapToSearchResult = {
+        this.zoomMapToSearchResult
+      }
+      />
+            <div id="links"><a href="https:/ / www.facebook.com / Skattekartet - 1142926499052047 / "><i className="
+      icon facebook "/></a><a href="
+      https: //www.instagram.com/skattekartet/"><i className="icon instagram"/></a><a href="https://twitter.com/skattekartet"><i className="icon twitter"/></a></div>
+      < div id = "map" > < /div>
+      </div >
+    );
   }
 }
 
-export default Map;
-
+export
+default Map;
