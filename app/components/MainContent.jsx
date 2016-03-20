@@ -1,4 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, {
+  Component, PropTypes
+}
+from 'react';
 import _ from 'underscore';
 import LeftMenu from 'components/LeftMenu';
 import Map from 'components/Map';
@@ -13,29 +16,35 @@ class MainContent extends Component {
     };
     this.selectedMarketId = 0;
     this.selectedMarket = {};
-    this.marketStore = new MarketStore();
-    this.marketDispatcher = new MarketsDispatcher();
-    this.marketDispatcher.registrerOnSelected.push(this);
   }
 
+
   componentDidMount() {
+    MarketStore.addChangeListener(this.onChange.bind(this));
+  }
+
+  componentWillUnmount() {
+    MarketStore.removeChangeListener(this.onChange.bind(this));
+  }
+
+  onChange() {
     this.setState({
-      markets: this.marketStore.getAll(),
+      markets: MarketStore.getAll(),
     });
   }
 
   onMarketSelected(selectedMarket) {
     var markets = this.state.markets;
     if (selectedMarket === parseInt(selectedMarket, 10)) {
-      this.selectedMarket = _.find(markets, function (market) {
+      this.selectedMarket = _.find(markets, function(market) {
         return market.id === selectedMarket
       });
-    }else {
+    } else {
       this.selectedMarket = selectedMarket;
     }
 
     if (this.selectedMarket != undefined) {
-      markets = this.marketStore.clean(markets);
+      markets = MarketStore.clean(markets);
       this.selectedMarket.selected = true;
       this.selectedMarket = selectedMarket;
 
@@ -47,20 +56,26 @@ class MainContent extends Component {
 
   toggleBar() {
     $('.ui.sidebar')
-    .sidebar('toggle');
+      .sidebar('toggle');
   }
 
   render() {
-    return (
-            <div>
-            <button id="sidebarButton" className="yellow circular big ui icon button" onClick={this.toggleBar}>
-            <i className="ellipsis vertical icon"></i>
-            </button>
-            <LeftMenu markets={this.state.markets}/>
-            <Map markets={this.state.markets}/>
-            </div>
-            );
-  }
+    return ( < div >
+        < button id = "sidebarButton"
+        className = "yellow circular big ui icon button"
+        onClick = {
+          this.toggleBar
+        } >
+        < i className = "ellipsis vertical icon" > < /i>
+          </button >
+        < LeftMenu markets = {
+          this.state.markets
+        }
+        />
+          <Map markets={this.state.markets}/ >
+        < /div>
+          );
+}
 }
 
 export default MainContent;

@@ -17,7 +17,6 @@ class LeftMenu extends Component {
     super(props);
     this.marketList = this.marketList.bind(this);
     this.onMouseOut = this.onMouseOut.bind(this);
-    this.marketDispatcher = new MarketsDispatcher();
   }
 
   divideMarkets(markets, divide) {
@@ -46,7 +45,7 @@ class LeftMenu extends Component {
   }
 
   onMouseOut(){
-    this.marketDispatcher.fireOnHover();
+    MarketsDispatcher.fireOnHover();
   }
 
   render() {

@@ -11,9 +11,8 @@ class Map extends React.Component {
     this.marketAction = new Markets();
     this.map = {};
     this.popup = null;
-    this.marketDispatcher = new MarketsDispatcher();
-    this.marketDispatcher.registrerOnSelected.push(this);
-    this.marketDispatcher.registrerOnHover.push(this);
+    // MarketsDispatcher.registrerOnSelected.push(this);
+    // MarketsDispatcher.registrerOnHover.push(this);
   }
 
   createMap(geojson) {
@@ -141,7 +140,7 @@ class Map extends React.Component {
     .setHTML('<h1>' + feature.properties.name + '</h1><img src="' + feature.properties.imageSmall + '"/><p>' + feature.properties.description + '</p>')
     .addTo(self.map);
     this.map.panTo(feature.geometry.coordinates);
-    this.marketDispatcher.select(feature.properties.id);
+    MarketsDispatcher.select(feature.properties.id);
   }
 
   zoomMapToSearchResult(result) {

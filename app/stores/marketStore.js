@@ -1,107 +1,105 @@
 'use strict';
 import $ from 'jquery';
-import MarketDispatcher from '../dispatcher/marketDispatcher';
-import MarketConstants from '../constants/market-constants';
+import _ from 'underscore';
+
+import MarketDispatcher from '../dispatchers/marketDispatcher';
+import MarketConstants from '../constants/marketConstants';
 import Events from 'events';
 
 const CHANGE_EVENT = 'change';
 
 class MarketStore extends Events.EventEmitter {
 
-    constructor(props) {
-        super(props);
-        this.dispatcherIndex = MarketDispatcher.register(this.handleAction.bind(this));
-        let markets = [];
-        $.getJSON(this.baseUrl).then(function (data) {
-            markets = clean(data);
-        })
-        this.markets = markets;
-    }
+  constructor(props) {
+    super(props);
+    this.baseUrl = '/api/markets/';
+    this.dispatcherIndex = MarketDispatcher.register(this.handleAction.bind(this));
+    this.markets = [];
+    this.refreshCashe();
+  }
 
+  refreshCashe() {
+    $.getJSON(this.baseUrl).then(function(data) {
+      this.markets = this.clean(data);
+        this.emitChange();
+    }.bind(this))
+  }
 
-    clean(markets) {
-        return markets.map(function (market) {
-          market.selected = false;
-          return market;
-      });
-    }
+  clean(markets) {
+    return markets.map(function(market) {
+      market.selected = false;
+      return market;
+    });
+  }
 
-    handleAction(payload) {
+  handleAction(payload) {
+    debugger;
+    const action = payload.action;
+    let id = -1;
 
-        let action = payload.action;
-        let text = '';
+    switch (action.actionType) {
 
-        switch(action.actionType) {
+      case MarketConstants.MARKET_SELECT:
 
-            case MarketConstants.TODO_CREATE:
-
-            text = action.text.trim();
-            if (text === '') { break; }
-
-            this.create(text);
-            this.emitChange();
-
-            break;
-
-            case MarketConstants.TODO_DESTROY:
-            this.destroy(action.id);
-            this.emitChange();
-            break;
-
+        id = action.id;
+        if (id === -1 || !isInt(id)) {
+          break;
         }
 
-        return true; // No errors. Needed by promise in Dispatcher.
-    }
+        this.select(id);
+        this.emitChange();
 
-    /**
-     * Creates a market item
-     */
-     create(text) {
-
-        let ID = Date.now();
-
-        this.markets[ID] = {
-            id: ID,
-            complete: false,
-            text: text
-        };
+        break;
 
     }
 
-    /**
-     * Destroys a market item
-     * @param  {string} id ID of the market item
-     */
-     destroy(id) {
-        delete this.markets[id];
-    }
+    return true; // No errors. Needed by promise in Dispatcher.
+  }
 
-    /**
-    * Get the entire collection of TODOs.
-    * @return {object}
-    */
-    getAll() {
-        return this.markets;
-    }
+  /**
+   * Select a market item
+   */
+  select(id) {
+    this.markets = _(this.markets).map(function(market) {
+      if (market.id === id) {
+        market.selected = true;
+      } else {
+        market.selected = false;
+      }
+      return market;
+    });
+  }
 
-    emitChange() {
-        this.emit(CHANGE_EVENT);
-    }
+  /**
+   * Get the entire collection of Markets.
+   */
+  getAll() {
+    return this.markets;
+  }
 
-    /**
-    * @param {function} callback
-    */
-    addChangeListener(callback) {
-        this.on(CHANGE_EVENT, callback);
-    }
+  emitChange() {
+    this.emit(CHANGE_EVENT);
+  }
 
-    /**
-    * @param {function} callback
-    */
-    removeChangeListener(callback) {
-        this.removeListener(CHANGE_EVENT, callback);
-    }
+  /**
+   * @param {function} callback
+   */
+  addChangeListener(callback) {
+    this.on(CHANGE_EVENT, callback);
+  }
+
+  /**
+   * @param {function} callback
+   */
+  removeChangeListener(callback) {
+    this.removeListener(CHANGE_EVENT, callback);
+  }
+
+  isInt(n) {
+    return Number(n) === n && n % 1 === 0;
+  }
 
 }
 
-export default new MarketStore();
+export
+default new MarketStore();

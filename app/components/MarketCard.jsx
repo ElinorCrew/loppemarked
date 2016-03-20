@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import OpenMarketCard from 'components/OpenMarketCard';
 import moment from 'moment';
+
+import OpenMarketCard from 'components/OpenMarketCard';
+import MarketsAction from '../actions/marketActions';
 import 'scss/components/_MarketCard.scss';
-import MarketsDispatcher from 'actions/marketDispatcher';
 
 export default class MarketCard extends Component {
   constructor(props) {
@@ -10,17 +11,15 @@ export default class MarketCard extends Component {
     this.state = {isOpen: false};
     this._toggleOpenCard = this._toggleOpenCard.bind(this);
     this._onMouseOver = this._onMouseOver.bind(this);
-    this.marketDispatcher = new MarketsDispatcher();
   }
 
   _toggleOpenCard() {
-    const newOpenState = !this.state.isOpen;
-    this.setState({isOpen: newOpenState});
-    this.marketDispatcher.select(this.props.market)
+    this.setState({isOpen: !this.state.isOpen});
+    MarketsAction.select(this.props.market.id);
   }
 
   _onMouseOver(){
-    this.marketDispatcher.fireOnHover(this.props.market);
+    // MarketsDispatcher.fireOnHover(this.props.market);
   }
 
   render() {
@@ -54,10 +53,3 @@ export default class MarketCard extends Component {
     );
   }
 }
-
-MarketCard.propTypes = {
-  market: PropTypes.object,
-  toggleOpenCard: PropTypes.func
-};
-
-
