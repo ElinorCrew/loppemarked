@@ -2,7 +2,7 @@ import React from 'react';
 import MarketCard from 'components/MarketCard';
 import Markets from 'actions/markets';
 import Search from 'components/Search';
-import MarketActions from 'actions/marketActions';
+import MarketsAction from '../actions/marketActions';
 import MarketStore from 'stores/marketStore';
 
 class Map extends React.Component {
@@ -29,8 +29,10 @@ class Map extends React.Component {
   onChange() {
     let selectedMarket = MarketStore.getSelected();
     if (selectedMarket !== undefined && selectedMarket.id) {
-      this.centerOnMarket(selectedMarket)
+        this.centerOnMarket(selectedMarket)
     }
+
+    this.setHoveredMarket(MarketStore.getHoveredId());
   }
 
   createMap(geojson) {
@@ -99,11 +101,11 @@ class Map extends React.Component {
         includeGeometry: false
       }, function(err, features) {
         if (!err && features.length) {
-          self.setHoveredMarket(features[0].properties.id);
+          MarketsAction.hover(features[0].properties.id);
           self.map.getCanvas().style.cursor = "pointer";
         } else {
           self.map.getCanvas().style.cursor = "";
-          self.setHoveredMarket("");
+          MarketsAction.hover(null);
         }
       });
     });
@@ -117,16 +119,7 @@ class Map extends React.Component {
       return;
     }
     marketId = marketId || "";
-
     this.map.setFilter("market-hover", ["==", "id", marketId]);
-  }
-
-  onMarketHover(market) {
-    if (market && market.id) {
-      this.setHoveredMarket(market.id);
-    } else {
-      this.setHoveredMarket(market);
-    }
   }
 
   centerOnMarket(market) {

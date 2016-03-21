@@ -11,6 +11,13 @@ class MarketActions {
             id: id
         });
     }
+
+    hover(id) {
+        MarketDispatcher.handleViewAction({
+            actionType: MarketConstants.MARKET_HOVER,
+            id: id
+        });
+    }
 }
 
 export default new MarketActions();

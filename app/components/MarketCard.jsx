@@ -19,7 +19,7 @@ export default class MarketCard extends Component {
   }
 
   _onMouseOver(){
-    // MarketsDispatcher.fireOnHover(this.props.market);
+    MarketsAction.hover(this.props.market.id);
   }
 
   render() {
@@ -31,7 +31,7 @@ export default class MarketCard extends Component {
           <img src={market.imageSmall} />
         </div>
         <div className="top aligned content">
-          <a className="header">{market.name + (market.selected ? '  ###Denne er valgt###' : '')}</a>
+          <a className="header">{market.name + (market.selected ? '  ###Selected###' : '') + (market.hovered ? '  ###Hovered###' : '')}</a>
           <div className="meta">
             <span className="category">{moment(market.eventDate).calendar()}</span>
             <br/>

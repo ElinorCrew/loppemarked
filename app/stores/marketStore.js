@@ -28,28 +28,30 @@ class MarketStore extends Events.EventEmitter {
   clean(markets) {
     return markets.map(function(market) {
       market.selected = false;
+      market.hovered = false;
       return market;
     });
   }
 
   handleAction(payload) {
     const action = payload.action;
-    let id = -1;
+    const id = action.id;
 
     switch (action.actionType) {
 
       case MarketConstants.MARKET_SELECT:
-
-        id = action.id;
-        if (id === -1 || !this.isInt(id)) {
-          break;
+        if (this.getSelectedId() !== id) {
+          this.select(id);
+          this.emitChange();
         }
-
-        this.select(id);
-        this.emitChange();
-
         break;
 
+      case MarketConstants.MARKET_HOVER:
+        if (this.getHoveredId() !== id) {
+          this.hover(id);
+          this.emitChange();
+        }
+        break;
     }
 
     return true; // No errors. Needed by promise in Dispatcher.
@@ -66,6 +68,17 @@ class MarketStore extends Events.EventEmitter {
     });
   }
 
+  hover(id) {
+    this.markets = _(this.markets).map(function(market) {
+      if (market.id === id) {
+        market.hovered = true;
+      } else {
+        market.hovered = false;
+      }
+      return market;
+    });
+  }
+
   getAll() {
     return this.markets;
   }
@@ -74,6 +87,22 @@ class MarketStore extends Events.EventEmitter {
     return _(this.markets).find(function(market) {
       return market.selected;
     });
+  }
+
+  getSelectedId() {
+    const selected = this.getSelected() || {};
+    return selected.id;
+  }
+
+  getHovered() {
+    return _(this.markets).find(function(market) {
+      return market.hovered;
+    });
+  }
+
+  getHoveredId() {
+    const hovered = this.getHovered() || {};
+    return hovered.id;
   }
 
   emitChange() {

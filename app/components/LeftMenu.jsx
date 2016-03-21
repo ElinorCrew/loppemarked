@@ -7,8 +7,7 @@ import OpenMarketCard from 'components/OpenMarketCard';
 import Navigation from 'components/Navigation';
 import classNames from 'classnames/bind';
 import styles from 'scss/components/_leftmenu';
-import MarketsDispatcher from 'dispatchers/marketDispatcher';
-
+import MarketsAction from '../actions/marketActions';
 
 const cx = classNames.bind(styles);
 
@@ -45,7 +44,7 @@ class LeftMenu extends Component {
   }
 
   onMouseOut(){
-    // MarketsDispatcher.fireOnHover();
+    MarketsAction.hover(null);
   }
 
   render() {
