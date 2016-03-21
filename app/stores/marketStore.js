@@ -42,8 +42,10 @@ class MarketStore extends Events.EventEmitter {
       case MarketConstants.MARKET_SELECT:
         if (this.getSelectedId() !== id) {
           this.select(id);
-          this.emitChange();
+        }else{
+          this.select(null); //If we choose the same market twice, we remove it as selected
         }
+        this.emitChange();
         break;
 
       case MarketConstants.MARKET_HOVER:

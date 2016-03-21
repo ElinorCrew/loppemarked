@@ -8,13 +8,11 @@ import 'scss/components/_MarketCard.scss';
 export default class MarketCard extends Component {
   constructor(props) {
     super(props);
-    this.state = {isOpen: false};
     this._toggleOpenCard = this._toggleOpenCard.bind(this);
     this._onMouseOver = this._onMouseOver.bind(this);
   }
 
   _toggleOpenCard() {
-    this.setState({isOpen: !this.state.isOpen});
     MarketsAction.select(this.props.market.id);
   }
 
@@ -24,9 +22,8 @@ export default class MarketCard extends Component {
 
   render() {
     const {market} = this.props;
-    const {isOpen} = this.state;
     return (
-      <div className={'item link marketCard ' + (isOpen ? 'selectedCard' : '')} onClick={this._toggleOpenCard} onMouseOver={this._onMouseOver}>
+      <div className={'item link marketCard ' + (market.selected ? 'selectedCard' : '')} onClick={this._toggleOpenCard} onMouseOver={this._onMouseOver}>
         <div className="image">
           <img src={market.imageSmall} />
         </div>
