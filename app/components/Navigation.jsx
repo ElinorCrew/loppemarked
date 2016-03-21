@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import Markets from 'actions/markets';
 import MarketActions from 'actions/marketActions';
 
 

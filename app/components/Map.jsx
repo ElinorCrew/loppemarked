@@ -1,7 +1,6 @@
 import React from 'react';
 import GeoJSON from 'geojson';
 import MarketCard from 'components/MarketCard';
-import Markets from 'actions/markets';
 import Search from 'components/Search';
 import MarketsAction from '../actions/marketActions';
 import MarketStore from 'stores/marketStore';
@@ -10,13 +9,12 @@ class Map extends React.Component {
 
   constructor(props) {
     super(props);
-    this.markets = new Markets();
     this.map = {};
     this.popup = null;
   }
 
   componentDidMount() {
-    MarketStore.getAllPromise().then(function(markets) {
+    MarketStore.getAllAsPromise().then(function(markets) {
       var featureCollection = GeoJSON.parse(markets, {
         Point: ['lat', 'lng']
       });

@@ -83,7 +83,7 @@ class MarketStore extends Events.EventEmitter {
     return this.markets;
   }
 
-  getAllPromise() {
+  getAllAsPromise() {
     return $.getJSON(this.baseUrl);
   }
 

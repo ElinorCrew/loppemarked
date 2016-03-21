@@ -2,7 +2,6 @@
 
 var _ = require('lodash'),
   db = require('../../models'),
-  geojson = require('geojson'),
   marketApi = {};
 
 marketApi.paramId = function(req, res, next, id) {
@@ -24,18 +23,6 @@ marketApi.index = function(req, res, next) {
     .catch(next)
     .then(function(models) {
       res.json(models);
-    });
-};
-
-marketApi.geojson = function(req, res, next) {
-  db.Markets.findAll()
-    .catch(next)
-    .then(function(models) {
-      var features = models.map(function(val){
-        return val.dataValues
-      });
-      var featureCollection = geojson.parse(features, {Point: ['lat','lng']});
-      res.send(featureCollection);
     });
 };
 
