@@ -15,7 +15,12 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    this.markets.geojson().then($.proxy(this.createMap, this));
+    this.markets.geojson().then(function(geojson) {
+      this.map = this.createMap(geojson);
+
+      // Map is ready for changes;
+      MarketStore.addChangeListener(this.onChange.bind(this)); 
+    }.bind(this))
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -29,7 +34,7 @@ class Map extends React.Component {
   onChange() {
     let selectedMarket = MarketStore.getSelected();
     if (selectedMarket !== undefined && selectedMarket.id) {
-        this.centerOnMarket(selectedMarket)
+      this.centerOnMarket(selectedMarket)
     }
 
     this.setHoveredMarket(MarketStore.getHoveredId());
@@ -37,25 +42,25 @@ class Map extends React.Component {
 
   createMap(geojson) {
     mapboxgl.accessToken = "pk.eyJ1Ijoic3RlZmZlbnAiLCJhIjoiY2loYnBxMmtpMHd6M3Vra3RybXZxbjZ2byJ9.NXvjP_UDUfUJZ7_nwhVPzQ";
-    this.map = new mapboxgl.Map({
+    let map = new mapboxgl.Map({
       container: 'map', // container id
       style: 'mapbox://styles/mapbox/light-v8', //stylesheet location
       center: [10.725231170654297, 59.91200869359693], // starting position
       zoom: 12 // starting zoom
     });
-    self = this;
+
     // Add zoom and rotation controls to the map.
-    self.map.addControl(new mapboxgl.Navigation({
+    map.addControl(new mapboxgl.Navigation({
       position: 'bottom-right'
     }));
 
-    self.map.on('style.load', function() {
-      self.map.addSource("markets", {
+    map.on('style.load', function() {
+      map.addSource("markets", {
         "type": "geojson",
         "data": geojson
       });
 
-      self.map.addLayer({
+      map.addLayer({
         "id": "markets",
         "type": "circle",
         "source": "markets",
@@ -66,7 +71,7 @@ class Map extends React.Component {
         },
       });
 
-      self.map.addLayer({
+      map.addLayer({
         "id": "market-hover",
         "type": "circle",
         "source": "markets",
@@ -79,8 +84,8 @@ class Map extends React.Component {
       });
     });
 
-    self.map.on('click', function(e) {
-      self.map.featuresAt(e.point, {
+    map.on('click', function(e) {
+      map.featuresAt(e.point, {
         layer: 'markets',
         radius: 10,
         includeGeometry: true
@@ -88,30 +93,27 @@ class Map extends React.Component {
         if (err || !features.length) {
           return;
         }
-        var feature = features[0];
-        self.selectMarketInMap(feature)
+        MarketsAction.select(features[0].properties.id);
       });
     });
 
-    self.setHoveredMarket.bind(this);
-    self.map.on('mousemove', function(e) {
-      self.map.featuresAt(e.point, {
+    map.on('mousemove', function(e) {
+      map.featuresAt(e.point, {
         layer: 'markets',
         radius: 10,
         includeGeometry: false
       }, function(err, features) {
         if (!err && features.length) {
           MarketsAction.hover(features[0].properties.id);
-          self.map.getCanvas().style.cursor = "pointer";
+          map.getCanvas().style.cursor = "pointer";
         } else {
-          self.map.getCanvas().style.cursor = "";
+          map.getCanvas().style.cursor = "";
           MarketsAction.hover(null);
         }
       });
     });
 
-    // Map is ready for changes;
-    MarketStore.addChangeListener(this.onChange.bind(this));
+    return map;
   }
 
   setHoveredMarket(marketId) {
@@ -126,21 +128,21 @@ class Map extends React.Component {
     if (this.popup && this.popup._container.parentNode) {
       this.popup.remove();
     }
-    self = this;
-    self.map.flyTo({
+
+    this.map.flyTo({
       center: [market.lng, market.lat]
     });
     this.popup = new mapboxgl.Popup()
       .setLngLat([market.lng, market.lat])
       .setHTML('<h1>' + market.name + '</h1><img src="' + market.imageSmall + '"/><p>' + market.description + '</p>')
-      .addTo(self.map);
+      .addTo(this.map);
   }
 
   selectMarketInMap(feature) {
     this.popup = new mapboxgl.Popup()
       .setLngLat(feature.geometry.coordinates)
       .setHTML('<h1>' + feature.properties.name + '</h1><img src="' + feature.properties.imageSmall + '"/><p>' + feature.properties.description + '</p>')
-      .addTo(self.map);
+      .addTo(this.map);
     this.map.panTo(feature.geometry.coordinates);
     MarketActions.select(feature.properties.id);
   }
