@@ -1,4 +1,5 @@
 import React from 'react';
+import GeoJSON from 'geojson';
 import MarketCard from 'components/MarketCard';
 import Markets from 'actions/markets';
 import Search from 'components/Search';
@@ -15,12 +16,16 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    this.markets.geojson().then(function(geojson) {
-      this.map = this.createMap(geojson);
+    MarketStore.getAllPromise().then(function(markets) {
+      var featureCollection = GeoJSON.parse(markets, {
+        Point: ['lat', 'lng']
+      });
+
+      this.map = this.createMap(featureCollection);
 
       // Map is ready for changes;
-      MarketStore.addChangeListener(this.onChange.bind(this)); 
-    }.bind(this))
+      MarketStore.addChangeListener(this.onChange.bind(this));
+    }.bind(this));
   }
 
   shouldComponentUpdate(nextProps, nextState) {
