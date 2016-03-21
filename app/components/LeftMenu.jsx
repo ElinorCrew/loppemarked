@@ -56,7 +56,7 @@ class LeftMenu extends Component {
 
   onMouseOut() {
     //We do not want the bobled events.
-    var e = event.toElement || event.relatedTarget;
+    var e = event.toElement || event.relatedTarget || {};
     if (e.parentNode == this || e == this) {
       return;
     }
