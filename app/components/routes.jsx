@@ -1,5 +1,5 @@
 import React from 'react';
-import Route from 'react-router';
+import {Route} from 'react-router';
 
 import MainContent from 'components/MainContent';
 import App from 'components/App';
