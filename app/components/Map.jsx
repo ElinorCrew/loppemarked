@@ -35,11 +35,7 @@ class Map extends React.Component {
   }
 
   onChange() {
-    let selectedMarket = MarketStore.getSelected();
-    if (selectedMarket !== undefined && selectedMarket.id) {
-      this.selectMarketInMap(selectedMarket)
-    }
-
+    this.setSelectMarket(MarketStore.getSelected())
     this.setHoveredMarket(MarketStore.getHoveredId());
   }
 
@@ -76,6 +72,18 @@ class Map extends React.Component {
 
       map.addLayer({
         "id": "market-hover",
+        "type": "circle",
+        "source": "markets",
+        "interactive": true,
+        'paint': {
+          'circle-radius': 15,
+          'circle-color': 'rgba(55,148,179,1)'
+        },
+        "filter": ["==", "id", ""]
+      });
+
+      map.addLayer({
+        "id": "market-select",
         "type": "circle",
         "source": "markets",
         "interactive": true,
@@ -127,19 +135,23 @@ class Map extends React.Component {
     this.map.setFilter("market-hover", ["==", "id", marketId]);
   }
 
-  selectMarketInMap(market) {
+  setSelectMarket(market) {
     if (this.popup && this.popup._container.parentNode) {
       this.popup.remove();
     }
 
-    this.map.flyTo({
-      center: [market.lng, market.lat]
-    });
-    this.popup = new mapboxgl.Popup()
-      .setLngLat([market.lng, market.lat])
-      .setHTML('<h1>' + market.name + '</h1><img src="' + market.imageSmall + '"/><p>' + market.description + '</p>')
-      .addTo(this.map);
+    market = market || {};
+    this.map.setFilter("market-select", ["==", "id", market.id]);
 
+    if (market != {} && market.id) {
+      this.map.flyTo({
+        center: [market.lng, market.lat]
+      });
+      this.popup = new mapboxgl.Popup()
+        .setLngLat([market.lng, market.lat])
+        .setHTML('<h5>' + market.name + '</h5>')
+        .addTo(this.map);
+    }
   }
 
   zoomMapToSearchResult(result) {
