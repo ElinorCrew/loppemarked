@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, hashHistory} from 'react-router';
+import { Router, browserHistory} from 'react-router';
 import routes from 'components/routes';
 
 // Grab the state from a global injected into
@@ -8,7 +8,7 @@ import routes from 'components/routes';
 const initialState = window.__INITIAL_STATE__;
 
 render(
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
       {routes}
     </Router> , document.getElementById('entry'));
 

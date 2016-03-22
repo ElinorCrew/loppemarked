@@ -1,14 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import {Router, Link, } from 'react-router';
+import {Router, Link, browserHistory} from 'react-router';
 
 class LandingPage extends Component {
 
     componentDidMount() {
-    $('.ui.dropdown')
-  .dropdown({
-      onChange: function(){
-      }
-    });
+      $('.ui.dropdown').dropdown({
+          onChange: function(){
+            debugger;
+            browserHistory.push("home");
+          }
+      });
   }
 
   render() {
