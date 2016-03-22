@@ -43,7 +43,7 @@
     "pg-hstore": "^2.3.2",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
-    "react-router": "^1.0.2",
+    "react-router": "^2.0.1",
     "rimraf": "^2.4.4",
     "sass-loader": "^3.1.2",
     "scss-loader": "0.0.1",
