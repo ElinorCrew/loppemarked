@@ -37,7 +37,7 @@ class Map extends React.Component {
   onChange() {
     let selectedMarket = MarketStore.getSelected();
     if (selectedMarket !== undefined && selectedMarket.id) {
-      this.centerOnMarket(selectedMarket)
+      this.selectMarketInMap(selectedMarket)
     }
 
     this.setHoveredMarket(MarketStore.getHoveredId());
@@ -127,7 +127,7 @@ class Map extends React.Component {
     this.map.setFilter("market-hover", ["==", "id", marketId]);
   }
 
-  centerOnMarket(market) {
+  selectMarketInMap(feature) {
     if (this.popup && this.popup._container.parentNode) {
       this.popup.remove();
     }
@@ -139,15 +139,7 @@ class Map extends React.Component {
       .setLngLat([market.lng, market.lat])
       .setHTML('<h1>' + market.name + '</h1><img src="' + market.imageSmall + '"/><p>' + market.description + '</p>')
       .addTo(this.map);
-  }
 
-  selectMarketInMap(feature) {
-    this.popup = new mapboxgl.Popup()
-      .setLngLat(feature.geometry.coordinates)
-      .setHTML('<h1>' + feature.properties.name + '</h1><img src="' + feature.properties.imageSmall + '"/><p>' + feature.properties.description + '</p>')
-      .addTo(this.map);
-    this.map.panTo(feature.geometry.coordinates);
-    MarketActions.select(feature.properties.id);
   }
 
   zoomMapToSearchResult(result) {
