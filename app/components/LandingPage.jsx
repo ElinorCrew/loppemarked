@@ -6,7 +6,6 @@ class LandingPage extends Component {
     componentDidMount() {
       $('.ui.dropdown').dropdown({
           onChange: function(){
-            debugger;
             browserHistory.push("home");
           }
       });
