@@ -127,7 +127,7 @@ class Map extends React.Component {
     this.map.setFilter("market-hover", ["==", "id", marketId]);
   }
 
-  selectMarketInMap(feature) {
+  selectMarketInMap(market) {
     if (this.popup && this.popup._container.parentNode) {
       this.popup.remove();
     }
