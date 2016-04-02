@@ -102,9 +102,10 @@ class Map extends React.Component {
         includeGeometry: true
       }, function(err, features) {
         if (err || !features.length) {
-          return;
+          MarketsAction.select(null);
+        }else {
+          MarketsAction.select(features[0].properties.id);
         }
-        MarketsAction.select(features[0].properties.id);
       });
     });
 
