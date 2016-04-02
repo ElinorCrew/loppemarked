@@ -2,20 +2,20 @@
  * Express configuration
  */
 
- 'use strict';
+'use strict';
 
- var express = require('express');
- var morgan = require('morgan');
- var compression = require('compression');
- var bodyParser = require('body-parser');
- var methodOverride = require('method-override');
- var cookieParser = require('cookie-parser');
- var errorHandler = require('errorhandler');
- var path = require('path');
- var config = require('./environment');
+const express = require('express');
+const morgan = require('morgan');
+const compression = require('compression');
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+const cookieParser = require('cookie-parser');
+const errorHandler = require('errorhandler');
+const path = require('path');
+const config = require('./environment');
 
- module.exports = function (app) {
-  var env = app.get('env');
+module.exports = function(app) {
+  const env = app.get('env');
 
   app.set('views', config.root + '/server/views');
   app.engine('html', require('ejs').renderFile);
@@ -34,7 +34,7 @@
     app.set('appPath', 'app');
     app.use(morgan('dev'));
     app.use(errorHandler()); // Error handler - has to be last
-  }else {
+  } else {
     app.use(express.static(path.join(config.root, 'public')));
   }
 };
