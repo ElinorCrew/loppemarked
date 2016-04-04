@@ -46,7 +46,7 @@
     "rimraf": "^2.4.4",
     "sass-loader": "^3.1.2",
     "scss-loader": "0.0.1",
-    "sequelize": "~3.0.*",
+    "sequelize": "^3.21.0",
     "style-loader": "^0.13.0",
     "turf": "^2.0.2",
     "underscore": "^1.8.3",
