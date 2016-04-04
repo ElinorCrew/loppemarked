@@ -62,10 +62,7 @@
     "build": "npm run clean && npm run build:webpack &&  npm run copy",
     "start": "NODE_ENV=production node server/server.js",
     "dev": "NODE_ENV=development node server/server.js",
-    "lint": "eslint ./app; exit 0",
+    "lint": "eslint ./app;",
     "postinstall": "npm run build"
-  },
-  "eslintConfig": {
-    "extends": "./.eslintrc"
   }
 }
