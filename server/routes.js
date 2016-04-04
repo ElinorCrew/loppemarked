@@ -1,8 +1,7 @@
 'use strict';
-
-import errors from './components/errors';
-import config from './config/environment';
-import path from 'path';
+const errors = require('./components/errors');
+const config = require('./config/environment');
+const path = require('path');
 
 module.exports = function (app) {
 
