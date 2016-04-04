@@ -4,8 +4,6 @@ import {Route} from 'react-router';
 import MainContent from 'components/MainContent';
 import App from 'components/App';
 import LandingPage from 'components/LandingPage';
-// import CreateNewMarket from 'components/CreateNewMarket';
-
 
 export default (
   <Route component={App}>

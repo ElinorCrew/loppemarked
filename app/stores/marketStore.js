@@ -1,4 +1,3 @@
-'use strict';
 import $ from 'jquery';
 import _ from 'underscore';
 import Events from 'events';
@@ -19,14 +18,14 @@ class MarketStore extends Events.EventEmitter {
   }
 
   refreshCashe() {
-    $.getJSON(this.baseUrl).then(function(data) {
+    $.getJSON(this.baseUrl).then((data) => {
       this.markets = this.clean(data);
       this.emitChange();
-    }.bind(this));
+    });
   }
 
   clean(markets) {
-    return markets.map(function(market) {
+    return markets.map((market) => {
       market.selected = false;
       market.hovered = false;
       return market;
@@ -38,16 +37,14 @@ class MarketStore extends Events.EventEmitter {
     const id = action.id;
 
     switch (action.actionType) {
-
       case MarketConstants.MARKET_SELECT:
         if (this.getSelectedId() !== id) {
           this.select(id);
-        }else{
+        } else {
           this.select(null); //If we choose the same market twice, we remove it as selected
         }
         this.emitChange();
         break;
-
       case MarketConstants.MARKET_HOVER:
         if (this.getHoveredId() !== id) {
           this.hover(id);
@@ -55,28 +52,19 @@ class MarketStore extends Events.EventEmitter {
         }
         break;
     }
-
     return true; // No errors. Needed by promise in Dispatcher.
   }
 
   select(id) {
-    this.markets = _(this.markets).map(function(market) {
-      if (market.id === id) {
-        market.selected = true;
-      } else {
-        market.selected = false;
-      }
+    this.markets = _(this.markets).map((market) => {
+      market.selected = market.id === id;
       return market;
     });
   }
 
   hover(id) {
-    this.markets = _(this.markets).map(function(market) {
-      if (market.id === id) {
-        market.hovered = true;
-      } else {
-        market.hovered = false;
-      }
+    this.markets = _(this.markets).map((market) => {
+      market.hovered = market.id === id;
       return market;
     });
   }
@@ -90,7 +78,7 @@ class MarketStore extends Events.EventEmitter {
   }
 
   getSelected() {
-    return _(this.markets).find(function(market) {
+    return _(this.markets).find((market) => {
       return market.selected;
     });
   }
@@ -101,7 +89,7 @@ class MarketStore extends Events.EventEmitter {
   }
 
   getHovered() {
-    return _(this.markets).find(function(market) {
+    return _(this.markets).find((market) => {
       return market.hovered;
     });
   }

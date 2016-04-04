@@ -1,0 +1,32 @@
+{
+  "extends": "defaults/configurations/walmart/es6-react",
+  "extends": "defaults/configurations/walmart/es6",
+  "parser": "babel-eslint",
+  "plugins": [
+    "react",
+    "filenames"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "rules": {
+    "object-shorthand": [1, "methods"],
+    "indent": [2, 2, {
+      "SwitchCase": 1
+    }],
+    "quotes": [
+      2,
+      "single"
+    ],
+    "filenames/filenames": [0, "^[a-z_]+$", "match-regex-and-exported"],
+    "valid-jsdoc": [0]
+  },
+  "env": {
+    "node": true,
+    "es6": true,
+    "jquery": true
+  },
+}
