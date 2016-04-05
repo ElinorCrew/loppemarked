@@ -165,7 +165,7 @@ class Map extends React.Component {
     return ( < div className = "fixed"
       id = "mapContainer" >
       < Search zoomMapToSearchResult = {
-        this.zoomMapToSearchResult
+        this.zoomMapToSearchResult.bind(this)
       }
       />
             <div id="links"><a href="https:/ / www.facebook.com / Skattekartet - 1142926499052047 / "><i className="

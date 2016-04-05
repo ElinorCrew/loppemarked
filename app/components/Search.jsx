@@ -18,7 +18,7 @@ class Search extends React.Component {
           description: 'navnetype'
         },
         onSelect: function(result, response) {
-          self.zoomMapToSearchResult(result);
+          self.props.zoomMapToSearchResult(result);
         }
       });
   }
